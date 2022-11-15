@@ -28,6 +28,11 @@ export default function ProductDetail() {
             <button class="btn">리뷰</button>
           </li>
         </ul>
+        <div class="products-area">
+          <span class="products-img-box">
+            <img src="/images/productdetail/" alt="" />
+          </span>
+        </div>
       </section>
     </div>
   );
