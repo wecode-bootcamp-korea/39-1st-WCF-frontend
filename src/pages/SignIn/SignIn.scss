@@ -1,1 +1,61 @@
-// Signin
+.signin {
+  .signin-title {
+    font-family: Pretendard, sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+  }
+
+  .signin-container {
+    .signin-form {
+      .signin-box {
+        .signin-box-in {
+          display: flex;
+          align-items: center;
+
+          .signin-inputbox {
+            .signin-input {
+              width: 420px;
+              height: 39px;
+              border: 1px solid #e5e5e5;
+              outline: none;
+              &:focus {
+                outline: 1px solid black;
+              }
+            }
+          }
+        }
+        .valid-status {
+          .valid-check-type {
+            width: 15px;
+            height: 15px;
+            background-image: url(../../images/signin/id-valid-check.svg);
+          }
+          .valid-check-length {
+            width: 15px;
+            height: 15px;
+            background-image: url(../../images/signin/id-valid-check.svg);
+          }
+        }
+      }
+
+      .term-box {
+        .term-list {
+          .btn-accordion {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-image: url(../../images/signin/agree-check-off.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+
+            //background:url() no-repeat center/contain;
+            .blind {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

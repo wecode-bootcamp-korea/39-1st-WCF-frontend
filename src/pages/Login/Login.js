@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function Login() {
   return (
-    <div>
+    <div className="container login">
       <section className="sign-in">
-        <h1 className="login">로그인</h1>
+        <h1 className="login-text">로그인</h1>
         <form className="login-form">
           <div className="input-box">
             <input type="text" className="user-id" placeholder="아이디" />
@@ -24,7 +24,6 @@ export default function Login() {
               <label>아이디 저장</label>
             </span>
           </div>
-
           <div class="link">
             <a href="https://www.ssfshop.com/public/member/searchMbrId">
               아이디 찾기
