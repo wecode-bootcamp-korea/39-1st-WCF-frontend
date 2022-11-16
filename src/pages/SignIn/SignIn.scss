@@ -213,14 +213,51 @@
               overflow-y: auto;
               background: #f5f5f5;
 
+              .online-term-contents {
+                color: #777777;
+                font-size: 14px;
+                line-height: 1.5;
+              }
+
               .online-term-title {
                 margin: 7px 0;
                 color: #777777;
                 font-size: 20px;
               }
-              .online-term-contents {
+              .online-term-subtitle {
+                margin-bottom: 5px;
                 color: #777777;
                 font-size: 14px;
+              }
+              .online-term-contents-inner {
+                margin: 5px 0;
+                color: #777777;
+                font-size: 14px;
+              }
+            }
+
+            .membership-term {
+              width: 100%;
+              max-width: 520px;
+              max-height: 150px;
+              padding: 19px;
+              overflow-y: auto;
+              background: #f5f5f5;
+
+              .mebership-term-contents {
+                margin: 65px 0;
+                color: black;
+                font-size: 1.4em;
+                text-align: center;
+              }
+              .membership-term-title {
+                margin-bottom: 5px;
+                color: #777777;
+                font-size: 16px;
+              }
+              .membership-term-contents {
+                margin-bottom: 10px;
+                color: #777777;
                 line-height: 1.5;
               }
             }

@@ -5,6 +5,7 @@ import './SignIn.scss';
 export default function SignIn() {
   const [isOnlineTermOpen, setIsOnlineTermOpen] = useState(false);
   const [personalInfoOpen, setpersonalInfoOpen] = useState(false);
+  const [membershipOpen, setmembershipOpen] = useState(false);
 
   return (
     <main className="container signin">
@@ -141,16 +142,17 @@ export default function SignIn() {
                       1. 수집하는 개인정보 항목 및 수집방법
                     </p>
                     <p className="online-term-subtitle">
-                      1 개인정보의 수집항목
+                      (1) 개인정보의 수집항목
                     </p>
-
-                    <p className="online-term-contents">
-                      1 회사는 회원가입, 원활한 고객상담 및 서비스의 제공을 위해
-                      아래와 같은 개인정보를 수집하고 있습니다.
-                    </p>
-                    <p className="online-term-contents-innerj">[멤버십 회원]</p>
                     <p className="online-term-contents">
                       {TERMS.justifyPersonal}
+                    </p>
+                    <p className="online-term-contents-inner">[멤버십 회원]</p>
+                    <p className="online-term-contents">
+                      {TERMS.justifyPersonalRequried}
+                    </p>
+                    <p className="online-term-contents">
+                      {TERMS.justifyPersonalOption}
                     </p>
                   </div>
                 )}
@@ -162,8 +164,28 @@ export default function SignIn() {
                   <label for="term-check-5" className="term-check-text">
                     [필수] 멤버십 이용약관
                   </label>
-                  <button className="btn-accordion" />
+                  <button
+                    className={`btn-accordion ${membershipOpen ? 'open' : ''}`}
+                    type="button"
+                    onClick={() => setmembershipOpen(prev => !prev)}
+                  />
                 </div>
+                {membershipOpen && (
+                  <div class="membership-term">
+                    <p className="mebership-term-contents">제1장 총칙</p>
+                    <p className="membership-term-title">제1조 (목적)</p>
+                    <p className="membership-term-contents">
+                      {TERMS.objectMembership}
+                    </p>
+                    <p className="membership-term-title">제2조 (정의)</p>
+                    <p className="membership-term-contents">
+                      {TERMS.justifyMembership}
+                    </p>
+                    <p className="membership-term-contents">
+                      {TERMS.justifyMembershipSecond}
+                    </p>
+                  </div>
+                )}
               </li>
             </ul>
           </div>
