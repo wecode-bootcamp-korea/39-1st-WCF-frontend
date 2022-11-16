@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { TERMS } from './termData';
 import './SignIn.scss';
 
 export default function SignIn() {
+  const [isOnlineTermOpen, setIsOnlineTermOpen] = useState(false);
+  const [personalInfoOpen, setpersonalInfoOpen] = useState(false);
+
   return (
     <main className="container signin">
       <h1 className="signin-title">회원가입</h1>
@@ -96,10 +100,22 @@ export default function SignIn() {
                   <label for="term-check-3" className="term-check-text">
                     [필수] 온라인사이트 이용약관
                   </label>
-                  <button className="btn-accordion">
-                    <span className="blind">버튼</span>
-                  </button>
+                  <button
+                    className={`btn-accordion ${
+                      isOnlineTermOpen ? 'open' : ''
+                    }`}
+                    type="button"
+                    onClick={() => setIsOnlineTermOpen(prev => !prev)}
+                  />
                 </div>
+                {isOnlineTermOpen && (
+                  <div class="online-term">
+                    <p className="online-term-title">제1조 (목적)</p>
+                    <p className="online-term-contents">{TERMS.object}</p>
+                    <p className="online-term-title">제2조 (정의)</p>
+                    <p className="online-term-contents">{TERMS.justify}</p>
+                  </div>
+                )}
               </li>
 
               <li className="term-list">
@@ -108,10 +124,36 @@ export default function SignIn() {
                   <label for="term-check-4" className="term-check-text">
                     [필수] 개인정보 수집 및 이용동의
                   </label>
-                  <button className="btn-accordion">
-                    <span className="blind">버튼</span>
-                  </button>
+                  <button
+                    className={`btn-accordion ${
+                      personalInfoOpen ? 'open' : ''
+                    }`}
+                    type="button"
+                    onClick={() => setpersonalInfoOpen(prev => !prev)}
+                  />
                 </div>
+                {personalInfoOpen && (
+                  <div class="online-term">
+                    <p className="online-term-contents">
+                      {TERMS.objectPersonal}
+                    </p>
+                    <p className="online-term-title">
+                      1. 수집하는 개인정보 항목 및 수집방법
+                    </p>
+                    <p className="online-term-subtitle">
+                      1 개인정보의 수집항목
+                    </p>
+
+                    <p className="online-term-contents">
+                      1 회사는 회원가입, 원활한 고객상담 및 서비스의 제공을 위해
+                      아래와 같은 개인정보를 수집하고 있습니다.
+                    </p>
+                    <p className="online-term-contents-innerj">[멤버십 회원]</p>
+                    <p className="online-term-contents">
+                      {TERMS.justifyPersonal}
+                    </p>
+                  </div>
+                )}
               </li>
 
               <li className="term-list">
@@ -120,9 +162,7 @@ export default function SignIn() {
                   <label for="term-check-5" className="term-check-text">
                     [필수] 멤버십 이용약관
                   </label>
-                  <button className="btn-accordion">
-                    <span className="blind">버튼</span>
-                  </button>
+                  <button className="btn-accordion" />
                 </div>
               </li>
             </ul>

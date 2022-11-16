@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 510px;
 
     .signin-form {
       .signin-box {
@@ -138,66 +139,91 @@
           padding: 5px;
           border: 1px solid #e5e5e5;
 
-          input[type='checkbox'] {
-            display: none;
-
-            & + label {
-              position: relative;
-
-              &:after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 0px;
-                width: 18px;
-                height: 18px;
-                border: 1px solid #e5e5e5;
-                border-radius: 5px;
-              }
-            }
-          }
-
-          input[type='checkbox']:checked {
-            &:checked + label {
-              &:after {
-                content: '';
-                border-radius: 5px;
-                background: url(../../images/icon/signin/term-check.svg)
-                  no-repeat;
-                background-color: #8e1fff;
-                background-position: center;
-                background-size: 10px;
-              }
-            }
-          }
-
-          .term-check-text {
-            padding-left: 25px;
-            color: #888888;
-          }
-
-          .btn-accordion {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-image: url(../../images/icon/signin/term-check-off.svg);
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: contain;
-
-            //background:url() no-repeat center/contain;
-            .blind {
-              display: none;
-            }
-          }
-
           .term-list {
             margin: 15px;
-          }
 
-          .agree-top {
-            display: flex;
-            justify-content: space-between;
+            input[type='checkbox'] {
+              display: none;
+
+              & + label {
+                position: relative;
+
+                &:after {
+                  content: '';
+                  position: absolute;
+                  top: -1px;
+                  left: 0px;
+                  width: 18px;
+                  height: 18px;
+                  border: 1px solid #e5e5e5;
+                  border-radius: 5px;
+                }
+              }
+            }
+
+            input[type='checkbox']:checked {
+              &:checked + label {
+                &:after {
+                  content: '';
+                  border-radius: 5px;
+                  background: url(../../images/icon/signin/term-check.svg)
+                    no-repeat;
+                  background-color: #8e1fff;
+                  background-position: center;
+                  background-size: 10px;
+                }
+              }
+            }
+
+            .term-check-text {
+              padding-left: 25px;
+              color: #888888;
+            }
+
+            .btn-accordion {
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background-image: url(../../images/icon/signin/term-check-off.svg);
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-size: contain;
+
+              &.open {
+                transform: rotate(180deg);
+              }
+
+              //background:url() no-repeat center/contain;
+
+              .blind {
+                display: none;
+              }
+            }
+
+            .agree-top {
+              display: flex;
+              justify-content: space-between;
+            }
+
+            .online-term {
+              width: 100%;
+              max-width: 520px;
+              max-height: 150px;
+              padding: 19px;
+              overflow-y: auto;
+              background: #f5f5f5;
+
+              .online-term-title {
+                margin: 7px 0;
+                color: #777777;
+                font-size: 20px;
+              }
+              .online-term-contents {
+                color: #777777;
+                font-size: 14px;
+                line-height: 1.5;
+              }
+            }
           }
         }
       }
