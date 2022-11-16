@@ -1,16 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.scss';
+
 export default function Login() {
+  const [inputId, setInputId] = useState('');
+  const [inputPw, setInputPw] = useState('');
+  const navigate = useNavigate();
+
+  const handleIdInput = e => {
+    setInputId(e.target.value);
+  };
+  const handlePwInput = e => {
+    setInputPw(e.target.value);
+  };
+
+  const fetchFn = () => {
+    fetch('http://10.58.52.57:3000/users/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify({ email: inputId, password: inputPw }),
+    }) //요청
+      .then(response => {
+        console.log(response);
+        if (response.status != 200) {
+          throw new Error('error');
+          alert('로그인 실패');
+        }
+
+        return response.json();
+      })
+      .catch(err => {
+        console.log(err);
+        alert('로그인 실패');
+      })
+      .then(data => {
+        console.log(data);
+        localStorage.setItem('token', data.accessToken);
+        navigate('./Main');
+        // idPwValid();
+      });
+  };
+
   return (
     <div className="container login">
       <h1 className="login-title">로그인</h1>
 
-      <form className="login-form">
+      <form className="login-form" onSubmitCapture={e => e.preventDefault()}>
         <div className="login-input-box">
-          <input className="login-input" placeholder="아이디" />
-          <input className="login-input" placeholder="비밀번호" />
+          <input
+            className="login-input"
+            type="text"
+            placeholder="아이디"
+            onChange={handleIdInput}
+          />
+          <input
+            className="login-input"
+            type="password"
+            placeholder="비밀번호"
+            onChange={handlePwInput}
+          />
         </div>
-        <button className="login-btn">로그인</button>
+        <button className="login-btn" onClick={fetchFn} type="submit">
+          로그인
+        </button>
       </form>
 
       <div className="login-save-id-box">
