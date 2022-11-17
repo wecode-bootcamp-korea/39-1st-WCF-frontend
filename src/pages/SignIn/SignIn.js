@@ -1,11 +1,71 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TERMS } from './termData';
 import './SignIn.scss';
 
+const ID_TYPE_REG_EXP = /^(?=.*[a-zA-Z])(?=.*[0-9]).{0,25}$/;
+const ID_LENGTH_REG_EXP = /^.{6,25}$/;
+const PW_TYPE_REG_EXP = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{0,25}$/;
+const PW_LENGTH_REG_EXP = /^.{8,25}$/;
+
 export default function SignIn() {
+  const [inputValue, setInputValue] = useState({
+    userName: '',
+    password: '',
+    checkPassword: '',
+    name: '',
+    phoneNumber: '',
+    email: '',
+    address: '',
+  });
+
   const [isOnlineTermOpen, setIsOnlineTermOpen] = useState(false);
   const [personalInfoOpen, setpersonalInfoOpen] = useState(false);
   const [membershipOpen, setmembershipOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { userName, password, checkPassword, phoneNumber, email, address } =
+    inputValue;
+
+  const isIdValid1 = ID_TYPE_REG_EXP.test(userName);
+  const isIdValid2 = ID_LENGTH_REG_EXP.test(userName);
+
+  const isPwValid1 = PW_TYPE_REG_EXP.test(password);
+  const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
+
+  console.log(isPwValid1, isPwValid2);
+
+  const handleInput = e => {
+    const { name, value } = e.target;
+    setInputValue({ ...inputValue, [name]: value });
+  };
+
+  const fetchFn = () => {
+    fetch('http://10.58.52.230:3008/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify({ email: userName, password: password }),
+    }) //요청
+      .then(response => {
+        console.log(response);
+        if (response.status != 200) {
+          throw new Error('error');
+          alert('회원가입 실패');
+        }
+
+        return response.json();
+      })
+      .catch(err => {
+        console.log(err);
+        alert('회원가입 실패');
+      })
+      .then(data => {
+        console.log(data);
+        localStorage.setItem('token', data.accessToken);
+        navigate('/Main');
+      });
+  };
 
   return (
     <main className="container signin">
@@ -15,16 +75,37 @@ export default function SignIn() {
           <label className="signin-box">
             <div className="signin-box-in">
               <div className="signin-text required">아이디</div>
-              <input className="signin-input" type="text" />
+              <input
+                className="signin-input"
+                type="text"
+                name="userName"
+                onChange={handleInput}
+              />
               <p className="valid-status">
-                <span className="valid-check-type">
+                <span
+                  className={`valid-check-type ${
+                    isIdValid1 ? 'valid-check' : ''
+                  }`}
+                >
                   <span className="check">체크</span>
                 </span>
-                <span className="valid-status-type">영문, 숫자, 영문+숫자</span>
-                <span className="valid-check-length">
+                <span
+                  className={`valid-status-type ${isIdValid1 ? ' valid' : ''}`}
+                >
+                  영문+숫자
+                </span>
+                <span
+                  className={`valid-check-length ${
+                    isIdValid2 ? 'valid-check' : ''
+                  }`}
+                >
                   <span className="check">체크</span>
                 </span>
-                <span className="valid-status-length">6자 이상</span>
+                <span
+                  className={`valid-status-length ${isIdValid2 ? 'valid' : ''}`}
+                >
+                  6자 이상
+                </span>
               </p>
             </div>
           </label>
@@ -33,48 +114,92 @@ export default function SignIn() {
             <div className="signin-box-in">
               <div className="signin-text required">비밀번호</div>
 
-              <input className="signin-input" type="password" />
+              <input
+                className="signin-input"
+                type="password"
+                name="password"
+                onChange={handleInput}
+              />
               <p className="valid-status">
-                <span className="valid-check-type">
+                <span
+                  className={`valid-check-type ${
+                    isPwValid1 ? 'valid-check' : ''
+                  }`}
+                >
                   <span className="check">체크</span>
                 </span>
-                <span className="valid-status-type">
+                <span
+                  className={`valid-status-type ${isPwValid1 ? ' valid' : ''}`}
+                >
                   영문, 숫자, 특수문자 2가지 이상 조합
                 </span>
-                <span className="valid-check-length">
+                <span
+                  className={`valid-check-length ${
+                    isPwValid2 ? 'valid-check' : ''
+                  }`}
+                >
                   <span className="check">체크</span>
                 </span>
-                <span className="valid-status-length">6자 이상</span>
+                <span
+                  className={`valid-status-length ${
+                    isPwValid2 ? ' valid' : ''
+                  }`}
+                >
+                  8자 이상
+                </span>
               </p>
-              <input className="signin-input check-password" type="password" />
+              <input
+                className="signin-input check-password"
+                type="password"
+                name="checkPassword"
+                onChange={handleInput}
+              />
             </div>
           </label>
 
           <label className="signin-box">
             <div className="signin-box-in">
               <div className="signin-text required">이름</div>
-              <input className="signin-input" />
+              <input
+                className="signin-input"
+                name="name"
+                onChange={handleInput}
+              />
             </div>
           </label>
 
           <label className="signin-box">
             <div className="signin-box-in">
               <div className="signin-text required">휴대폰 번호</div>
-              <input className="signin-input" />
+              <input
+                className="signin-input"
+                name="phoneNumber"
+                onChange={handleInput}
+              />
             </div>
           </label>
 
           <label className="signin-box">
             <div className="signin-box-in">
               <div className="signin-text required">이메일</div>
-              <input className="signin-input" type="email" />
+              <input
+                className="signin-input"
+                type="email"
+                name="email"
+                onChange={handleInput}
+              />
             </div>
           </label>
 
           <label className="signin-box">
             <div className="signin-box-in">
               <div className="signin-text">주소</div>
-              <input className="signin-input" />
+              <input
+                className="signin-input"
+                type="text"
+                name="address"
+                onChange={handleInput}
+              />
             </div>
           </label>
 
@@ -190,7 +315,9 @@ export default function SignIn() {
             </ul>
           </div>
           <div className="join-button-box">
-            <button className="join-button">가입하기</button>
+            <button className="join-button" disabled>
+              가입하기
+            </button>
           </div>
         </form>
       </section>

@@ -66,6 +66,10 @@
         .valid-status-type,
         .valid-status-length {
           margin-left: 3px;
+
+          &.valid {
+            color: #8e1fff;
+          }
         }
 
         .valid-check-type,
@@ -81,6 +85,15 @@
 
           .check {
             display: none;
+          }
+          &.valid-check {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-image: url(../../images/icon/signin/vaild-check-purple.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
           }
         }
         .valid-check-length {
