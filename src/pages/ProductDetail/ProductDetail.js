@@ -390,8 +390,8 @@ export default function ProductDetail() {
               </ul>
               <div class="tab-container">
                 <div class="tab-item item-1">
-                  <div className="table-area">
-                    <table className="table type-horizon">
+                  <div className="table-area first-child-tl">
+                    <table className="table">
                       <colgroup>
                         <col />
                         <col />
@@ -532,9 +532,6 @@ export default function ProductDetail() {
                         <button>여성하의</button>
                       </li>
                       <li>
-                        <button>여성하의</button>
-                      </li>
-                      <li>
                         <button>남성상의</button>
                       </li>
                       <li>
@@ -550,58 +547,89 @@ export default function ProductDetail() {
                               <col />
                               <col />
                               <col />
+                              <col />
                             </colgroup>
                             <thead>
                               <tr>
-                                <th>
-                                  <span>사이즈</span>
+                                <th colSpan={2} rowSpan={2}>
+                                  <span>SIZE</span>
+                                </th>
+                                <th colSpan={2} rowSpan={2}>
+                                  <span>BEAKER</span>
                                 </th>
                                 <th>
-                                  <span>S</span>
+                                  <span>신체사이즈</span>
                                 </th>
+                              </tr>
+                              <tr>
                                 <th>
-                                  <span>M</span>
-                                </th>
-                                <th>
-                                  <span>L</span>
+                                  <span>가슴둘레</span>
                                 </th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
                                 <td>
-                                  <span>102</span>
+                                  <span>S</span>
                                 </td>
                                 <td>
-                                  <span>107</span>
+                                  <span>90</span>
                                 </td>
                                 <td>
-                                  <span>112</span>
+                                  <span>M</span>
+                                </td>
+                                <td>
+                                  <span>002</span>
+                                </td>
+                                <td>
+                                  <span>90</span>
                                 </td>
                               </tr>
                               <tr>
-                                <th>
-                                  <span>밑단둘레</span>
-                                </th>
                                 <td>
-                                  <span>105</span>
+                                  <span>M</span>
                                 </td>
                                 <td>
-                                  <span>110</span>
+                                  <span>95</span>
                                 </td>
                                 <td>
-                                  <span>115</span>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>003</span>
+                                </td>
+                                <td>
+                                  <span>95</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>100</span>
+                                </td>
+                                <td>
+                                  <span>XL</span>
+                                </td>
+                                <td>
+                                  <span>004</span>
+                                </td>
+                                <td>
+                                  <span>100</span>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          <p className="info-txt">
-                            디자인, 소재 및 측정 방법에 따라 약간의 오차가 있을
-                            수 있습니다.
-                          </p>
+                          <ul class="bullet-list">
+                            <li>
+                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
+                            </li>
+                            <li>
+                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
+                              개인차가 있을 수 있으니 양지 바랍니다.
+                            </li>
+                          </ul>
                         </div>
                       </div>
                       <div class="tab-item item-2">
@@ -612,58 +640,119 @@ export default function ProductDetail() {
                               <col />
                               <col />
                               <col />
+                              <col />
+                              <col />
                             </colgroup>
                             <thead>
                               <tr>
-                                <th>
-                                  <span>사이즈</span>
+                                <th colSpan={2} rowSpan={2}>
+                                  <span>SIZE</span>
+                                </th>
+                                <th colSpan={3} rowSpan={2}>
+                                  <span>BEAKER</span>
                                 </th>
                                 <th>
-                                  <span>S</span>
+                                  <span>신체사이즈</span>
                                 </th>
+                              </tr>
+                              <tr>
                                 <th>
-                                  <span>M</span>
-                                </th>
-                                <th>
-                                  <span>L</span>
+                                  <span>가슴둘레</span>
                                 </th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
                                 <td>
-                                  <span>102</span>
+                                  <span>XS</span>
                                 </td>
                                 <td>
-                                  <span>107</span>
+                                  <span>64</span>
                                 </td>
                                 <td>
-                                  <span>112</span>
+                                  <span>XS</span>
+                                </td>
+                                <td>
+                                  <span>000</span>
+                                </td>
+                                <td>
+                                  <span>24-25</span>
+                                </td>
+                                <td>
+                                  <span>64</span>
                                 </td>
                               </tr>
                               <tr>
-                                <th>
-                                  <span>밑단둘레</span>
-                                </th>
                                 <td>
-                                  <span>105</span>
+                                  <span>S</span>
                                 </td>
                                 <td>
-                                  <span>110</span>
+                                  <span>67</span>
                                 </td>
                                 <td>
-                                  <span>115</span>
+                                  <span>S</span>
+                                </td>
+                                <td>
+                                  <span>001</span>
+                                </td>
+                                <td>
+                                  <span>001</span>
+                                </td>
+                                <td>
+                                  <span>67</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span>M</span>
+                                </td>
+                                <td>
+                                  <span>70</span>
+                                </td>
+                                <td>
+                                  <span>M</span>
+                                </td>
+                                <td>
+                                  <span>002</span>
+                                </td>
+                                <td>
+                                  <span>28-29</span>
+                                </td>
+                                <td>
+                                  <span>70</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>73</span>
+                                </td>
+                                <td>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>003</span>
+                                </td>
+                                <td>
+                                  <span>30</span>
+                                </td>
+                                <td>
+                                  <span>73</span>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          <p className="info-txt">
-                            디자인, 소재 및 측정 방법에 따라 약간의 오차가 있을
-                            수 있습니다.
-                          </p>
+                          <ul class="bullet-list">
+                            <li>
+                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
+                            </li>
+                            <li>
+                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
+                              개인차가 있을 수 있으니 양지 바랍니다.
+                            </li>
+                          </ul>
                         </div>
                       </div>
                       <div class="tab-item item-3">
@@ -674,58 +763,89 @@ export default function ProductDetail() {
                               <col />
                               <col />
                               <col />
+                              <col />
                             </colgroup>
                             <thead>
                               <tr>
-                                <th>
-                                  <span>사이즈</span>
+                                <th colSpan={2} rowSpan={2}>
+                                  <span>SIZE</span>
+                                </th>
+                                <th colSpan={2} rowSpan={2}>
+                                  <span>BEAKER</span>
                                 </th>
                                 <th>
-                                  <span>S</span>
+                                  <span>신체사이즈</span>
                                 </th>
+                              </tr>
+                              <tr>
                                 <th>
-                                  <span>M</span>
-                                </th>
-                                <th>
-                                  <span>L</span>
+                                  <span>가슴둘레</span>
                                 </th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
                                 <td>
-                                  <span>102</span>
+                                  <span>S</span>
                                 </td>
                                 <td>
-                                  <span>107</span>
+                                  <span>90</span>
                                 </td>
                                 <td>
-                                  <span>112</span>
+                                  <span>M</span>
+                                </td>
+                                <td>
+                                  <span>002</span>
+                                </td>
+                                <td>
+                                  <span>90</span>
                                 </td>
                               </tr>
                               <tr>
-                                <th>
-                                  <span>밑단둘레</span>
-                                </th>
                                 <td>
-                                  <span>105</span>
+                                  <span>M</span>
                                 </td>
                                 <td>
-                                  <span>110</span>
+                                  <span>95</span>
                                 </td>
                                 <td>
-                                  <span>115</span>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>003</span>
+                                </td>
+                                <td>
+                                  <span>95</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>100</span>
+                                </td>
+                                <td>
+                                  <span>XL</span>
+                                </td>
+                                <td>
+                                  <span>004</span>
+                                </td>
+                                <td>
+                                  <span>100</span>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          <p className="info-txt">
-                            디자인, 소재 및 측정 방법에 따라 약간의 오차가 있을
-                            수 있습니다.
-                          </p>
+                          <ul class="bullet-list">
+                            <li>
+                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
+                            </li>
+                            <li>
+                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
+                              개인차가 있을 수 있으니 양지 바랍니다.
+                            </li>
+                          </ul>
                         </div>
                       </div>
                       <div class="tab-item item-4">
@@ -736,120 +856,119 @@ export default function ProductDetail() {
                               <col />
                               <col />
                               <col />
-                            </colgroup>
-                            <thead>
-                              <tr>
-                                <th>
-                                  <span>사이즈</span>
-                                </th>
-                                <th>
-                                  <span>S</span>
-                                </th>
-                                <th>
-                                  <span>M</span>
-                                </th>
-                                <th>
-                                  <span>L</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
-                                <td>
-                                  <span>102</span>
-                                </td>
-                                <td>
-                                  <span>107</span>
-                                </td>
-                                <td>
-                                  <span>112</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th>
-                                  <span>밑단둘레</span>
-                                </th>
-                                <td>
-                                  <span>105</span>
-                                </td>
-                                <td>
-                                  <span>110</span>
-                                </td>
-                                <td>
-                                  <span>115</span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <p className="info-txt">
-                            디자인, 소재 및 측정 방법에 따라 약간의 오차가 있을
-                            수 있습니다.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="tab-item item-5">
-                        <div className="table-area">
-                          <table className="table type-horizon">
-                            <colgroup>
-                              <col />
-                              <col />
                               <col />
                               <col />
                             </colgroup>
                             <thead>
                               <tr>
-                                <th>
-                                  <span>사이즈</span>
+                                <th colSpan={2} rowSpan={2}>
+                                  <span>SIZE</span>
+                                </th>
+                                <th colSpan={3} rowSpan={2}>
+                                  <span>BEAKER</span>
                                 </th>
                                 <th>
-                                  <span>S</span>
+                                  <span>신체사이즈</span>
                                 </th>
+                              </tr>
+                              <tr>
                                 <th>
-                                  <span>M</span>
-                                </th>
-                                <th>
-                                  <span>L</span>
+                                  <span>가슴둘레</span>
                                 </th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
                                 <td>
-                                  <span>102</span>
+                                  <span>XS</span>
                                 </td>
                                 <td>
-                                  <span>107</span>
+                                  <span>64</span>
                                 </td>
                                 <td>
-                                  <span>112</span>
+                                  <span>XS</span>
+                                </td>
+                                <td>
+                                  <span>000</span>
+                                </td>
+                                <td>
+                                  <span>24-25</span>
+                                </td>
+                                <td>
+                                  <span>64</span>
                                 </td>
                               </tr>
                               <tr>
-                                <th>
-                                  <span>밑단둘레</span>
-                                </th>
                                 <td>
-                                  <span>105</span>
+                                  <span>S</span>
                                 </td>
                                 <td>
-                                  <span>110</span>
+                                  <span>67</span>
                                 </td>
                                 <td>
-                                  <span>115</span>
+                                  <span>S</span>
+                                </td>
+                                <td>
+                                  <span>001</span>
+                                </td>
+                                <td>
+                                  <span>001</span>
+                                </td>
+                                <td>
+                                  <span>67</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span>M</span>
+                                </td>
+                                <td>
+                                  <span>70</span>
+                                </td>
+                                <td>
+                                  <span>M</span>
+                                </td>
+                                <td>
+                                  <span>002</span>
+                                </td>
+                                <td>
+                                  <span>28-29</span>
+                                </td>
+                                <td>
+                                  <span>70</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>73</span>
+                                </td>
+                                <td>
+                                  <span>L</span>
+                                </td>
+                                <td>
+                                  <span>003</span>
+                                </td>
+                                <td>
+                                  <span>30</span>
+                                </td>
+                                <td>
+                                  <span>73</span>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          <p className="info-txt">
-                            디자인, 소재 및 측정 방법에 따라 약간의 오차가 있을
-                            수 있습니다.
-                          </p>
+                          <ul class="bullet-list">
+                            <li>
+                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
+                            </li>
+                            <li>
+                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
+                              개인차가 있을 수 있으니 양지 바랍니다.
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
