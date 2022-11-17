@@ -5,6 +5,7 @@
   // width: 965px;
   // height: 600px;
   h1 {
+    margin-top: 50px;
     margin-bottom: 40px;
     font-size: 40px;
     font-weight: 400;
@@ -33,16 +34,18 @@
       }
       .cart-empty {
         margin-top: 32px;
+        color: #818181;
       }
     }
     .cart-info-list {
       margin-top: 22px;
-      line-height: 1.428;
+      line-height: 1.5;
 
       .cart-info {
         position: relative;
-        margin-bottom: 3px;
+        margin-bottom: 2px;
         padding-left: 10px;
+        color: #818181;
 
         &.dot:before {
           content: '';

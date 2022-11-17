@@ -1,4 +1,5 @@
 import React from 'react';
+import CartFilled from './components/CartFilled';
 import './Cart.scss';
 
 export default function Cart() {
@@ -7,6 +8,7 @@ export default function Cart() {
       <h1>장바구니</h1>
       <section className="cart-container">
         <div className="order-box">
+          <CartFilled />
           <span className="basket-img-box">
             <span className="basket-img">장바구니</span>
           </span>
@@ -20,7 +22,7 @@ export default function Cart() {
             SSF SHOP은 자사/입점사 제품별, 주문유형별 배송비 기준에 따라
             배송비가 별도 부과됩니다.
           </li>
-          <li className="cart-info dot">
+          <li className="cart-info dot info-last">
             SSF SHOP은 동일 고객(ID기준)의 배송지가 일치하는 여러 건의 주문이
             있을 경우, 에코 프렌들리 정책 따른 친환경 소비를 위해 출고일을
             기준으로
