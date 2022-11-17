@@ -1,9 +1,8 @@
 import React from 'react';
 import './Nav.scss';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { WOMEN_CTG_LIST } from './WomenCtgListData';
-import { MEN_CTG_LIST } from './MenCtgListData';
+import { SPECIAL_LIST } from './SpecialCtgData';
+import { MAIN_CATEGORY } from './MainCtgData';
 
 export default function Nav() {
   return (
@@ -37,85 +36,37 @@ export default function Nav() {
             <div className="category">
               <div className="main-category">
                 <ul className="gnb">
-                  <li className="main-nav">
-                    <Link to="">WOMEN</Link>
-                    <div className="nav-dropdown">
-                      <div className="inner">
-                        <div className="nav-list">
-                          <ul className="ctg-list">
-                            {WOMEN_CTG_LIST.map(list => {
-                              return (
-                                <li key={list.id} className="ctg-dropdown">
-                                  <Link to={list.link}>{list.text}</Link>
-                                </li>
-                              );
-                            })}
-                          </ul>
+                  {MAIN_CATEGORY.map(category => (
+                    <li key={category.id} className="main-nav">
+                      <Link to="">{category.text}</Link>
+                      <div className="nav-dropdown">
+                        <div className="inner">
+                          <div className="nav-list">
+                            <ul className="ctg-list">
+                              {category.subCategory.map(list => {
+                                return (
+                                  <li key={list.id} className="ctg-dropdown">
+                                    <Link to={list.link}>{list.text}</Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">MEN</Link>
-                    <div className="nav-dropdown">
-                      <div className="inner">
-                        <div className="nav-list">
-                          <ul className="ctg-list">
-                            {MEN_CTG_LIST.map(list => {
-                              return (
-                                <li key={list.id} className="ctg-dropdown">
-                                  <Link to={list.link}>{list.text}</Link>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">KIDS</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">LUXURY</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">BAG&SHOES</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">SPORTS</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">GOLF</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">BEAUTY</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">LIFE</Link>
-                  </li>
-                  <li className="main-nav">
-                    <Link to="">OUTLET</Link>
-                  </li>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="special-category">
                 <ul className="special-list">
-                  <li className="special-nav">
-                    <Link to="">랭킹</Link>
-                  </li>
-                  <li className="special-nav">
-                    <Link to="">브랜드</Link>
-                  </li>
-                  <li className="special-nav">
-                    <Link to="">매거진</Link>
-                  </li>
-                  <li className="special-nav">
-                    <Link to="">기획전</Link>
-                  </li>
-                  <li className="special-nav">
-                    <Link to="">이벤트</Link>
-                  </li>
+                  {SPECIAL_LIST.map(list => {
+                    return (
+                      <li key={list.id} className="special-nav">
+                        <Link to={list.link}>{list.text}</Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>
