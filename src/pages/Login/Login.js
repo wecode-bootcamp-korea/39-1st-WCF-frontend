@@ -15,10 +15,10 @@ export default function Login() {
   };
 
   const fetchFn = () => {
-    fetch('http://10.58.52.124:3000/users/signin', {
+    fetch('http://10.58.52.57:3000/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      body: JSON.stringify({ email: inputId, password: inputPw }),
+      body: JSON.stringify({ username: inputId, password: inputPw }),
     }) //요청
       .then(response => {
         console.log(response);
