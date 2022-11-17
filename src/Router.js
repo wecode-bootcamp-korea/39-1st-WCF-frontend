@@ -4,6 +4,7 @@ import Login from './pages/Login/Login';
 import Cart from './pages/Cart/Cart';
 import Main from './pages/Main/Main';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Payment from './pages/Payment/Payment';
 import ProductList from './pages/ProductList/ProductList';
 import SignIn from './pages/SignIn/SignIn';
 import Nav from './components/Nav/Nav';
@@ -18,6 +19,7 @@ export default function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/productdetail" element={<ProductDetail />} />
+        <Route path="/Payment" element={<Payment />} />
         <Route path="/productlist" element={<ProductList />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/Nav" element={<SignIn />} />
