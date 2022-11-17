@@ -58,6 +58,7 @@
       }
       button:after {
         content: '\f107';
+        padding-left: 10px;
         font-family: 'Font Awesome 5 Free', sans-serif;
         font-weight: 900;
       }
@@ -156,37 +157,6 @@
       position: relative;
       top: 7px;
       right: 25px;
-    }
-  }
-}
-
-.panel {
-  .panel-list {
-    li {
-      display: inline-block;
-      width: 390px;
-      padding: 30px 50px;
-      color: $color-gray700;
-      font-size: 15px;
-    }
-  }
-}
-
-.panel-inline {
-  display: flex;
-  align-items: center;
-  width: 1240px;
-  height: 100px;
-  margin-left: 10px;
-  background: $color-gray150;
-
-  .panel-list {
-    li {
-      display: inline-block;
-      width: 200px;
-      padding: 30px;
-      color: $color-gray700;
-      font-size: 15px;
     }
   }
 }

@@ -1,0 +1,19 @@
+@import '../../../styles/variables';
+
+.panel-inline {
+  display: flex;
+  align-items: center;
+  width: 1240px;
+  height: 100px;
+  margin-left: 10px;
+  background: $color-gray150;
+
+  .panel-list {
+    li {
+      display: inline-block;
+      padding: 30px;
+      color: $color-gray700;
+      font-size: 15px;
+    }
+  }
+}
