@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TERMS } from './termData';
 import './SignIn.scss';
@@ -23,6 +23,8 @@ export default function SignIn() {
   const [personalInfoOpen, setpersonalInfoOpen] = useState(false);
   const [membershipOpen, setmembershipOpen] = useState(false);
 
+  const [checkedList, setCheckedLists] = useState([]);
+
   const navigate = useNavigate();
 
   const {
@@ -41,7 +43,37 @@ export default function SignIn() {
   const isPwValid1 = PW_TYPE_REG_EXP.test(password);
   const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
 
-  console.log(isPwValid1, isPwValid2);
+  const dataLists = [
+    { id: term-check-2, data: '[필수] 만 14세 이상' },
+    { id: term-check-3, data: '[필수] 온라인사이트 이용약관' },
+    { id: term-check-4, data: '[필수] 개인정보 수집 및 이용동의' },
+    { id: term-check-5, data: '[필수] 멤버십 이용약관' },
+  ];
+
+  const onCheckedAll = useCallback(
+    checked => {
+      if (checked) {
+        const checkedListArray = [];
+        dataLists.forEach(list => checkedListArray.push(list));
+        setCheckedLists(checkedListArray);
+      } else {
+        setCheckedLists([]);
+      }
+    },
+    [dataLists]
+  );
+
+  const onCheckedElement = useCallback(
+    (checked, list) => {
+      if (checked) {
+        setCheckedLists([...checkedList, list]);
+      } else {
+        setCheckedLists(checkedList.filter((el) => el !== list));
+      }
+    },
+    [checkedList]
+  );
+};
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -220,11 +252,51 @@ export default function SignIn() {
           <div className="term-box">
             <h2 className="term-title">이용약관 동의</h2>
             <div className="term-check-all">
-              <input id="term-check" type="checkbox" />
+              <input
+                id="term-check"
+                type="checkbox"
+                onChange={onCheckedAll}
+                checked={
+                  checkedList.length === 0
+                    ? false
+                    : checkedList.length === dataLists.length
+                    ? true
+                    : false
+                }
+              />
               <label htmlFor="term-check" className="term-check-all-text">
                 [필수] 전체동의
               </label>
             </div>
+
+          <ul className="term-list-box">
+            {dataLists.map(list => (
+              <li className='term-list'>
+                <label htmlFor={list.id} className="term-check-text">
+              <input
+              id={list.id}
+              key={list.id}
+              type="checkbox"
+              onChange={e => onCheckedElement(e.target.checked, list)}
+              checked={checkedList.includes(list) ? true : false}
+              />
+              </label>
+              <button
+                    className={`btn-accordion ${membershipOpen ? 'open' : ''}`}
+                    type="button"
+                    onClick={() => setmembershipOpen(prev => !prev)}
+                  />
+              </li>
+              {list.map((item) => {
+              <div class="online-term">
+                <p className="online-term-title">제1조 (목적)</p>
+                <p className="online-term-contents">{TERMS.object}</p>
+                <p className="online-term-title">제2조 (정의)</p>
+                <p className="online-term-contents">{TERMS.justify}</p>
+              </div>
+              }}
+            ))}
+            </ul>
 
             <ul className="term-list-box">
               <li className="term-list">
