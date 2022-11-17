@@ -25,8 +25,15 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
-  const { userName, password, checkPassword, phoneNumber, email, address } =
-    inputValue;
+  const {
+    userName,
+    password,
+    checkPassword,
+    phoneNumber,
+    email,
+    address,
+    name,
+  } = inputValue;
 
   const isIdValid1 = ID_TYPE_REG_EXP.test(userName);
   const isIdValid2 = ID_LENGTH_REG_EXP.test(userName);
@@ -42,14 +49,21 @@ export default function SignIn() {
   };
 
   const fetchFn = () => {
-    fetch('http://10.58.52.230:3008/auth/login', {
+    fetch('http://10.58.52.57:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      body: JSON.stringify({ email: userName, password: password }),
+      body: JSON.stringify({
+        username: userName,
+        password: password,
+        name: name,
+        mobile_number: phoneNumber,
+        email: email,
+        address: address,
+      }),
     }) //요청
       .then(response => {
         console.log(response);
-        if (response.status != 200) {
+        if (response.status !== 200) {
           throw new Error('error');
           alert('회원가입 실패');
         }
@@ -62,8 +76,8 @@ export default function SignIn() {
       })
       .then(data => {
         console.log(data);
-        localStorage.setItem('token', data.accessToken);
-        navigate('/Main');
+        alert('회원가입 성공');
+        navigate('/login');
       });
   };
 
@@ -207,7 +221,7 @@ export default function SignIn() {
             <h2 className="term-title">이용약관 동의</h2>
             <div className="term-check-all">
               <input id="term-check" type="checkbox" />
-              <label for="term-check" className="term-check-all-text">
+              <label htmlFor="term-check" className="term-check-all-text">
                 [필수] 전체동의
               </label>
             </div>
@@ -215,7 +229,7 @@ export default function SignIn() {
             <ul className="term-list-box">
               <li className="term-list">
                 <input id="term-check-2" type="checkbox" />
-                <label for="term-check-2" className="term-check-text">
+                <label htmlFor="term-check-2" className="term-check-text">
                   [필수] 만 14세 이상
                 </label>
               </li>
@@ -223,7 +237,7 @@ export default function SignIn() {
               <li className="term-list">
                 <div className="agree-top">
                   <input id="term-check-3" type="checkbox" />
-                  <label for="term-check-3" className="term-check-text">
+                  <label htmlFor="term-check-3" className="term-check-text">
                     [필수] 온라인사이트 이용약관
                   </label>
                   <button
@@ -247,7 +261,7 @@ export default function SignIn() {
               <li className="term-list">
                 <div className="agree-top">
                   <input id="term-check-4" type="checkbox" />
-                  <label for="term-check-4" className="term-check-text">
+                  <label htmlFor="term-check-4" className="term-check-text">
                     [필수] 개인정보 수집 및 이용동의
                   </label>
                   <button
@@ -286,7 +300,7 @@ export default function SignIn() {
               <li className="term-list">
                 <div className="agree-top">
                   <input id="term-check-5" type="checkbox" />
-                  <label for="term-check-5" className="term-check-text">
+                  <label htmlFor="term-check-5" className="term-check-text">
                     [필수] 멤버십 이용약관
                   </label>
                   <button
@@ -315,7 +329,7 @@ export default function SignIn() {
             </ul>
           </div>
           <div className="join-button-box">
-            <button className="join-button" disabled>
+            <button className="join-button" onClick={fetchFn}>
               가입하기
             </button>
           </div>
