@@ -24,9 +24,9 @@ export default function Login() {
         console.log(response);
         if (response.status != 200) {
           throw new Error('error');
-          alert('로그인 실패');
+          alert('로그인 실패'); // 해당 alert는 위의 throw 실행시에 조건문이 종료가 되므로 alert는 실행하지 못합니다!!!!
         }
-
+        ㄱ;
         return response.json();
       })
       .catch(err => {
