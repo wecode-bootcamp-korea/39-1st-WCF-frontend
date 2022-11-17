@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "serialNumber": "brand1",
+    "brandId": "productName1",
+    "title": "title1",
+    "discount": 10,
+    "size": ["S", "M", "L"],
+    "price": 100000
+  },
+  {
+    "id": 2,
+    "serialNumber": "brand2",
+    "brandId": "productName2",
+    "title": "title2",
+    "discount": 20,
+    "size": ["S", "M", "L"],
+    "price": 200000
+  },
+  {
+    "id": 3,
+    "serialNumber": "brand3",
+    "brandId": "productName3",
+    "title": "title3",
+    "discount": 30,
+    "size": ["S", "M", "L"],
+    "price": 300000
+  }
+]

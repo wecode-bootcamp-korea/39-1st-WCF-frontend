@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Size from './Size/Size';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
+  useEffect(() => {
+    fetch('/data/productDetailMockData.json')
+      .then(response => response.json())
+      .then(result => {
+        setProductData(result[0]);
+      }); // 상세데이터를 목데이터의 0번째 인덱스라 가정
+  }, []);
+  // 상품 전체 데이터
+  const [productData, setProductData] = useState({});
+
   return (
     <main className="container product-detail">
       <section className="section section-detail">
@@ -156,6 +167,8 @@ export default function ProductDetail() {
               <div className="product-selector-area type-size">
                 <strong className="tit">사이즈</strong>
                 <ul className="select-list">
+                  <Size />;
+                  {/*
                   <li>
                     <span className="check-box">
                       <input
@@ -190,6 +203,7 @@ export default function ProductDetail() {
                       <label htmlFor="size-l">L</label>
                     </span>
                   </li>
+                  */}
                 </ul>
               </div>
               <div className="product-selector-area type-send">
@@ -270,13 +284,13 @@ export default function ProductDetail() {
                     <span className="price">323100</span>원
                   </div>
                 </div>
-                <div class="btn-wrap">
-                  <div class="btn-area">
-                    <button class="btn black">장바구니</button>
-                    <button class="btn purple">바로구매</button>
+                <div className="btn-wrap">
+                  <div className="btn-area">
+                    <button className="btn black">장바구니</button>
+                    <button className="btn purple">바로구매</button>
                   </div>
-                  <div class="btn-area">
-                    <button class="btn add">코디 제안 상품</button>
+                  <div className="btn-area">
+                    <button className="btn add">코디 제안 상품</button>
                   </div>
                 </div>
               </div>
@@ -285,12 +299,12 @@ export default function ProductDetail() {
         </div>
       </section>
       <section className="section section-banner">
-        <div class="inner">
-          <div class="banner-wrap">
+        <div className="inner">
+          <div className="banner-wrap">
             <ul className="banner-swiper">
               <li className="swiper-item item1">
                 <Link to="/productdetail">
-                  <div class="text-box">
+                  <div className="text-box">
                     <em>WFC PLUS</em>
                     <b>럭셔리 첫 구매시</b>
                     <p>최대 10만원 할인 혜택</p>
@@ -299,7 +313,7 @@ export default function ProductDetail() {
               </li>
               <li className="swiper-item item2">
                 <Link to="/productdetail">
-                  <div class="text-box">
+                  <div className="text-box">
                     <em>WFC PLUS</em>
                     <b>럭셔리 첫 구매시</b>
                     <p>최대 10만원 할인 혜택</p>
@@ -308,7 +322,7 @@ export default function ProductDetail() {
               </li>
               <li className="swiper-item item3">
                 <Link to="/productdetail">
-                  <div class="text-box">
+                  <div className="text-box">
                     <em>WFC PLUS</em>
                     <b>럭셔리 첫 구매시</b>
                     <p>최대 10만원 할인 혜택</p>
@@ -330,14 +344,14 @@ export default function ProductDetail() {
         </ul>
         <div className="products-area">
           <div className="txt-area">
-            <div class="txt-header">
+            <div className="txt-header">
               <b>Designer’s notes</b>
             </div>
             <p>모델사이즈 174cm 46kg 24인치 , 상의S 하의026</p>
           </div>
 
           <div className="txt-area">
-            <div class="txt-header">
+            <div className="txt-header">
               <b>Size & Fit</b>
               <button className="btn-tooltip">
                 <span className="hidden">툴팁</span>
@@ -352,7 +366,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="txt-area">
-            <div class="txt-header">
+            <div className="txt-header">
               <b>Details</b>
               <button className="btn-tooltip">
                 <span className="hidden">툴팁</span>
@@ -362,12 +376,12 @@ export default function ProductDetail() {
           </div>
 
           <div className="img-area">
-            <p class="tit">Outfit View</p>
-            <p class="txt">
+            <p className="tit">Outfit View</p>
+            <p className="txt">
               모델 착용 이미지보다 제품컷 이미지의 컬러가 정확합니다.
             </p>
 
-            <ul class="img-list">
+            <ul className="img-list">
               <li>
                 <img src="/images/productdetail/sample-img.jpg" alt="샘플" />
               </li>
@@ -378,9 +392,9 @@ export default function ProductDetail() {
           </div>
 
           <div className="size-guide-area">
-            <b class="tit">Size Info</b>
-            <div class="tab-wrap type-border-bottom">
-              <ul class="tab-header">
+            <b className="tit">Size Info</b>
+            <div className="tab-wrap type-border-bottom">
+              <ul className="tab-header">
                 <li>
                   <button className="active">실측사이즈</button>
                 </li>
@@ -388,8 +402,8 @@ export default function ProductDetail() {
                   <button>사이즈 가이드</button>
                 </li>
               </ul>
-              <div class="tab-container">
-                <div class="tab-item item-1">
+              <div className="tab-container">
+                <div className="tab-item item-1">
                   <div className="table-area first-child-tl">
                     <table className="table">
                       <colgroup>
@@ -521,10 +535,10 @@ export default function ProductDetail() {
                     </p>
                   </div>
                 </div>
-                <div class="tab-item item-2">
+                <div className="tab-item item-2">
                   {/* 2뎁스 탭 */}
-                  <div class="table-wrap type-border">
-                    <ul class="tab-header">
+                  <div className="table-wrap type-border">
+                    <ul className="tab-header">
                       <li>
                         <button className="active">여성상의</button>
                       </li>
@@ -538,8 +552,8 @@ export default function ProductDetail() {
                         <button>남성하의</button>
                       </li>
                     </ul>
-                    <div class="tab-container">
-                      <div class="tab-item item-1">
+                    <div className="tab-container">
+                      <div className="tab-item item-1">
                         <div className="table-area">
                           <table className="table type-horizon">
                             <colgroup>
@@ -621,7 +635,7 @@ export default function ProductDetail() {
                               </tr>
                             </tbody>
                           </table>
-                          <ul class="bullet-list">
+                          <ul className="bullet-list">
                             <li>
                               제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
                             </li>
@@ -632,7 +646,7 @@ export default function ProductDetail() {
                           </ul>
                         </div>
                       </div>
-                      <div class="tab-item item-2">
+                      <div className="tab-item item-2">
                         <div className="table-area">
                           <table className="table type-horizon">
                             <colgroup>
@@ -744,7 +758,7 @@ export default function ProductDetail() {
                               </tr>
                             </tbody>
                           </table>
-                          <ul class="bullet-list">
+                          <ul className="bullet-list">
                             <li>
                               제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
                             </li>
@@ -755,7 +769,7 @@ export default function ProductDetail() {
                           </ul>
                         </div>
                       </div>
-                      <div class="tab-item item-3">
+                      <div className="tab-item item-3">
                         <div className="table-area">
                           <table className="table type-horizon">
                             <colgroup>
@@ -837,7 +851,7 @@ export default function ProductDetail() {
                               </tr>
                             </tbody>
                           </table>
-                          <ul class="bullet-list">
+                          <ul className="bullet-list">
                             <li>
                               제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
                             </li>
@@ -848,7 +862,7 @@ export default function ProductDetail() {
                           </ul>
                         </div>
                       </div>
-                      <div class="tab-item item-4">
+                      <div className="tab-item item-4">
                         <div className="table-area">
                           <table className="table type-horizon">
                             <colgroup>
@@ -960,7 +974,7 @@ export default function ProductDetail() {
                               </tr>
                             </tbody>
                           </table>
-                          <ul class="bullet-list">
+                          <ul className="bullet-list">
                             <li>
                               제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
                             </li>
