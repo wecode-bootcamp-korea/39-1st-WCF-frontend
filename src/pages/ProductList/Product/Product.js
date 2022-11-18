@@ -1,4 +1,5 @@
 import React from 'react';
+import './Product.scss';
 
 export default function Product({ imgurl, brand, name, price }) {
   return (

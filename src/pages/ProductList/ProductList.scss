@@ -93,56 +93,6 @@
   }
 }
 
-.products {
-  li {
-    display: inline-block;
-    margin: 9px;
-
-    // a {
-    //   display: block;
-    //   position: absolute;
-    //   top: 0;
-    //   width: 100%;
-    //   opacity: 0;
-    // }
-    // a:hover {
-    //   opacity: 1;
-    // }
-  }
-
-  .info {
-    span {
-      display: block;
-    }
-    .brand {
-      margin-top: 10px;
-      color: $color-gray800;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .name {
-      max-height: 18px;
-      margin-top: 6px;
-      overflow: hidden;
-      font-size: 14px;
-    }
-    .price {
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .heart {
-      margin-top: 23px;
-      i {
-        display: inline-block;
-        width: 14px;
-        height: 16px;
-        margin-right: 5px;
-      }
-    }
-  }
-}
-
 .filter-brand {
   width: 1240px;
   height: 200px;
