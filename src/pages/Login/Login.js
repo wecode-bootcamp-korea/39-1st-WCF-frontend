@@ -26,7 +26,7 @@ export default function Login() {
           throw new Error('error');
           alert('로그인 실패'); // 해당 alert는 위의 throw 실행시에 조건문이 종료가 되므로 alert는 실행하지 못합니다!!!!
         }
-        ㄱ;
+
         return response.json();
       })
       .catch(err => {
@@ -73,8 +73,8 @@ export default function Login() {
       </div>
 
       <div className="login-bottom">
-        <button className="find-id">아이디 찾기</button>
-        <button className="find-pw">비밀번호 찾기</button>
+        <button className="find">아이디 찾기</button>
+        <button className="find">비밀번호 찾기</button>
         <button className="join">회원가입</button>
       </div>
     </div>
