@@ -46,7 +46,9 @@ export default function Nav() {
                               {category.subCategory.map(list => {
                                 return (
                                   <li key={list.id} className="ctg-dropdown">
-                                    <Link to={list.link}>{list.text}</Link>
+                                    <Link to={`/productlist/${list.id}`}>
+                                      {list.text}
+                                    </Link>
                                   </li>
                                 );
                               })}
