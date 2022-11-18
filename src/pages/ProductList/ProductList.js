@@ -6,7 +6,12 @@ import Price from './Price/Price';
 import Size from './Size/Size';
 import './ProductList.scss';
 
-const SORT = ['신상품순', '인기상품순', '낮은가격순', '높은가격순'];
+const SORT = [
+  { id: 0, title: '신상품순' },
+  { id: 1, title: '인기상품순' },
+  { id: 2, title: '낮은가격순' },
+  { id: 3, title: '높은가격순' },
+];
 
 const TABS = [
   { id: 0, title: '브랜드', content: <Brand /> },
@@ -21,7 +26,7 @@ export default function ProductList() {
 
   const params = useParams();
 
-  //상품리스트 전체 get으로 받아오기
+  // //상품리스트 전체 get으로 받아오기
   // useEffect(() => {
   //   fetch(`http://10.58.52.57:3000/products/subcategory/1`, {
   //     method: 'GET',
@@ -49,7 +54,7 @@ export default function ProductList() {
         <section className="contents-list">
           <div className="sub-category">
             <h1>
-              {productList[0].subcategory}
+              {productList.subcategory}
               <span>{productList.length}개의 제품</span>
             </h1>
           </div>
@@ -77,15 +82,17 @@ export default function ProductList() {
             <div className="right-filter">
               <ul className="filter-list">
                 {SORT.map((sortMehtod, idx) => (
-                  <li key={idx}>
+                  <li key={sortMehtod.id}>
                     <button
-                      value={idx}
+                      value={sortMehtod.id}
                       onClick={e => {
                         setIsSelected(e.target.value);
                       }}
-                      className={idx === parseInt(isSelected) ? 'selected' : ''}
+                      className={
+                        sortMehtod.id === parseInt(isSelected) ? 'selected' : ''
+                      }
                     >
-                      {sortMehtod}
+                      {sortMehtod.title}
                     </button>
                   </li>
                 ))}
