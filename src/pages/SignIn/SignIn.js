@@ -19,12 +19,6 @@ export default function SignIn() {
     address: '',
   });
 
-  const [isOnlineTermOpen, setIsOnlineTermOpen] = useState(false);
-  const [personalInfoOpen, setpersonalInfoOpen] = useState(false);
-  const [membershipOpen, setmembershipOpen] = useState(false);
-
-  const [checkedList, setCheckedLists] = useState([]);
-
   const navigate = useNavigate();
 
   const [checkList, setCheckList] = useState({
@@ -34,18 +28,38 @@ export default function SignIn() {
     membership: false,
   });
 
-  const { age, online, personal, membership } = checkList;
+  const onCheckedAll = () => {
+    const valueArr = Object.values(checkList).every(el => el === true);
+    let newObj = {};
+    if (valueArr) {
+      for (let key in checkList) {
+        newObj = { ...newObj, [key]: false };
+      }
+    } else {
+      for (let key in checkList) {
+        newObj = { ...newObj, [key]: true };
+      }
+    }
+    setCheckList(newObj);
+  };
 
   const handleCheck = e => {
+    const { name, checked } = e.target;
     setCheckList(prev => ({
       ...prev,
-      [e.target.name]: e.target.checked,
+      [name]: checked,
     }));
   };
 
-  const [ageCheck, setAgeCheck] = useState(false);
+  const [checkTermsOpen, setCheckTermsOpen] = useState({
+    online: false,
+    personal: false,
+    membership: false,
+  });
 
-  console.log(age);
+  const handleTerm = name => {
+    setCheckTermsOpen(prev => ({ ...prev, [name]: !checkTermsOpen[name] }));
+  };
 
   const {
     userName,
@@ -62,37 +76,6 @@ export default function SignIn() {
 
   const isPwValid1 = PW_TYPE_REG_EXP.test(password);
   const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
-
-  const dataLists = [
-    { id: 'term-check-2', data: '[필수] 만 14세 이상' },
-    { id: 'term-check-3', data: '[필수] 온라인사이트 이용약관' },
-    { id: 'term-check-4', data: '[필수] 개인정보 수집 및 이용동의' },
-    { id: 'term-check-5', data: '[필수] 멤버십 이용약관' },
-  ];
-
-  const onCheckedAll = useCallback(
-    checked => {
-      if (checked) {
-        const checkedListArray = [];
-        dataLists.forEach(list => checkedListArray.push(list));
-        setCheckedLists(checkedListArray);
-      } else {
-        setCheckedLists([]);
-      }
-    },
-    [dataLists]
-  );
-
-  const onCheckedElement = useCallback(
-    (checked, list) => {
-      if (checked) {
-        setCheckedLists([...checkedList, list]);
-      } else {
-        setCheckedLists(checkedList.filter(el => el !== list));
-      }
-    },
-    [checkedList]
-  );
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -244,13 +227,7 @@ export default function SignIn() {
                 id="term-check"
                 type="checkbox"
                 onChange={onCheckedAll}
-                checked={
-                  checkedList.length === 0
-                    ? false
-                    : checkedList.length === dataLists.length
-                    ? true
-                    : false
-                }
+                checked={Object.values(checkList).every(el => el === true)}
               />
               <label htmlFor="term-check" className="term-check-all-text">
                 [필수] 전체동의
@@ -258,111 +235,40 @@ export default function SignIn() {
             </div>
 
             <ul className="term-list-box">
-              <li className="term-list">
-                <input
-                  id="term-check-2"
-                  type="checkbox"
-                  name="age"
-                  checked={age}
-                  onChange={handleCheck}
-                />
-                <label htmlFor="term-check-2" className="term-check-text">
-                  [필수] 만 14세 이상
-                </label>
-              </li>
-
-              <li className="term-list">
-                <div className="agree-top">
-                  <input id="term-check-3" type="checkbox" />
-                  <label htmlFor="term-check-3" className="term-check-text">
-                    [필수] 온라인사이트 이용약관
-                  </label>
-                  <button
-                    className={`btn-accordion ${
-                      isOnlineTermOpen ? 'open' : ''
-                    }`}
-                    type="button"
-                    onClick={() => setIsOnlineTermOpen(prev => !prev)}
-                  />
-                </div>
-                {isOnlineTermOpen && (
-                  <div class="online-term">
-                    <p className="online-term-title">제1조 (목적)</p>
-                    <p className="online-term-contents">{TERMS.object}</p>
-                    <p className="online-term-title">제2조 (정의)</p>
-                    <p className="online-term-contents">{TERMS.justify}</p>
-                  </div>
-                )}
-              </li>
-
-              <li className="term-list">
-                <div className="agree-top">
-                  <input id="term-check-4" type="checkbox" />
-                  <label htmlFor="term-check-4" className="term-check-text">
-                    [필수] 개인정보 수집 및 이용동의
-                  </label>
-                  <button
-                    className={`btn-accordion ${
-                      personalInfoOpen ? 'open' : ''
-                    }`}
-                    type="button"
-                    onClick={() => setpersonalInfoOpen(prev => !prev)}
-                  />
-                </div>
-                {personalInfoOpen && (
-                  <div class="online-term">
-                    <p className="online-term-contents">
-                      {TERMS.objectPersonal}
-                    </p>
-                    <p className="online-term-title">
-                      1. 수집하는 개인정보 항목 및 수집방법
-                    </p>
-                    <p className="online-term-subtitle">
-                      (1) 개인정보의 수집항목
-                    </p>
-                    <p className="online-term-contents">
-                      {TERMS.justifyPersonal}
-                    </p>
-                    <p className="online-term-contents-inner">[멤버십 회원]</p>
-                    <p className="online-term-contents">
-                      {TERMS.justifyPersonalRequried}
-                    </p>
-                    <p className="online-term-contents">
-                      {TERMS.justifyPersonalOption}
-                    </p>
-                  </div>
-                )}
-              </li>
-
-              <li className="term-list">
-                <div className="agree-top">
-                  <input id="term-check-5" type="checkbox" />
-                  <label htmlFor="term-check-5" className="term-check-text">
-                    [필수] 멤버십 이용약관
-                  </label>
-                  <button
-                    className={`btn-accordion ${membershipOpen ? 'open' : ''}`}
-                    type="button"
-                    onClick={() => setmembershipOpen(prev => !prev)}
-                  />
-                </div>
-                {membershipOpen && (
-                  <div class="membership-term">
-                    <p className="mebership-term-contents">제1장 총칙</p>
-                    <p className="membership-term-title">제1조 (목적)</p>
-                    <p className="membership-term-contents">
-                      {TERMS.objectMembership}
-                    </p>
-                    <p className="membership-term-title">제2조 (정의)</p>
-                    <p className="membership-term-contents">
-                      {TERMS.justifyMembership}
-                    </p>
-                    <p className="membership-term-contents">
-                      {TERMS.justifyMembershipSecond}
-                    </p>
-                  </div>
-                )}
-              </li>
+              {TERMS_LIST.map(({ id, className, data, name, isNeedToggle }) => {
+                return (
+                  <li className="term-list" key={id}>
+                    <div className="agree-top">
+                      <input
+                        id={className}
+                        type="checkbox"
+                        name={name}
+                        checked={checkList[name]}
+                        onChange={handleCheck}
+                      />
+                      <label htmlFor={className} className="term-check-text">
+                        {data}
+                      </label>
+                      {isNeedToggle && (
+                        <div
+                          className={`btn-accordion ${
+                            checkTermsOpen[name] ? 'open' : ''
+                          }`}
+                          onClick={() => handleTerm(name)}
+                        />
+                      )}
+                    </div>
+                    {checkTermsOpen[name] && (
+                      <div class="online-term">
+                        <p className="online-term-title">제1조 (목적)</p>
+                        <p className="online-term-contents">{TERMS.object}</p>
+                        <p className="online-term-title">제2조 (정의)</p>
+                        <p className="online-term-contents">{TERMS.justify}</p>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="join-button-box">
@@ -381,4 +287,35 @@ const USERINFO_LIST = [
   { id: 2, title: '휴대폰 번호', name: 'phoneNumber', type: 'text' },
   { id: 3, title: '이메일', name: 'email', type: 'email' },
   { id: 4, title: '주소', name: 'address', type: 'text' },
+];
+
+const TERMS_LIST = [
+  {
+    id: 1,
+    className: 'term-check-2',
+    data: '[필수] 만 14세 이상',
+    name: 'age',
+    isNeedToggle: false,
+  },
+  {
+    id: 2,
+    className: 'term-check-3',
+    data: '[필수] 온라인사이트 이용약관',
+    name: 'online',
+    isNeedToggle: true,
+  },
+  {
+    id: 3,
+    className: 'term-check-4',
+    data: '[필수] 개인정보 수집 및 이용동의',
+    name: 'personal',
+    isNeedToggle: true,
+  },
+  {
+    id: 4,
+    className: 'term-check-5',
+    data: '[필수] 멤버십 이용약관',
+    name: 'membership',
+    isNeedToggle: true,
+  },
 ];
