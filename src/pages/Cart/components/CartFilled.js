@@ -45,6 +45,52 @@ const CartFilled = () => {
           </div>
         </div>
       </div>
+
+      <div className="order-amount-box">
+        <div className="left-sub-box">
+          <p className="left-title">스토어 주문금액 합계</p>
+          <p className="left-sub-title">상품금액 + 배송비 - 할인금액</p>
+        </div>
+        <div className="right-sub-box">
+          <p>1,680,000원</p>
+          <p>39,900원 이상 무료배송</p>
+        </div>
+      </div>
+
+      <div className="bottom-order-amount-box">
+        <div className="amount-header">결제 예정 금액 총 1건</div>
+        <div className="total-amount">
+          <div className="amount-price">
+            <p>1,680,000원</p>
+            <p>상품금액</p>
+          </div>
+          <div className="amount-price">
+            <p>1,680,000원</p>
+            <p>상품금액</p>
+          </div>
+          <div className="amount-delivery">
+            <p>0원</p>
+            <p>배송비</p>
+          </div>
+          <div className="amount-discount">
+            <p>0원</p>
+            <p>할인금액</p>
+          </div>
+          <div className="amount">
+            <p>,1,680,000원</p>
+            <p>총 주문금액</p>
+          </div>
+          <div className="amount-sign-box">
+            <div className="amount-sign">+</div>
+            <div className="amount-sign">-</div>
+            <div className="amount-sign">=</div>
+          </div>
+          <div className="amount-price">1,680,000원 0원 0원 1,680,000원</div>
+        </div>
+        <button className="order-button" type="button">
+          주문하기
+        </button>
+      </div>
     </div>
   );
 };
