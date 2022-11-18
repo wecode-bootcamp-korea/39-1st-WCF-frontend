@@ -27,6 +27,26 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
+  const [checkList, setCheckList] = useState({
+    age: false,
+    online: false,
+    personal: false,
+    membership: false,
+  });
+
+  const { age, online, personal, membership } = checkList;
+
+  const handleCheck = e => {
+    setCheckList(prev => ({
+      ...prev,
+      [e.target.name]: e.target.checked,
+    }));
+  };
+
+  const [ageCheck, setAgeCheck] = useState(false);
+
+  console.log(age);
+
   const {
     userName,
     password,
@@ -44,10 +64,10 @@ export default function SignIn() {
   const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
 
   const dataLists = [
-    { id: term-check-2, data: '[필수] 만 14세 이상' },
-    { id: term-check-3, data: '[필수] 온라인사이트 이용약관' },
-    { id: term-check-4, data: '[필수] 개인정보 수집 및 이용동의' },
-    { id: term-check-5, data: '[필수] 멤버십 이용약관' },
+    { id: 'term-check-2', data: '[필수] 만 14세 이상' },
+    { id: 'term-check-3', data: '[필수] 온라인사이트 이용약관' },
+    { id: 'term-check-4', data: '[필수] 개인정보 수집 및 이용동의' },
+    { id: 'term-check-5', data: '[필수] 멤버십 이용약관' },
   ];
 
   const onCheckedAll = useCallback(
@@ -68,12 +88,11 @@ export default function SignIn() {
       if (checked) {
         setCheckedLists([...checkedList, list]);
       } else {
-        setCheckedLists(checkedList.filter((el) => el !== list));
+        setCheckedLists(checkedList.filter(el => el !== list));
       }
     },
     [checkedList]
   );
-};
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -202,52 +221,21 @@ export default function SignIn() {
               />
             </div>
           </label>
-
-          <label className="signin-box">
-            <div className="signin-box-in">
-              <div className="signin-text required">이름</div>
-              <input
-                className="signin-input"
-                name="name"
-                onChange={handleInput}
-              />
-            </div>
-          </label>
-
-          <label className="signin-box">
-            <div className="signin-box-in">
-              <div className="signin-text required">휴대폰 번호</div>
-              <input
-                className="signin-input"
-                name="phoneNumber"
-                onChange={handleInput}
-              />
-            </div>
-          </label>
-
-          <label className="signin-box">
-            <div className="signin-box-in">
-              <div className="signin-text required">이메일</div>
-              <input
-                className="signin-input"
-                type="email"
-                name="email"
-                onChange={handleInput}
-              />
-            </div>
-          </label>
-
-          <label className="signin-box">
-            <div className="signin-box-in">
-              <div className="signin-text">주소</div>
-              <input
-                className="signin-input"
-                type="text"
-                name="address"
-                onChange={handleInput}
-              />
-            </div>
-          </label>
+          {USERINFO_LIST.map(list => {
+            return (
+              <label className="signin-box" key={list.id}>
+                <div className="signin-box-in">
+                  <div className="signin-text required">{list.title}</div>
+                  <input
+                    className="signin-input"
+                    name={list.name}
+                    onChange={handleInput}
+                    type={list.type}
+                  />
+                </div>
+              </label>
+            );
+          })}
 
           <div className="term-box">
             <h2 className="term-title">이용약관 동의</h2>
@@ -269,38 +257,15 @@ export default function SignIn() {
               </label>
             </div>
 
-          <ul className="term-list-box">
-            {dataLists.map(list => (
-              <li className='term-list'>
-                <label htmlFor={list.id} className="term-check-text">
-              <input
-              id={list.id}
-              key={list.id}
-              type="checkbox"
-              onChange={e => onCheckedElement(e.target.checked, list)}
-              checked={checkedList.includes(list) ? true : false}
-              />
-              </label>
-              <button
-                    className={`btn-accordion ${membershipOpen ? 'open' : ''}`}
-                    type="button"
-                    onClick={() => setmembershipOpen(prev => !prev)}
-                  />
-              </li>
-              {list.map((item) => {
-              <div class="online-term">
-                <p className="online-term-title">제1조 (목적)</p>
-                <p className="online-term-contents">{TERMS.object}</p>
-                <p className="online-term-title">제2조 (정의)</p>
-                <p className="online-term-contents">{TERMS.justify}</p>
-              </div>
-              }}
-            ))}
-            </ul>
-
             <ul className="term-list-box">
               <li className="term-list">
-                <input id="term-check-2" type="checkbox" />
+                <input
+                  id="term-check-2"
+                  type="checkbox"
+                  name="age"
+                  checked={age}
+                  onChange={handleCheck}
+                />
                 <label htmlFor="term-check-2" className="term-check-text">
                   [필수] 만 14세 이상
                 </label>
@@ -410,3 +375,10 @@ export default function SignIn() {
     </main>
   );
 }
+
+const USERINFO_LIST = [
+  { id: 1, title: '이름', name: 'name', type: 'text' },
+  { id: 2, title: '휴대폰 번호', name: 'phoneNumber', type: 'text' },
+  { id: 3, title: '이메일', name: 'email', type: 'email' },
+  { id: 4, title: '주소', name: 'address', type: 'text' },
+];
