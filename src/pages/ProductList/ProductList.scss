@@ -45,6 +45,7 @@
       li {
         display: inline-block;
       }
+
       button {
         display: block;
         height: 40px;
@@ -55,12 +56,20 @@
         color: $color-gray700;
         font-size: 15px;
         line-height: 38px;
-      }
-      button:after {
-        content: '\f107';
-        padding-left: 10px;
-        font-family: 'Font Awesome 5 Free', sans-serif;
-        font-weight: 900;
+
+        &:after {
+          content: '\f107';
+          padding-left: 10px;
+          font-family: 'Font Awesome 5 Free', sans-serif;
+          font-weight: 900;
+        }
+
+        &.current::after {
+          content: '\f106';
+          padding-left: 10px;
+          font-family: 'Font Awesome 5 Free', sans-serif;
+          font-weight: 900;
+        }
       }
     }
   }
