@@ -1,29 +1,16 @@
-[
-  {
-    "id": 1,
-    "serialNumber": "brand1",
-    "brandId": "productName1",
-    "title": "title1",
-    "discount": 10,
-    "size": ["S", "M", "L"],
-    "price": 100000
-  },
-  {
-    "id": 2,
-    "serialNumber": "brand2",
-    "brandId": "productName2",
-    "title": "title2",
-    "discount": 20,
-    "size": ["S", "M", "L"],
-    "price": 200000
-  },
-  {
-    "id": 3,
-    "serialNumber": "brand3",
-    "brandId": "productName3",
-    "title": "title3",
-    "discount": 30,
-    "size": ["S", "M", "L"],
-    "price": 300000
-  }
-]
+{
+  "id": "1",
+  "subcategory": "SALE",
+  "title": "인도풍 원피스",
+  "price": 40000,
+  "brand": "7 seconds",
+  "size": [
+    { "id": 1, "size": "XS" },
+    { "id": 2, "size": "S" },
+    { "id": 3, "size": "M" },
+    { "id": 4, "size": "L" },
+    { "id": 5, "size": "XL" }
+  ],
+  "discount": 10,
+  "src": "https://images.unsplash.com/photo-1615887329889-a67219ec25dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=629&q=80"
+}

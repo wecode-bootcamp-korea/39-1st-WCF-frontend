@@ -5,8 +5,13 @@ export default function Size(props) {
   return (
     <li>
       <span className="check-box">
-        <input type="radio" id="size-s" name="size" className="hidden" />
-        <label htmlFor="size-s">S</label>
+        <input
+          type="radio"
+          id={`size-` + props.data}
+          name="size"
+          className="hidden"
+        />
+        <label htmlFor={`size-` + props.data}>{props.data}</label>
       </span>
     </li>
   );

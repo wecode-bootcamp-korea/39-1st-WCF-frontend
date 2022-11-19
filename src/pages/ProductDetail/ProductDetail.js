@@ -4,15 +4,16 @@ import Size from './Size/Size';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
+  // 상품 전체 데이터
+  const [productData, setProductData] = useState({});
+
   useEffect(() => {
     fetch('/data/productDetailMockData.json')
       .then(response => response.json())
       .then(result => {
-        setProductData(result[0]);
-      }); // 상세데이터를 목데이터의 0번째 인덱스라 가정
+        setProductData(result);
+      });
   }, []);
-  // 상품 전체 데이터
-  const [productData, setProductData] = useState({});
 
   return (
     <main className="container product-detail">
@@ -20,7 +21,7 @@ export default function ProductDetail() {
         <div className="inner-small">
           <div className="product-img-area">
             <div className="product-main-img">
-              <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
+              <img src={productData.src} alt="티셔츠" />
             </div>
             <ul className="product-img-list">
               <li className="active">
@@ -48,11 +49,11 @@ export default function ProductDetail() {
           </div>
           <div className="product-data-area">
             <div className="product-name-link">
-              <Link to="/">Beanpole Ladies</Link>
+              <Link to="/">{productData.brand}</Link>
             </div>
             <div className="product-detail-area">
               <div className="product-detail-tit">
-                <strong className="tit">블랙 경량 다운 재킷</strong>
+                <strong className="tit">{productData.title}</strong>
                 <div className="share-box">
                   <button className="btn share">
                     <span className="hidden">공유</span>
@@ -88,11 +89,15 @@ export default function ProductDetail() {
               </div>
               <div className="product-price-area">
                 <div className="price-box">
-                  <b className="price">323,100</b>
-                  <span className="price-cancel">354,100</span>
+                  <b className="price">
+                    {productData.price &&
+                      productData.price -
+                        productData.price / productData.discount}
+                  </b>
+                  <span className="price-cancel">{productData.price}</span>
                 </div>
                 <div className="discount-box">
-                  <b className="percent">10%</b>
+                  <b className="percent">{productData.discount}%</b>
                   <button className="btn-tooltip">
                     <span className="hidden">툴팁</span>
                   </button>
@@ -167,9 +172,11 @@ export default function ProductDetail() {
               <div className="product-selector-area type-size">
                 <strong className="tit">사이즈</strong>
                 <ul className="select-list">
-                  <Size />;
-                  {/*
-                  <li>
+                  {productData.size &&
+                    productData.size.map(elem => {
+                      return <Size data={elem.size} key={elem.id} />;
+                    })}
+                  {/* <li>
                     <span className="check-box">
                       <input
                         type="radio"
@@ -202,8 +209,7 @@ export default function ProductDetail() {
                       />
                       <label htmlFor="size-l">L</label>
                     </span>
-                  </li>
-                  */}
+                  </li> */}
                 </ul>
               </div>
               <div className="product-selector-area type-send">
