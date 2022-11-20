@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ImgARea(props) {
-  const [isImgStatus, setImgStatus] = useState('');
+  const [isImgStatus, setImgStatus] = useState(0);
+  const [mainImg, setMainImg] = useState();
 
-  function currentImgShow(e) {
-    console.log(e.currentTarget);
-    setImgStatus('');
-    e.currentTarget.className = 'active';
+  useEffect(() => {
+    setMainImg(props.productData.images && props.productData.images[0].url);
+  }, [props]);
+
+  function currentImgShow(list, i) {
+    setImgStatus(i);
+    setMainImg(list.url);
   }
 
   return (
     <div className="product-img-area">
       <div className="product-main-img">
-        <img src={props.productData.thumbnail} alt="티셔츠" />
+        <img src={mainImg} />
       </div>
       <ul className="product-img-list">
         {props.productData.images &&
-          props.productData.images.map(list => {
+          props.productData.images.map((list, i) => {
             return (
               <li
                 key={list.id}
-                className={isImgStatus}
-                onClick={currentImgShow}
+                className={isImgStatus == i ? 'active' : ''}
+                onClick={() => currentImgShow(list, i)}
               >
-                <img src={list.url} alt={list.alt} />
+                <img src={list.url} alt={`이미지_ ${list.id}`} />
               </li>
             );
           })}
