@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "src": "https://img.ssfshop.com/cmd/LB_500x660/src/https://img.ssfshop.com/goods/ECBR/22/10/12/GM0022101270912_0_ORGINL_20221014205711846.jpg",
+    "brand": "kojho plus",
+    "title": "[예약상품] 💙안소희착용💙  Crop Duffle Coat - Navy",
+    "size": "6",
+    "count": 3,
+    "color": "white",
+    "name": "상품명",
+    "price": 12800
+  },
+  {
+    "id": 2,
+    "src": "https://img.ssfshop.com/cmd/RB_100x132/src/https://img.ssfshop.com/goods/LUXR/22/10/20/GPVY22102097578_0_ORGINL_20221020134711269.jpg",
+    "brand": "brand2",
+    "title": "브랜드에 대한 설명 입니다 2",
+    "size": "2",
+    "count": 2,
+    "name": "상품명2",
+    "price": 19000
+  },
+  {
+    "id": 3,
+    "src": "https://img.ssfshop.com/cmd/LB_500x660/src/https://img.ssfshop.com/goods/LUXR/22/11/04/GQJD22110401706_0_ORGINL_20221104104119934.jpg",
+    "brand": "brand3",
+    "title": "브랜드에 대한 설명 입니다 3",
+    "size": "1",
+    "count": 5,
+    "color": "red",
+    "name": "상품명3",
+    "price": 21000
+  },
+  {
+    "id": 4,
+    "src": "https://img.ssfshop.com/cmd/LB_500x660/src/https://img.ssfshop.com/goods/ORBR/22/05/23/GPNI22052364902_0_ORGINL_20220523150656762.jpg",
+    "brand": "brand4",
+    "title": "브랜드에 대한 설명 입니다 4",
+    "size": "9",
+    "count": 8,
+    "name": "상품명4",
+    "price": 13400
+  }
+]

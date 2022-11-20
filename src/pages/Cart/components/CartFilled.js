@@ -1,95 +1,182 @@
-import React from 'react';
-import './CartFilled.scss';
+import React, { useState, useEffect, useCallback } from 'react';
+import '../Cart.scss';
 
 const CartFilled = () => {
+  const [cartData, setCartData] = useState([]);
+
+  const [checkList, setCheckList] = useState({});
+
+  // const nameData = () => {
+  //   for (let i = 0; i < cartData.length; i++) {
+  //     setCheckList((checkList[cartData[i].name] = false));
+  //   }
+  //   return checkList;
+  // };
+
+  // nameData();
+  // console.log(checkList);
+
+  const onCheckedAll = () => {
+    const valueArr = Object.values(checkList).every(el => el === true);
+    let newObj = {};
+    if (valueArr) {
+      for (let key in checkList) {
+        newObj = { ...newObj, [key]: false };
+      }
+    } else {
+      for (let key in checkList) {
+        newObj = { ...newObj, [key]: true };
+      }
+    }
+    setCheckList(newObj);
+  };
+
+  const handleCheck = e => {
+    const { name, checked } = e.target;
+    setCheckList(prev => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
+  useEffect(() => {
+    fetch('/data/CartData.json')
+      .then(res => res.json())
+      .then(data => setCartData(data));
+  }, []);
+
   return (
     <div className="container cartfilled">
-      <div className="top">
-        <input id="check-all" type="checkbox" />
-        <label for="check-all">전체선택</label>
+      <div className="cartfilled-top">
+        <div className="top-left">
+          <input
+            id="checked-all"
+            type="checkbox"
+            className="check"
+            onChange={onCheckedAll}
+            checked={Object.values(checkList).every(el => el === true)}
+          />
+          <label htmlFor="checked-all" className="check-all">
+            전체선택
+          </label>
+        </div>
+        <button className="delete-chosen-goods">선택 상품 삭제</button>
       </div>
+      <div className="cart-data-box">
+        {cartData.map(item => (
+          <div className="cart-data" key={item.id}>
+            <div className="header">
+              <div className="goods-info">상품・혜택정보</div>
+              <div className="shipping-info">배송정보</div>
+              <div className="ordered-price">주문금액</div>
+            </div>
+            <div className="info">
+              <div className="info-left">
+                <input
+                  type="checkbox"
+                  name={item.name}
+                  className="check-goods"
+                  value={item.price}
+                  checked={checkList[item.name]}
+                  onChange={handleCheck}
+                />
+                <img src={item.src} alt="사진" />
+                <div className="goods-infomation">
+                  <p className="info-title">{item.brand}</p>
+                  <p className="info-detail">{item.title}</p>
+                  <p className="info-option">
+                    {item.color ? `${item.color} /` : null} {item.size} /{' '}
+                    {item.count}개
+                  </p>
+                  <button type="button" className="option-quantity-change">
+                    옵션/수량 변경
+                  </button>
+                </div>
+              </div>
 
-      <div className="goods-list">
-        <div className="header">
-          <div>상품 혜택정보</div>
-          <div>베송정보</div>
-          <div>주문금액</div>
-        </div>
+              <div className="info-middle-right">
+                <div className="info-middle">
+                  <p className="free-delivery">무료배송</p>
+                  <p className="release">내일 출고 예정</p>
+                </div>
 
-        <div className="buttons">
-          <input type="checkbox" />
-          <button type="button" className="delete">
-            엑스
-          </button>
-          <button type="button" className="buy-now">
-            바로구매
-          </button>
-        </div>
+                <div className="info-right">
+                  <p className="total-price">
+                    {[item.price]
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    원
+                  </p>
+                  <button type="button" className="buy-now">
+                    바로구매
+                  </button>
+                </div>
+              </div>
 
-        <div className="info">
-          <div className="info-left">
-            <img src="#" />
-            <div className="goods-info">
-              <p>LEMAIR</p>
-              <p>(UNISEX) Small Croissant Bag - Dark Chocolate</p>
-              <p>진한갈색 / F / 1개</p>
-              <button type="button">옵션/수량 변경</button>
+              <button type="button" className="delete-goods">
+                <span className="delete-goods-text">엑스</span>
+              </button>
+            </div>
+
+            <div className="order-amount-box-wrap">
+              <div className="order-amount-box">
+                <div className="left-sub-box">
+                  <p className="left-title">스토어 주문금액 합계</p>
+                  <p className="left-sub-title">
+                    상품금액
+                    {[item.price]
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    원+ 배송비 0원 - 할인금액 0원
+                  </p>
+                </div>
+                <div className="right-sub-box">
+                  <p className="price">
+                    {[item.price]
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    원
+                  </p>
+                  <p className="shipping">무료배송</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="info-middle">
-            <p>무료배송</p>
-            <p>내일 출고 예정</p>
-          </div>
-          <div className="info-right">
-            <p>1,680,000원</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="order-amount-box">
-        <div className="left-sub-box">
-          <p className="left-title">스토어 주문금액 합계</p>
-          <p className="left-sub-title">상품금액 + 배송비 - 할인금액</p>
-        </div>
-        <div className="right-sub-box">
-          <p>1,680,000원</p>
-          <p>39,900원 이상 무료배송</p>
-        </div>
+        ))}
       </div>
 
       <div className="bottom-order-amount-box">
         <div className="amount-header">결제 예정 금액 총 1건</div>
         <div className="total-amount">
-          <div className="amount-price">
-            <p>1,680,000원</p>
-            <p>상품금액</p>
+          <div className="goods-amount-price">
+            <p className="amount-price">{cartData.prcie}원</p>
+            <p className="price-text">상품금액</p>
           </div>
-          <div className="amount-price">
-            <p>1,680,000원</p>
-            <p>상품금액</p>
+          <div className="amount-delivery-box">
+            <div className="amount-sign-plus">+</div>
+            <div className="amount-delivery">
+              <p className="delivery-price">0원</p>
+              <p className="delivery-text">배송비</p>
+            </div>
           </div>
-          <div className="amount-delivery">
-            <p>0원</p>
-            <p>배송비</p>
+          <div className="amount-discount-box">
+            <div className="amount-sign-minus">-</div>
+            <div className="amount-discount">
+              <p className="discount-price">0원</p>
+              <p className="discount-text">할인금액</p>
+            </div>
           </div>
-          <div className="amount-discount">
-            <p>0원</p>
-            <p>할인금액</p>
+          <div className="total-amounts-box">
+            <div className="amount-sign-total">=</div>
+            <div className="total-amounts">
+              <p className="total-amounts-price">1,680,000원</p>
+              <p className="total-amounts-text">총 주문금액</p>
+            </div>
           </div>
-          <div className="amount">
-            <p>,1,680,000원</p>
-            <p>총 주문금액</p>
-          </div>
-          <div className="amount-sign-box">
-            <div className="amount-sign">+</div>
-            <div className="amount-sign">-</div>
-            <div className="amount-sign">=</div>
-          </div>
-          <div className="amount-price">1,680,000원 0원 0원 1,680,000원</div>
         </div>
-        <button className="order-button" type="button">
-          주문하기
-        </button>
+        <div className="order-button-box">
+          <button className="order-button">주문하기</button>
+        </div>
       </div>
     </div>
   );

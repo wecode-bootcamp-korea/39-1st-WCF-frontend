@@ -5,14 +5,18 @@ import './Cart.scss';
 export default function Cart() {
   return (
     <main className="container cart">
-      <h1>장바구니</h1>
+      <div className="cart-box">
+        <div className="cart">
+          <h1>장바구니</h1>
+        </div>
+      </div>
       <section className="cart-container">
         <div className="order-box">
           <CartFilled />
-          <span className="basket-img-box">
+          <span className="basket-img-box hidden">
             <span className="basket-img">장바구니</span>
           </span>
-          <p className="cart-empty">장바구니에 담긴 상품이 없습니다.</p>
+          <p className="cart-empty hidden-">장바구니에 담긴 상품이 없습니다.</p>
         </div>
         <ul className="cart-info-list">
           <li className="cart-info dot">
