@@ -1,16 +1,64 @@
 {
-  "id": "1",
-  "subcategory": "SALE",
-  "title": "인도풍 원피스",
-  "price": 40000,
-  "brand": "7 seconds",
-  "size": [
-    { "id": 1, "size": "XS" },
-    { "id": 2, "size": "S" },
-    { "id": 3, "size": "M" },
-    { "id": 4, "size": "L" },
-    { "id": 5, "size": "XL" }
-  ],
-  "discount": 10,
-  "src": "https://images.unsplash.com/photo-1615887329889-a67219ec25dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=629&q=80"
+  "data": [
+    {
+      "id": 1,
+      "title": "outer1",
+      "brand": "7 seconds",
+      "price": 13000,
+      "thumbnail": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+      "images": [
+        {
+          "id": 1,
+          "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+          "alt": "이미지1"
+        },
+        {
+          "id": 2,
+          "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+          "alt": "이미지2"
+        },
+        {
+          "id": 3,
+          "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+          "alt": "이미지3"
+        },
+        {
+          "id": 4,
+          "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+          "alt": "이미지4"
+        },
+        {
+          "id": 5,
+          "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+          "alt": "이미지5"
+        }
+      ],
+      "size": [
+        {
+          "id": 6,
+          "size": "XXL"
+        },
+        {
+          "id": 5,
+          "size": "XL"
+        },
+        {
+          "id": 4,
+          "size": "L"
+        },
+        {
+          "id": 3,
+          "size": "M"
+        },
+        {
+          "id": 2,
+          "size": "S"
+        },
+        {
+          "id": 1,
+          "size": "XS"
+        }
+      ]
+    }
+  ]
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ImgArea from './ImgArea/ImgArea';
 import Size from './Size/Size';
 import './ProductDetail.scss';
 
@@ -11,7 +12,7 @@ export default function ProductDetail() {
     fetch('/data/productDetailMockData.json')
       .then(response => response.json())
       .then(result => {
-        setProductData(result);
+        setProductData(result.data[0]);
       });
   }, []);
 
@@ -19,9 +20,10 @@ export default function ProductDetail() {
     <main className="container product-detail">
       <section className="section section-detail">
         <div className="inner-small">
-          <div className="product-img-area">
+          <ImgArea productData={productData} />
+          {/* <div className="product-img-area">
             <div className="product-main-img">
-              <img src={productData.src} alt="티셔츠" />
+              <img src={productData.thumbnail} alt="티셔츠" />
             </div>
             <ul className="product-img-list">
               <li className="active">
@@ -46,7 +48,7 @@ export default function ProductDetail() {
                 <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="product-data-area">
             <div className="product-name-link">
               <Link to="/">{productData.brand}</Link>
@@ -89,11 +91,7 @@ export default function ProductDetail() {
               </div>
               <div className="product-price-area">
                 <div className="price-box">
-                  <b className="price">
-                    {productData.price &&
-                      productData.price -
-                        productData.price / productData.discount}
-                  </b>
+                  <b className="price">10000</b>
                   <span className="price-cancel">{productData.price}</span>
                 </div>
                 <div className="discount-box">
