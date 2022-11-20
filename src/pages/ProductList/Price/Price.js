@@ -8,14 +8,18 @@ const PRICE = [
   { id: 4, name: '40,000 ~ 50,000' },
 ];
 
-export default function Price() {
-  const [selectedPrice, setSelectedPrice] = useState([]);
-
+export default function Price({ setSelectedAllFilter, selectedFilter }) {
   const handleCheckbox = e => {
     const { checked, value } = e.target;
     checked
-      ? setSelectedPrice([...selectedPrice, Number(value)])
-      : setSelectedPrice(selectedPrice.filter(el => el !== Number(value)));
+      ? setSelectedAllFilter({
+          ...selectedFilter,
+          selectedPrice: [...selectedFilter, value],
+        })
+      : setSelectedAllFilter({
+          ...selectedFilter,
+          selectedPrice: selectedFilter.filter(el => el !== value),
+        });
   };
 
   return (
@@ -26,8 +30,8 @@ export default function Price() {
             <li key={idx}>
               <input
                 type="checkbox"
-                value={price.id}
-                checked={selectedPrice.includes(price.id)}
+                value={price.name}
+                checked={selectedFilter.includes(price.name)}
                 onChange={handleCheckbox}
               />
               <span>{price.name}</span>

@@ -10,14 +10,18 @@ const SIZE = [
   { id: 6, name: 'XXL' },
 ];
 
-export default function Size() {
-  const [selectedSize, setSelectedSize] = useState([]);
-
+export default function Size({ setSelectedAllFilter, selectedFilter }) {
   const handleCheckbox = e => {
     const { checked, value } = e.target;
     checked
-      ? setSelectedSize([...selectedSize, Number(value)])
-      : setSelectedSize(selectedSize.filter(el => el !== Number(value)));
+      ? setSelectedAllFilter({
+          ...selectedFilter,
+          selectedSize: [...selectedFilter, value],
+        })
+      : setSelectedAllFilter({
+          ...selectedFilter,
+          selectedSize: selectedFilter.filter(el => el !== value),
+        });
   };
 
   return (
@@ -29,8 +33,8 @@ export default function Size() {
               <span>
                 <input
                   type="checkbox"
-                  value={size.id}
-                  checked={selectedSize.includes(size.id)}
+                  value={size.name}
+                  checked={selectedFilter.includes(size.name)}
                   onChange={handleCheckbox}
                 />
                 <span>{size.name}</span>

@@ -9,9 +9,8 @@ const BRAND = [
   { id: 5, name: 'Matin Ku' },
 ];
 
-function Brand() {
+function Brand({ setSelectedAllFilter, selectedFilter }) {
   const [filterList, setFilterList] = useState(BRAND);
-  const [selectedBrand, setSelectedBrand] = useState([]);
 
   const searchBrand = e => {
     const filterBrand = BRAND.filter(brand =>
@@ -22,8 +21,14 @@ function Brand() {
   const handleCheckbox = e => {
     const { checked, value } = e.target;
     checked
-      ? setSelectedBrand([...selectedBrand, Number(value)])
-      : setSelectedBrand(selectedBrand.filter(el => el !== Number(value)));
+      ? setSelectedAllFilter({
+          ...selectedFilter,
+          selectedBrand: [...selectedFilter, value],
+        })
+      : setSelectedAllFilter({
+          ...selectedFilter,
+          selectedBrand: selectedFilter.filter(el => el !== value),
+        });
   };
 
   return (
@@ -43,8 +48,8 @@ function Brand() {
               <li key={idx}>
                 <input
                   type="checkbox"
-                  value={brand.id}
-                  checked={selectedBrand.includes(brand.id)}
+                  value={brand.name}
+                  checked={selectedFilter.includes(brand.name)}
                   onChange={handleCheckbox}
                 />
                 <span>{brand.name}</span>
