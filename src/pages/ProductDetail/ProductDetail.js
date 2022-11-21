@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ImgArea from './ImgArea/ImgArea';
-import Quantity from './Quantity/Quantity';
-import Size from './Size/Size';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
   // 상품 전체 데이터
   const [productData, setProductData] = useState({});
-  const [productNum, setProductNUm] = useState(1);
+  //수량갯수
+  const [quantityNum, setQuantityNum] = useState(1);
 
   useEffect(() => {
     fetch('/data/productDetailMockData.json')
@@ -17,6 +16,21 @@ export default function ProductDetail() {
         setProductData(result.data[0]);
       });
   }, []);
+
+  //수량차감함수
+  function quantityMinus() {
+    let num = quantityNum;
+    if (num === 1) {
+      setQuantityNum(1);
+    } else {
+      setQuantityNum(num - 1);
+    }
+  }
+  //수량증감함수
+  function quantityPlus() {
+    let num = quantityNum;
+    setQuantityNum(num + 1);
+  }
 
   return (
     <main className="container product-detail">
@@ -262,18 +276,22 @@ export default function ProductDetail() {
                   <span className="size">S</span>
                   <span className="date">오늘출고예정</span>
                 </div>
+                {/* 수량 기능 */}
                 <div className="product-quantity-box">
                   <div className="quantity-numbering">
-                    <button className="minus">
+                    <button className="minus" onClick={quantityMinus}>
                       <span className="hidden">차감</span>
                     </button>
-                    <span className="num">1</span>
-                    <button className="add">
+                    <span className="num">{quantityNum}</span>
+                    <button className="add" onClick={quantityPlus}>
                       <span className="hidden">증감</span>
                     </button>
                   </div>
                   <div className="price-box">
-                    <span className="price">323100</span>원
+                    <span className="price">
+                      {quantityNum * productData.price}
+                    </span>
+                    원
                   </div>
                 </div>
                 <div className="btn-wrap">
