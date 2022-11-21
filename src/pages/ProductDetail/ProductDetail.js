@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ImgArea from './ImgArea/ImgArea';
 import './ProductDetail.scss';
 
@@ -8,6 +8,10 @@ export default function ProductDetail() {
   const [productData, setProductData] = useState({});
   //수량갯수
   const [quantityNum, setQuantityNum] = useState(1);
+  const [discount, setDiscount] = useState(0);
+  const [postSize, setPostSize] = useState();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/data/productDetailMockData.json')
@@ -31,6 +35,36 @@ export default function ProductDetail() {
     let num = quantityNum;
     setQuantityNum(num + 1);
   }
+
+  //사이즈 체크 후 서버에 보낼 정보 저장
+  function sizeCheck(e) {
+    setPostSize(e.target.dataset.id);
+  }
+
+  // 바로구매 클릭시 서버에 보낼 데이터 함수
+  function moveData(e) {
+    fetch('server-url', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        //보낼데이터
+        postSize,
+        quantityNum,
+      }),
+    });
+
+    if (e.target.className === 'btn black') {
+      navigate('../Cart/Cart');
+    } else if (e.target.className === 'btn purple') {
+      navigate('../Payment/Payment');
+    }
+  }
+
+  //
+  console.log(productData.price);
+  console.log(productData.brand);
 
   return (
     <main className="container product-detail">
@@ -79,11 +113,14 @@ export default function ProductDetail() {
               </div>
               <div className="product-price-area">
                 <div className="price-box">
-                  <b className="price">10000</b>
+                  <b className="price">
+                    {productData.price - productData.price * discount}
+                    {/* error : 비동기-동기 에러 처리필요 */}
+                  </b>
                   <span className="price-cancel">{productData.price}</span>
                 </div>
                 <div className="discount-box">
-                  <b className="percent">{productData.discount}%</b>
+                  <b className="percent">{discount}%</b>
                   <button className="btn-tooltip">
                     <span className="hidden">툴팁</span>
                   </button>
@@ -166,8 +203,10 @@ export default function ProductDetail() {
                             <input
                               type="radio"
                               id={`size-` + elem.size}
+                              data-id={elem.product_options}
                               name="size"
                               className="hidden"
+                              onClick={sizeCheck}
                             />
                             <label htmlFor={`size-` + elem.size}>
                               {elem.size}
@@ -289,15 +328,20 @@ export default function ProductDetail() {
                   </div>
                   <div className="price-box">
                     <span className="price">
-                      {quantityNum * productData.price}
+                      {productData.price * quantityNum}
+                      {/* error : 비동기-동기 에러 처리필요 */}
                     </span>
                     원
                   </div>
                 </div>
                 <div className="btn-wrap">
                   <div className="btn-area">
-                    <button className="btn black">장바구니</button>
-                    <button className="btn purple">바로구매</button>
+                    <button className="btn black" onClick={moveData}>
+                      장바구니
+                    </button>
+                    <button className="btn purple" onClick={moveData}>
+                      바로구매
+                    </button>
                   </div>
                   <div className="btn-area">
                     <button className="btn add">코디 제안 상품</button>
@@ -348,9 +392,9 @@ export default function ProductDetail() {
           <li>
             <button className="btn move-data active">상품정보</button>
           </li>
-          <li>
+          {/* <li>
             <button className="btn move-size">사이즈</button>
-          </li>
+          </li> */}
         </ul>
         <div className="products-area">
           <div className="txt-area">
@@ -408,9 +452,9 @@ export default function ProductDetail() {
                 <li>
                   <button className="active">실측사이즈</button>
                 </li>
-                <li>
+                {/* <li>
                   <button>사이즈 가이드</button>
-                </li>
+                </li> */}
               </ul>
               <div className="tab-container">
                 <div className="tab-item item-1">
@@ -545,8 +589,7 @@ export default function ProductDetail() {
                     </p>
                   </div>
                 </div>
-                <div className="tab-item item-2">
-                  {/* 2뎁스 탭 */}
+                {/* <div className="tab-item item-2">
                   <div className="table-wrap type-border">
                     <ul className="tab-header">
                       <li>
@@ -997,7 +1040,7 @@ export default function ProductDetail() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

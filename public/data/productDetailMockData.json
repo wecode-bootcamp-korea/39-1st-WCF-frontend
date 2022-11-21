@@ -30,28 +30,34 @@
       ],
       "size": [
         {
+          "id": 1,
+          "size": "XS",
+          "product_options": 1
+        },
+        {
           "id": 6,
-          "size": "XXL"
+          "size": "XXL",
+          "product_options": 6
         },
         {
           "id": 5,
-          "size": "XL"
+          "size": "XL",
+          "product_options": 5
         },
         {
           "id": 4,
-          "size": "L"
+          "size": "L",
+          "product_options": 4
         },
         {
           "id": 3,
-          "size": "M"
+          "size": "M",
+          "product_options": 3
         },
         {
           "id": 2,
-          "size": "S"
-        },
-        {
-          "id": 1,
-          "size": "XS"
+          "size": "S",
+          "product_options": 2
         }
       ]
     }
