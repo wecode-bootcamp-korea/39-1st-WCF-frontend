@@ -36,7 +36,7 @@ export default function Login() {
       .then(data => {
         console.log(data);
         localStorage.setItem('token', data.accessToken);
-        navigate('./Main');
+        navigate('./Cart');
         // idPwValid();
       });
   };
