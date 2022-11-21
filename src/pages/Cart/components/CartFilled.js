@@ -1,82 +1,262 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useNavigate} from 'react';
 import '../Cart.scss';
 
-const CartFilled = () => {
-  const [cartData, setCartData] = useState([]);
+const navigate = useNavigate();
+  const [checkAll, setCheckAll] = useState(false);
+  const [totalPrices, setTotalPrices] = useState(0);
+  const [total, setTotal] = useState(0);
 
-  const [checkList, setCheckList] = useState({});
+  const products = props.products;
+  const setCartProducts = props.setProducts;
 
-  const onCheckedAll = () => {
-    const valueArr = Object.values(checkList).every(el => el === true);
-    let newObj = {};
-    if (valueArr) {
-      for (let key in checkList) {
-        newObj = { ...newObj, [key]: false };
-      }
-    } else {
-      for (let key in checkList) {
-        newObj = { ...newObj, [key]: true };
-      }
+  const checkedArr = [];
+  for (let i in products) {
+    if (products[i].checkIn === 1) {
+      checkedArr.push(products[i].productId);
     }
-    setCheckList(newObj);
-  };
-
-  const handleCheck = e => {
-    const { name, checked } = e.target;
-
-    setCheckList(prev => ({
-      ...prev,
-      [name]: checked,
-    }));
-  };
+  }
 
   useEffect(() => {
-    fetch('/data/CartData.json')
-      .then(res => res.json())
-      .then(data => {
-        setCartData(data);
-        setCheckList(
-          data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
-        );
-      });
-  }, []);
+    setTotalQuantity(products.length);
+  }, [products.length]);
 
-  // const totalPrice = Object.entries(checkList)
+  const pushChecked = event => {
+    if (checkedArr.includes(Number(event.target.id))) {
+      const rest = checkedArr.filter(item => item !== Number(event.target.id));
 
-  const getFetchItems = useCallback(async () => {
-    setError(null);
-    try {
-      const response = await fetch('http://10.58.2.25:8000/carts', {
+      const newString = (checked => {
+        if (checked.length === 0) return '';
+
+        let string = '';
+        for (let i in checked) {
+          string += `productId=${checked[i]}&`;
+        }
+        string = string.slice(0, -1);
+        return string;
+      })(rest);
+
+      fetch(`http://3.35.54.156:3000/cart/check?${newString}`, {
+        method: 'PATCH',
         headers: {
-          Authorization: localStorage.getItem('token'),
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
         },
-      });
-      if (!response.ok) {
-        throw new Error('상품을 불러오는 과정에서 문제가 발생했습니다.');
-      }
+      })
+        .then(response => response.json())
+        .then(json => {
+          setCartProducts(json.cart);
+        });
+    } else {
+      const addition = [...checkedArr, Number(event.target.id)];
 
-      const data = await response.json();
-      const list = data.results.map(obj => {
-        return {
-          cartId: obj.cart_id,
-          id: obj.product_id,
-          name: obj.product_name,
-          price: obj.price,
-          amount: obj.quantity,
-          src: obj.src,
-          isChecked: true,
-        };
-      });
+      const newString = (checked => {
+        if (checked.length === 0) return '';
 
-      setItemList(list);
-    } catch (error) {
-      setError(error.message);
+        let string = '';
+        for (let i in checked) {
+          string += `productId=${checked[i]}&`;
+        }
+        string = string.slice(0, -1);
+        return string;
+      })(addition);
+
+      fetch(`http://3.35.54.156:3000/cart/check?${newString}`, {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      })
+        .then(response => response.json())
+        .then(json => {
+          setCartProducts(json.cart);
+        });
     }
-  }, []);
+  };
+
+  const checkEvery = () => {
+    if (checkedArr.length !== products.length) {
+      const newArr = products.map(product => String(product.productId));
+
+      const newString = (checked => {
+        if (checked.length === 0) return '';
+
+        let string = '';
+        for (let i in checked) {
+          string += `productId=${checked[i]}&`;
+        }
+        string = string.slice(0, -1);
+        return string;
+      })(newArr);
+
+      fetch(`http://3.35.54.156:3000/cart/check?${newString}`, {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      })
+        .then(response => response.json())
+        .then(json => {
+          setCartProducts(json.cart);
+        });
+    } else {
+      fetch(`http://3.35.54.156:3000/cart/check`, {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      })
+        .then(response => response.json())
+        .then(json => {
+          setCartProducts(json.cart);
+        });
+    }
+  };
 
   useEffect(() => {
-    getFetchItems();
-  }, [getFetchItems]);
+    checkedArr.length === products.length
+      ? setCheckAll(true)
+      : setCheckAll(false);
+  }, [checkedArr]);
+
+  useEffect(() => {
+    let totalProducts = 0;
+    let totalDeliver = 0;
+    let orderTotalQuantity = 0;
+    let totalPrice = 0;
+
+    const productArr = [];
+    const deliverArr = [];
+    const quantityArr = [];
+    for (let i in products) {
+      if (checkedArr.includes(products[i].productId)) {
+        productArr.push(products[i].price);
+        deliverArr.push(products[i].deliveryfee);
+        quantityArr.push(products[i].quantity);
+      }
+    }
+
+    for (let i in productArr) {
+      totalProducts += productArr[i];
+    }
+
+    for (let i in deliverArr) {
+      totalDeliver += deliverArr[i];
+    }
+
+    for (let i in quantityArr) {
+      orderTotalQuantity += quantityArr[i];
+    }
+
+    totalPrice = totalProducts + totalDeliver;
+
+    setTotalPrices(totalProducts);
+    setTotalDeliver(totalDeliver);
+    setOrderTotalQuantity(orderTotalQuantity);
+    setTotal(totalPrice);
+  }, [checkedArr]);
+
+  const orderInCart = () => {
+    if (checkedArr.length === 0) {
+      alert('주문할 상품이 없습니다.');
+    } else {
+      navigate('/order');
+    }
+  };
+
+  const deleteThis = event => {
+    fetch(`http://3.35.54.156:3000/cart?productId=${Number(event.target.id)}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.getItem('TOKEN'),
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setCartProducts(json.cart);
+      });
+  };
+
+  const deleteChosen = event => {
+    const newString = (checked => {
+      if (checked.length === 0) return '';
+
+      let string = '';
+      for (let i in checked) {
+        string += `productId=${checked[i]}&`;
+      }
+      string = string.slice(0, -1);
+      return string;
+    })(checkedArr);
+
+    fetch(`http://3.35.54.156:3000/cart?${newString}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: localStorage.getItem('TOKEN'),
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setCartProducts(json.cart);
+      });
+  };
+
+  const plusCount = event => {
+    let quantityForRequest = 0;
+    for (let i in products) {
+      if (products[i].productId === Number(event.target.id)) {
+        quantityForRequest = products[i].quantity;
+      }
+    }
+
+    fetch(
+      `http://3.35.54.156:3000/cart?productId=${Number(
+        event.target.id
+      )}&quantity=${quantityForRequest + 1}`,
+      {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({
+          productId: Number(event.target.id),
+          quantity: quantityForRequest + 1,
+        }),
+      }
+    )
+      .then(response => response.json())
+      .then(json => setCartProducts(json.cart));
+  };
+
+  const minusCount = event => {
+    let quantityForRequest = 0;
+    for (let i in products) {
+      if (products[i].productId === Number(event.target.id)) {
+        quantityForRequest = products[i].quantity;
+      }
+    }
+
+    fetch(
+      `http://3.35.54.156:3000/cart?productId=${Number(
+        event.target.id
+      )}&quantity=${quantityForRequest - 1}`,
+      {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      }
+    )
+      .then(response => response.json())
+      .then(json => setCartProducts(json.cart));
+  };
+
 
   return (
     <div className="container cartfilled">
@@ -185,7 +365,7 @@ const CartFilled = () => {
         <div className="total-amount">
           <div className="goods-amount-price">
             {/* <p className="amount-price">{cartData.price}원</p> */}
-            <p className="amount-price">9,999,999,999원</p>
+            <p className="amount-price">9원</p>
             <p className="price-text">상품금액</p>
           </div>
           <div className="amount-sign-plus">+</div>
@@ -195,7 +375,7 @@ const CartFilled = () => {
               <p className="delivery-text">배송비</p>
             </div>
           </div>
-          <div className="amount-sign-minus">-</div>
+          <div className="amount-sign-minus">−</div>
           <div className="amount-discount-box">
             <div className="amount-discount">
               <p className="discount-price">0원</p>

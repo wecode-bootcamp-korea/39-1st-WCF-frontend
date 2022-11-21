@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CartFilled from './components/CartFilled';
+import CartEmpty from './components/CartEmpty';
 import './Cart.scss';
 
 export default function Cart() {
+  const [cartProducts, setCartProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://3.35.54.156:3000/cart', {
+      headers: {
+        authorization: localStorage.getItem('TOKEN'),
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => setCartProducts(json.cart));
+  }, []);
   return (
     <main className="container cart">
       <div className="cart-box">
@@ -13,11 +26,13 @@ export default function Cart() {
 
       <section className="cart-container">
         <div className="order-box">
-          <CartFilled />
-          {/* <div className="basket-img-box">
-            <span className="basket-img" />
-          </div>
-          <p className="cart-empty">장바구니에 담긴 상품이 없습니다.</p> */}
+          {/* {cartProducts.length ? (
+            <CartFilled products={cartProducts} setProducts={setCartProducts} />
+          ) : (
+            <CartEmpty />
+          )} */}
+          <CartFilled products={cartProducts} setProducts={setCartProducts} />
+          {/* <CartEmpty /> */}
         </div>
         <ul className="cart-info-list">
           <li className="cart-info dot">
