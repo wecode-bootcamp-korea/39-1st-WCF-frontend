@@ -6,12 +6,13 @@
     .cart {
       display: flex;
       justify-content: center;
-      width: 963px;
+      width: 957px;
       padding: 40px 0px;
       border-bottom: 3px solid #e5e5e5;
 
       h1 {
         font-size: 40px;
+        font-weight: 500;
       }
     }
   }
@@ -20,7 +21,12 @@
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+
     .order-box {
+      // width: 957px;
+
+      border-bottom: 1px solid #e5e5e5;
+
       .cartfilled {
         width: 960px;
         margin: 0px 160px;
@@ -44,7 +50,6 @@
                   height: 20px;
                   border: 1px solid #e5e5e5;
                   background: url(../../images/cart/bg-component.png) no-repeat;
-
                   background-position: -22px 0px;
                   background-size: 100px;
                 }
@@ -291,12 +296,12 @@
         .bottom-order-amount-box {
           display: flex;
           flex-direction: column;
-          width: 960px;
+          width: 957 px;
           height: 298px;
           border-top: solid rgb(17, 17, 17);
           border-bottom: solid rgb(17, 17, 17);
           .amount-header {
-            width: 960px;
+            width: 957px;
             height: 50px;
             border-bottom: 1px solid rgb(239, 239, 239);
             font-size: 16px;
@@ -311,7 +316,7 @@
             text-align: center;
 
             .goods-amount-price {
-              width: 25%;
+              // width: 25%;
               .amount-price {
                 font-size: 27px;
               }
@@ -319,16 +324,18 @@
                 font-size: 15px;
               }
             }
+
+            .amount-sign-plus {
+              font-size: 32px;
+            }
+
             .amount-delivery-box {
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 20%;
-              .amount-sign-plus {
-                font-size: 32px;
-              }
+              // width: 20%;
               .amount-delivery {
-                padding-left: 40px;
+                // padding-left: 40px;
                 .delivery-price {
                   font-size: 27px;
                 }
@@ -337,34 +344,40 @@
                 }
               }
             }
+
+            .amount-sign-minus {
+              font-size: 32px;
+            }
+
             .amount-discount-box {
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 20%;
-              .amount-sign-minus {
-                font-size: 32px;
-              }
+              // width: 20%;
               .amount-discount {
-                padding-left: 35px;
+                // padding-left: 35px;
+
                 .discount-price {
                   font-size: 27px;
                 }
+
                 .discount-text {
                   font-size: 15px;
                 }
               }
             }
+
+            .amount-sign-total {
+              font-size: 32px;
+            }
+
             .total-amounts-box {
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 30%;
-              .amount-sign-total {
-                font-size: 32px;
-              }
+              // width: 30%;
               .total-amounts {
-                padding-left: 20px;
+                // padding-left: 20px;
                 .total-amounts-price {
                   font-size: 27px;
                 }
@@ -388,19 +401,30 @@
         }
       }
       .basket-img-box {
+        display: flex;
+        justify-content: center;
+
         .basket-img {
-          background: url(../../images/cart/basket-img.png);
+          display: inline-block;
+          width: 100px;
+          height: 100px;
+          background: url(../../images/cart/basket-img.png) no-repeat;
         }
       }
       .cart-empty {
+        color: #767676;
+        font-size: 15px;
+        text-align: center;
       }
     }
     .cart-info-list {
+      padding-top: 20px;
       color: #9c9c9c;
       line-height: 22px;
+
       .cart-info {
         position: relative;
-        &::before {
+        w &::before {
           content: '・';
           display: inline-block;
           position: absolute;

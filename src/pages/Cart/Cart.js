@@ -10,13 +10,14 @@ export default function Cart() {
           <h1>장바구니</h1>
         </div>
       </div>
+
       <section className="cart-container">
         <div className="order-box">
           <CartFilled />
-          <span className="basket-img-box hidden">
-            <span className="basket-img">장바구니</span>
-          </span>
-          <p className="cart-empty hidden">장바구니에 담긴 상품이 없습니다.</p>
+          {/* <div className="basket-img-box">
+            <span className="basket-img" />
+          </div>
+          <p className="cart-empty">장바구니에 담긴 상품이 없습니다.</p> */}
         </div>
         <ul className="cart-info-list">
           <li className="cart-info dot">
@@ -39,10 +40,6 @@ export default function Cart() {
             (단, 무료배송 쿠폰으로 결제한 배송비는 페이백 대상에서 제외)
           </li>
         </ul>
-        <span className="basket-img-box hidden">
-          <span className="basket-img">장바구니</span>
-        </span>
-        <p className="cart-empty hidden-">장바구니에 담긴 상품이 없습니다.</p>
       </section>
     </main>
   );

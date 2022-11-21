@@ -6,8 +6,6 @@ const CartFilled = () => {
 
   const [checkList, setCheckList] = useState({});
 
-  console.log(checkList);
-
   const onCheckedAll = () => {
     const valueArr = Object.values(checkList).every(el => el === true);
     let newObj = {};
@@ -25,6 +23,7 @@ const CartFilled = () => {
 
   const handleCheck = e => {
     const { name, checked } = e.target;
+
     setCheckList(prev => ({
       ...prev,
       [name]: checked,
@@ -41,6 +40,8 @@ const CartFilled = () => {
         );
       });
   }, []);
+
+  // const totalPrice = Object.entries(checkList)
 
   return (
     <div className="container cartfilled">
@@ -71,14 +72,14 @@ const CartFilled = () => {
               <div className="info-left">
                 <input
                   type="checkbox"
-                  id="goods-check"
-                  // name={item.name}
+                  id={item.id}
+                  name={item.name}
                   className="check-goods"
                   value={item.price}
                   checked={checkList[item.name]}
                   onChange={handleCheck}
                 />
-                <label htmlFor="goods-check" />
+                <label htmlFor={item.id} />
                 <img src={item.src} alt="사진" />
                 <div className="goods-infomation">
                   <p className="info-title">{item.brand}</p>
@@ -126,7 +127,7 @@ const CartFilled = () => {
                     {[item.price]
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    원+ 배송비 0원 - 할인금액 0원
+                    원 + 배송비 0원 - 할인금액 0원
                   </p>
                 </div>
                 <div className="right-sub-box">
@@ -152,22 +153,22 @@ const CartFilled = () => {
             <p className="amount-price">9,999,999,999원</p>
             <p className="price-text">상품금액</p>
           </div>
+          <div className="amount-sign-plus">+</div>
           <div className="amount-delivery-box">
-            <div className="amount-sign-plus">+</div>
             <div className="amount-delivery">
               <p className="delivery-price">0원</p>
               <p className="delivery-text">배송비</p>
             </div>
           </div>
+          <div className="amount-sign-minus">-</div>
           <div className="amount-discount-box">
-            <div className="amount-sign-minus">-</div>
             <div className="amount-discount">
               <p className="discount-price">0원</p>
               <p className="discount-text">할인금액</p>
             </div>
           </div>
+          <div className="amount-sign-total">=</div>
           <div className="total-amounts-box">
-            <div className="amount-sign-total">=</div>
             <div className="total-amounts">
               <p className="total-amounts-price">1,680,000원</p>
               <p className="total-amounts-text">총 주문금액</p>
