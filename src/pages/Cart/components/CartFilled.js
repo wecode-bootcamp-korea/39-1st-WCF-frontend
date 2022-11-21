@@ -43,6 +43,41 @@ const CartFilled = () => {
 
   // const totalPrice = Object.entries(checkList)
 
+  const getFetchItems = useCallback(async () => {
+    setError(null);
+    try {
+      const response = await fetch('http://10.58.2.25:8000/carts', {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      if (!response.ok) {
+        throw new Error('상품을 불러오는 과정에서 문제가 발생했습니다.');
+      }
+
+      const data = await response.json();
+      const list = data.results.map(obj => {
+        return {
+          cartId: obj.cart_id,
+          id: obj.product_id,
+          name: obj.product_name,
+          price: obj.price,
+          amount: obj.quantity,
+          src: obj.src,
+          isChecked: true,
+        };
+      });
+
+      setItemList(list);
+    } catch (error) {
+      setError(error.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    getFetchItems();
+  }, [getFetchItems]);
+
   return (
     <div className="container cartfilled">
       <div className="cartfilled-top">
