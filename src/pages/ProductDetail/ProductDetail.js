@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ImgArea from './ImgArea/ImgArea';
+import Quantity from './Quantity/Quantity';
 import Size from './Size/Size';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
   // 상품 전체 데이터
   const [productData, setProductData] = useState({});
+  const [productNum, setProductNUm] = useState(1);
 
   useEffect(() => {
     fetch('/data/productDetailMockData.json')
@@ -21,34 +23,6 @@ export default function ProductDetail() {
       <section className="section section-detail">
         <div className="inner-small">
           <ImgArea productData={productData} />
-          {/* <div className="product-img-area">
-            <div className="product-main-img">
-              <img src={productData.thumbnail} alt="티셔츠" />
-            </div>
-            <ul className="product-img-list">
-              <li className="active">
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-              <li>
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-              <li>
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-              <li>
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-              <li>
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-              <li>
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-              <li>
-                <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-              </li>
-            </ul>
-          </div> */}
           <div className="product-data-area">
             <div className="product-name-link">
               <Link to="/">{productData.brand}</Link>
@@ -172,7 +146,21 @@ export default function ProductDetail() {
                 <ul className="select-list">
                   {productData.size &&
                     productData.size.map(elem => {
-                      return <Size data={elem.size} key={elem.id} />;
+                      return (
+                        <li key={elem.id}>
+                          <span className="check-box">
+                            <input
+                              type="radio"
+                              id={`size-` + elem.size}
+                              name="size"
+                              className="hidden"
+                            />
+                            <label htmlFor={`size-` + elem.size}>
+                              {elem.size}
+                            </label>
+                          </span>
+                        </li>
+                      );
                     })}
                   {/* <li>
                     <span className="check-box">
