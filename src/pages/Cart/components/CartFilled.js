@@ -6,15 +6,7 @@ const CartFilled = () => {
 
   const [checkList, setCheckList] = useState({});
 
-  // const nameData = () => {
-  //   for (let i = 0; i < cartData.length; i++) {
-  //     setCheckList((checkList[cartData[i].name] = false));
-  //   }
-  //   return checkList;
-  // };
-
-  // nameData();
-  // console.log(checkList);
+  console.log(checkList);
 
   const onCheckedAll = () => {
     const valueArr = Object.values(checkList).every(el => el === true);
@@ -42,7 +34,12 @@ const CartFilled = () => {
   useEffect(() => {
     fetch('/data/CartData.json')
       .then(res => res.json())
-      .then(data => setCartData(data));
+      .then(data => {
+        setCartData(data);
+        setCheckList(
+          data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
+        );
+      });
   }, []);
 
   return (
@@ -54,7 +51,7 @@ const CartFilled = () => {
             type="checkbox"
             className="check"
             onChange={onCheckedAll}
-            checked={Object.values(checkList).every(el => el === true)}
+            checked={Object.values(checkList).every(el => el)}
           />
           <label htmlFor="checked-all" className="check-all">
             전체선택
@@ -74,12 +71,14 @@ const CartFilled = () => {
               <div className="info-left">
                 <input
                   type="checkbox"
-                  name={item.name}
+                  id="goods-check"
+                  // name={item.name}
                   className="check-goods"
                   value={item.price}
                   checked={checkList[item.name]}
                   onChange={handleCheck}
                 />
+                <label htmlFor="goods-check" />
                 <img src={item.src} alt="사진" />
                 <div className="goods-infomation">
                   <p className="info-title">{item.brand}</p>
@@ -149,7 +148,8 @@ const CartFilled = () => {
         <div className="amount-header">결제 예정 금액 총 1건</div>
         <div className="total-amount">
           <div className="goods-amount-price">
-            <p className="amount-price">{cartData.prcie}원</p>
+            {/* <p className="amount-price">{cartData.price}원</p> */}
+            <p className="amount-price">9,999,999,999원</p>
             <p className="price-text">상품금액</p>
           </div>
           <div className="amount-delivery-box">
