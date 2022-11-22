@@ -5,19 +5,39 @@ import './Cart.scss';
 
 export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
+  const [cartData, setCartData] = useState([]);
+  const [checkList, setCheckList] = useState({});
+
+  useEffect(() => {
+    fetch('/data/CartData.json')
+      .then(res => res.json())
+      .then(data => {
+        setCartData(data);
+        setCheckList(
+          data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
+        );
+      });
+  }, []);
 
   useEffect(() => {
     getCartList();
   }, []);
 
+  // 통신할 때
+  // const getCartList = () => {
+  //   fetch('http://10.58.52.56:3000/carts/', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       user_id: 8,
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => setCartProducts(result));
+  // };
+
   const getCartList = () => {
-    fetch('http://10.58.52.56:3000/carts/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        user_id: 8,
-      },
-    })
+    fetch('/data/CartData.json')
       .then(response => response.json())
       .then(result => setCartProducts(result));
   };
@@ -32,16 +52,24 @@ export default function Cart() {
 
       <section className="cart-container">
         <div className="order-box">
-          {/* {cartProducts?.length ? (
-            <CartFilled products={cartProducts} setProducts={setCartProducts} />
+          {cartData?.length ? (
+            <CartFilled
+              setCheckList={setCheckList}
+              checkList={checkList}
+              cartData={cartData}
+              setCartData={setCartData}
+              products={cartProducts}
+              setProducts={setCartProducts}
+              getCartList={getCartList}
+            />
           ) : (
             <CartEmpty />
-          )} */}
-          <CartFilled
+          )}
+          {/* <CartFilled
             products={cartProducts}
             setProducts={setCartProducts}
             getCartList={getCartList}
-          />
+          /> */}
           {/* <CartEmpty /> */}
         </div>
         <ul className="cart-info-list">

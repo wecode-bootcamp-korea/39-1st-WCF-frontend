@@ -3,45 +3,60 @@ import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
 const CartFilled = props => {
+  const { setCheckList, checkList, cartData, setCartData } = props;
+
+  const [checkArr, setCheckArr] = useState([]);
+
   const navigate = useNavigate();
-  const [cartData, setCartData] = useState([]);
-  const [checkList, setCheckList] = useState({});
+  // const [cartData, setCartData] = useState([]);
+  // const [checkList, setCheckList] = useState({});
+
+  const valueArr = Object.values(checkList).every(el => el === true);
 
   const onCheckedAll = () => {
-    const valueArr = Object.values(checkList).every(el => el === true);
     let newObj = {};
-    if (valueArr) {
-      for (let key in checkList) {
-        newObj = { ...newObj, [key]: false };
-      }
-    } else {
-      for (let key in checkList) {
-        newObj = { ...newObj, [key]: true };
-      }
+    for (let key in checkList) {
+      newObj = { ...newObj, [key]: !valueArr };
     }
     setCheckList(newObj);
   };
 
-  const handleCheck = e => {
-    const { name, checked } = e.target;
+  const cartHidden = cartData.length === 0 ? 'hidden' : '';
 
+  const handleCheck = e => {
+    const { name, checked, id } = e.target;
     setCheckList(prev => ({
       ...prev,
       [name]: checked,
     }));
+    if (checkArr.includes(id)) {
+      let newArr = checkArr.filter(el => el !== id);
+      setCheckArr(newArr);
+    } else {
+      setCheckArr(prev => [...prev, id]);
+    }
   };
 
-  const checkedTitle = [];
+  // console.log(checkArr);
 
-  Object.entries(checkList).forEach(([title, value]) => {
-    if (value) checkedTitle.push(title);
-  });
+  const deleteProduct = productId => {
+    const filtered = cartData.filter(({ id }) => id !== productId);
 
-  const totalPrice = cartData.reduce((acc, cur) => {
-    if (checkedTitle.includes(cur.name)) {
-      return acc + cur.price * cur.count;
-    } else return acc;
-  }, 0);
+    // fetch('API', {
+    //   method: 'DELETE',
+    //   body: JSON.stringify({
+    //     id: productId,
+    //   }),
+    // }).then(res => {
+    //   if (res.ok) {
+    //     setCartData(filtered);
+    //   } else {
+    //     alert('다시 시도해주세요!');
+    //   }
+    // });
+
+    setCartData(filtered);
+  };
 
   // const deleteProduct = productId => {
   //   fetch('API', {
@@ -58,27 +73,39 @@ const CartFilled = props => {
   //   });
   // };
 
-  useEffect(() => {
-    fetch('/data/CartData.json')
-      .then(res => res.json())
-      .then(data => {
-        setCartData(data);
-        setCheckList(
-          data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
-        );
-      });
-  }, []);
+  const checkedTitle = [];
+
+  Object.entries(checkList).forEach(([title, value]) => {
+    if (value) checkedTitle.push(title);
+  });
+
+  const totalPrice = cartData.reduce((acc, cur) => {
+    if (checkedTitle.includes(cur.name)) {
+      return acc + cur.price * cur.count;
+    } else return acc;
+  }, 0);
+
+  // useEffect(() => {
+  //   fetch('/data/CartData.json')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setCartData(data);
+  //       setCheckList(
+  //         data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
+  //       );
+  //     });
+  // }, []);
 
   return (
     <div className="container cartfilled">
-      <div className="cartfilled-top">
+      <div className={`cartfilled-top ${cartHidden}`}>
         <div className="top-left">
           <input
             id="checked-all"
             type="checkbox"
             className="check"
             onChange={onCheckedAll}
-            checked={Object.values(checkList).every(el => el)}
+            checked={valueArr}
           />
           <label htmlFor="checked-all" className="check-all">
             전체선택
@@ -127,16 +154,18 @@ const CartFilled = props => {
                 </div>
 
                 <div className="info-right">
-                  <p className="total-price">
-                    {(item.price * item.count).toLocaleString()}원
-                  </p>
+                  <p className="total-price">{item.price.toLocaleString()}원</p>
                   <button type="button" className="buy-now">
                     바로구매
                   </button>
                 </div>
               </div>
 
-              <button type="button" className="delete-goods">
+              <button
+                type="button"
+                className="delete-goods"
+                onClick={() => deleteProduct(item.id)}
+              >
                 <span className="delete-goods-text">엑스</span>
               </button>
             </div>
@@ -146,9 +175,8 @@ const CartFilled = props => {
                 <div className="left-sub-box">
                   <p className="left-title">스토어 주문금액 합계</p>
                   <p className="left-sub-title">
-                    상품금액
-                    {(item.price * item.count).toLocaleString()}원 + 배송비 0원
-                    - 할인금액 0원
+                    상품금액 {(item.price * item.count).toLocaleString()}원 +
+                    배송비 0원 - 할인금액 0원
                   </p>
                 </div>
                 <div className="right-sub-box">
@@ -163,7 +191,7 @@ const CartFilled = props => {
         ))}
       </div>
 
-      <div className="bottom-order-amount-box">
+      <div className={`bottom-order-amount-box ${cartHidden}`}>
         <div className="amount-header">결제 예정 금액 총 1건</div>
         <div className="total-amount">
           <div className="goods-amount-price">
