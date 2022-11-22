@@ -13,18 +13,18 @@ export default function Payment() {
 
   const [paymentProductData, setPaymentProductData] = useState();
   const [addressData, setAddressData] = useState();
-  const [totalPrice, setTotalPrice] = useState(0);
 
-  let totalPrice2 = 0;
+  //총합계금액 계산식
+  let totalPrice = 0;
+  paymentProductData?.map(list => {
+    totalPrice += list.price * list.quantity;
+  });
 
-  function totalPriceOutput() {
-    paymentProductData?.map(list => {
-      totalPrice2 += list.price * list.quantity;
-      console.log(totalPrice2);
-    });
+  console.log(addressData);
+
+  if (addressData === undefined) {
+    return null;
   }
-  totalPriceOutput();
-  console.log(totalPrice2);
 
   return (
     <main className="container payment">
@@ -165,7 +165,11 @@ export default function Payment() {
               </label>
               <div className="form-area">
                 <div className="form-box">
-                  <input type="text" id="name" />
+                  <input
+                    type="text"
+                    id="name"
+                    defaultValue={addressData.username}
+                  />
                 </div>
               </div>
             </li>
@@ -175,7 +179,11 @@ export default function Payment() {
               </label>
               <div className="form-area">
                 <div className="form-box">
-                  <input type="password" id="phone" />
+                  <input
+                    type="password"
+                    id="phone"
+                    defaultValue={addressData.phone}
+                  />
                 </div>
               </div>
             </li>
@@ -189,10 +197,10 @@ export default function Payment() {
                   <button className="btn address">우편번호</button>
                 </div>
                 <div className="form-box">
-                  <input type="text" />
+                  <input type="text" defaultValue={addressData.address_num} />
                 </div>
                 <div className="form-box">
-                  <input type="text" />
+                  <input type="text" defaultValue={addressData.address} />
                 </div>
                 <div className="check-box">
                   <input type="checkbox" className="hidden" id="address-save" />
@@ -206,7 +214,11 @@ export default function Payment() {
               </label>
               <div className="form-area">
                 <div className="form-box">
-                  <input type="text" id="message" />
+                  <input
+                    type="text"
+                    id="message"
+                    defaultValue={addressData.messege}
+                  />
                 </div>
               </div>
             </li>
@@ -310,7 +322,7 @@ export default function Payment() {
 
         <div className="payment-total-area">
           <div className="price-box">
-            <span className="price">{totalPrice2}</span>원
+            <span className="price">{totalPrice}</span>원
             <p className="txt">총 상품금액</p>
           </div>
           <span className="sign">-</span>
@@ -319,7 +331,7 @@ export default function Payment() {
           </div>
           <span className="sign">=</span>
           <div className="price-box">
-            <span className="price">{totalPrice2}</span>원
+            <span className="price">{totalPrice}</span>원
             <p className="txt">총 주문금액</p>
           </div>
         </div>
