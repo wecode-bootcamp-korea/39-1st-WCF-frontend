@@ -14,7 +14,7 @@ export default function Login() {
     setInputPw(e.target.value);
   };
 
-  const handleActive = inputId.length >= 8 && inputPw.length >= 6;
+  const handleActive = inputId.length >= 6 && inputPw.length >= 8;
 
   const fetchFn = () => {
     fetch('http://10.58.52.57:3000/users/signin', {
@@ -64,7 +64,6 @@ export default function Login() {
         <button
           className="login-btn"
           disabled={!handleActive}
-          className={handleActive ? 'login-btn-on' : 'login-btn'}
           onClick={fetchFn}
           type="submit"
         >
