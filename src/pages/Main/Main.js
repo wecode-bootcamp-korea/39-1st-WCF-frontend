@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Main.scss';
+import { Link } from 'react-router-dom';
+import OUR_PICKS_LIST from './OUR_PICKS';
 
 export default function Main() {
   //인덱스 저장
   const [currentIndex, setCurrentIndex] = useState(1);
   const [slideImgData, setSlideImgData] = useState([]);
+  const [transition, setTransition] = useState('all ease 0.3');
   // 카운트
   const [count, setCount] = useState(0);
   // 이미지가 몇 초마다 이동할 지
@@ -44,8 +47,6 @@ export default function Main() {
     }
   };
 
-  //슬라이드 재생 멈춤
-
   useEffect(() => {
     const slideTime = setTimeout(() => {
       slideIndex();
@@ -55,15 +56,16 @@ export default function Main() {
   }, [currentIndex]);
 
   useEffect(() => {
-    // const isLastImgIdx = currentIndex === slideImgData.length - 1;
+    const isLastImgIdx = currentIndex === slideImgData.length - 1;
+    if (isLastImgIdx) {
+      slideRef.current.style.transition = `transform 0s`;
+      setCurrentIndex(1);
+    }
 
     // if (isLastImgIdx) {
-    //   slideRef.current.style.transition = 'none';
+    //   slideRef.current.style.transition = 0;
     //   setCurrentIndex(1);
-
-    //   return;
     // }
-
     slideRef.current.style.transition = `${0.5}s`;
     slideRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
   }, [currentIndex]);
@@ -107,11 +109,23 @@ export default function Main() {
           </div>
         </div>
       </div>
-      <div className="our-pick inner">
+      <div className="our-pick">
         <h2 className="ourpick-title">Our Picks</h2>
-        <ul className="ourpick-photo">
-          <li></li>
-        </ul>
+        <ul className="ourpick-photo" />
+      </div>
+      <div className="our-pick-list">
+        <div className="our-pick-list-area">
+          <ul>
+            {OUR_PICKS_LIST.map(list => (
+              <li key={list.id}>
+                <Link to={list.link} />
+                <img src={list.img} />
+                <p class="subtext">{list.text}</p>
+                <p>{list.title}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
