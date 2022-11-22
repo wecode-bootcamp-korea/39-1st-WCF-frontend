@@ -21,10 +21,10 @@ export default function Login() {
       body: JSON.stringify({ username: inputId, password: inputPw }),
     }) //요청
       .then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.status != 200) {
           throw new Error('error');
-          alert('로그인 실패'); // 해당 alert는 위의 throw 실행시에 조건문이 종료가 되므로 alert는 실행하지 못합니다!!!!
+          // alert('로그인 실패'); // 해당 alert는 위의 throw 실행시에 조건문이 종료가 되므로 alert는 실행하지 못합니다!!!!
         }
 
         return response.json();
@@ -34,7 +34,7 @@ export default function Login() {
         alert('로그인 실패');
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         localStorage.setItem('token', data.accessToken);
         navigate('./Cart');
         // idPwValid();
