@@ -14,6 +14,8 @@ export default function Login() {
     setInputPw(e.target.value);
   };
 
+  const handleActive = inputId.length >= 8 && inputPw.length >= 6;
+
   const fetchFn = () => {
     fetch('http://10.58.52.57:3000/users/signin', {
       method: 'POST',
@@ -24,14 +26,13 @@ export default function Login() {
         // console.log(response);
         if (response.status != 200) {
           throw new Error('error');
-          // alert('로그인 실패'); // 해당 alert는 위의 throw 실행시에 조건문이 종료가 되므로 alert는 실행하지 못합니다!!!!
         }
 
         return response.json();
       })
       .catch(err => {
         console.log(err);
-        alert('로그인 실패');
+        alert('로그인 실패! 아이디 또는 비밀번호를 확인해주세요.');
       })
       .then(data => {
         // console.log(data);
@@ -60,7 +61,13 @@ export default function Login() {
             onChange={handlePwInput}
           />
         </div>
-        <button className="login-btn" onClick={fetchFn} type="submit">
+        <button
+          className="login-btn"
+          disabled={!handleActive}
+          className={handleActive ? 'login-btn-on' : 'login-btn'}
+          onClick={fetchFn}
+          type="submit"
+        >
           로그인
         </button>
       </form>
