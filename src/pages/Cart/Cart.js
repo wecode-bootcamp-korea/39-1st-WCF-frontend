@@ -7,6 +7,10 @@ export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
 
   useEffect(() => {
+    getCartList();
+  }, []);
+
+  const getCartList = () => {
     fetch('http://10.58.52.56:3000/carts/', {
       method: 'GET',
       headers: {
@@ -16,7 +20,7 @@ export default function Cart() {
     })
       .then(response => response.json())
       .then(result => setCartProducts(result));
-  }, []);
+  };
 
   return (
     <main className="container cart">
@@ -33,7 +37,11 @@ export default function Cart() {
           ) : (
             <CartEmpty />
           )} */}
-          <CartFilled products={cartProducts} setProducts={setCartProducts} />
+          <CartFilled
+            products={cartProducts}
+            setProducts={setCartProducts}
+            getCartList={getCartList}
+          />
           {/* <CartEmpty /> */}
         </div>
         <ul className="cart-info-list">
