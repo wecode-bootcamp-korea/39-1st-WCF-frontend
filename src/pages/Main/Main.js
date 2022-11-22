@@ -121,7 +121,7 @@ export default function Main() {
                 <Link to={list.link} />
                 <img src={list.img} />
                 <p class="subtext">{list.text}</p>
-                <p>{list.title}</p>
+                <p class="title">{list.title}</p>
               </li>
             ))}
           </ul>
