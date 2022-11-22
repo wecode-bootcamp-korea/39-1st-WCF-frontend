@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Payment.scss';
 
 export default function Payment() {
+  useEffect(() => {
+    fetch('/data/paymentdata.json')
+      .then(response => response.json())
+      .then(result => {
+        setPaymentProductData(result.productData);
+        setAddressData(result.userData[0]);
+      });
+  }, []);
+
+  const [paymentProductData, setPaymentProductData] = useState();
+  const [addressData, setAddressData] = useState();
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  let totalPrice2 = 0;
+
+  function totalPriceOutput() {
+    paymentProductData?.map(list => {
+      totalPrice2 += list.price * list.quantity;
+      console.log(totalPrice2);
+    });
+  }
+  totalPriceOutput();
+  console.log(totalPrice2);
+
   return (
     <main className="container payment">
       <section className="inner-small">
@@ -31,6 +55,42 @@ export default function Payment() {
               </tr>
             </thead>
             <tbody>
+              {paymentProductData?.map(list => {
+                return (
+                  <tr key={list.id}>
+                    <td>
+                      <div className="product-data-box">
+                        <div className="img-box">
+                          <img src={list.thumbnail} alt="썸네일" />
+                        </div>
+                        <div className="info-box">
+                          <p className="tit">{list.brand}</p>
+                          <strong className="txt">{list.title}</strong>
+                          <div className="data">
+                            <span className="size">
+                              {list.size_product_options}
+                            </span>
+                          </div>
+                          <span className="number">{list.quantity}개</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span>-</span>
+                    </td>
+                    <td>
+                      <p className="tit">무료배송</p>
+                      <p className="txt">입점 파트너에서 출고예정</p>
+                    </td>
+                    <td>
+                      <strong className="price">
+                        {list.price * list.quantity}원
+                      </strong>
+                    </td>
+                  </tr>
+                );
+              })}
+              {/*
               <tr>
                 <td>
                   <div className="product-data-box">
@@ -91,6 +151,7 @@ export default function Payment() {
                   <strong className="price">84500원</strong>
                 </td>
               </tr>
+              */}
             </tbody>
           </table>
         </div>
@@ -249,16 +310,16 @@ export default function Payment() {
 
         <div className="payment-total-area">
           <div className="price-box">
-            <span className="price">2190000</span>원
+            <span className="price">{totalPrice2}</span>원
             <p className="txt">총 상품금액</p>
           </div>
           <span className="sign">-</span>
           <div className="price-box discount">
-            <span className="price">0</span>원<p className="txt">총 상품금액</p>
+            <span className="price">0</span>원<p className="txt">총 할인금액</p>
           </div>
           <span className="sign">=</span>
           <div className="price-box">
-            <span className="price">2190000</span>원
+            <span className="price">{totalPrice2}</span>원
             <p className="txt">총 주문금액</p>
           </div>
         </div>
