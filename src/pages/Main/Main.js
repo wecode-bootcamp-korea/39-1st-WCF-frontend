@@ -62,10 +62,17 @@ export default function Main() {
   };
   //슬라이드가 이전으로 넘어가는 조건
   const leftSlide = () => {
-    if (currentIndex === 0) {
-      setCurrentIndex(slideImgData.length - 1);
-    } else {
-      setCurrentIndex(value => value - 1);
+    setTransition(TRANSITION);
+
+    const prev = currentIndex - 1;
+    setCurrentIndex(prev);
+
+    const isLastImgIdx = prev === 0;
+    if (isLastImgIdx) {
+      setTimeout(() => {
+        setTransition('');
+        setCurrentIndex(slideImgData.length - 1);
+      }, 500);
     }
   };
 
