@@ -94,22 +94,17 @@ export default function SignIn() {
         email: email,
         address: address,
       }),
-    }) //요청
+    })
       .then(response => {
-        console.log(response);
         if (response.status !== 200) {
           throw new Error('error');
-          alert('회원가입 실패');
         }
-
         return response.json();
       })
       .catch(err => {
-        console.log(err);
         alert('회원가입 실패');
       })
       .then(data => {
-        console.log(data);
         alert('회원가입 성공');
         navigate('/login');
       });
