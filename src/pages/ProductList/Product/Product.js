@@ -14,7 +14,9 @@ export default function Product({ imgurl, brand, name, price }) {
       <div className="info">
         <span className="brand">{brand}</span>
         <span className="name">{name}</span>
-        <span className="price">{price}</span>
+        <span className="price">
+          {price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+        </span>
         <span className="heart">
           <i className="fa-regular fa-heart" />
           <em>999+</em>

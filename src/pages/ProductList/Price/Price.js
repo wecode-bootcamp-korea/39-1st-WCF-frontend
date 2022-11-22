@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import './Price.js';
 
 const PRICE = [
-  { id: 1, name: '10,000 ~ 20,000' },
-  { id: 2, name: '20,000 ~ 30,000' },
-  { id: 3, name: '30,000 ~ 40,000' },
-  { id: 4, name: '40,000 ~ 50,000' },
+  { id: 1, name: '10000~20000' },
+  { id: 2, name: '20000~30000' },
+  { id: 3, name: '30000~40000' },
+  { id: 4, name: '40000~50000' },
 ];
 
-export default function Price({ setSelectedAllFilter, selectedFilter }) {
+export default function Price() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const prevQuery = searchParams.getAll('priceId');
   const handleCheckbox = e => {
     const { checked, value } = e.target;
-    checked
-      ? setSelectedAllFilter({
-          ...selectedFilter,
-          selectedPrice: [...selectedFilter, value],
-        })
-      : setSelectedAllFilter({
-          ...selectedFilter,
-          selectedPrice: selectedFilter.filter(el => el !== value),
-        });
+
+    // checked
+    //   ? setSelectedAllFilter(prev => ({
+    //       ...prev,
+    //       price: [...selectedFilter, value],
+    //     }))
+    //   : setSelectedAllFilter(prev => ({
+    //       ...prev,
+    //       price: selectedFilter.filter(el => el !== value),
+    //     }));
+    if (checked) {
+      searchParams.append('priceId', value);
+      setSearchParams(searchParams);
+    } else {
+      searchParams.delete('priceId');
+      prevQuery
+        .filter(query => query !== value)
+        .forEach(query => searchParams.append('priceId', query));
+      setSearchParams(searchParams);
+    }
   };
 
   return (
@@ -31,10 +47,10 @@ export default function Price({ setSelectedAllFilter, selectedFilter }) {
               <input
                 type="checkbox"
                 value={price.name}
-                checked={selectedFilter.includes(price.name)}
+                checked={prevQuery.includes(price.name)}
                 onChange={handleCheckbox}
               />
-              <span>{price.name}</span>
+              <span>{price.name.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
             </li>
           ))}
         </ul>

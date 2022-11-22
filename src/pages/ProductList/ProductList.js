@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useSearchParams } from 'react-router-dom';
 import Product from './Product/Product';
 import Brand from './Brand/Brand';
 import Price from './Price/Price';
@@ -8,95 +8,69 @@ import SelectedAll from './SelectedAll';
 import './ProductList.scss';
 
 const SORT = [
-  { id: 0, title: '신상품순' },
-  { id: 1, title: '인기상품순' },
-  { id: 2, title: '낮은가격순' },
-  { id: 3, title: '높은가격순' },
+  { id: 0, title: '신상품순', method: 'created_at' },
+  { id: 1, title: '낮은가격순', method: 'price_DESC' },
+  { id: 2, title: '높은가격순', method: 'price_ASC' },
 ];
 
 export default function ProductList() {
+  // 받아온 브랜드 리스트
+  const [brandData, setBrandData] = useState([]);
+  // 받아온 사이즈 리스트
+  const [sizeData, setSizeData] = useState([]);
   // 선택된 정렬버튼
   const [isSelected, setIsSelected] = useState(0);
   // 선택된 필터링탭
   const [currentTab, setCurrentTab] = useState('');
   // 백엔드 및 mock data로 받아온 상품리스트
   const [productList, setProductList] = useState([]);
-  // 선택된 필터일탭의 체크박스값
-  const [selectedFilter, setSelectedFilter] = useState({
-    selectedBrand: [],
-    selectedPrice: [],
-    selectedSize: [],
-  });
-  const { selectedBrand, selectedPrice, selectedSize } = selectedFilter;
+  // querystring 설정
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const { brand, price, size } = searchParams;
+  // const [selectedFilter, setSelectedFilter] = useState({
+  //   brand: [],
+  //   price: [],
+  //   size: [],
+  // });
+  // const { brand, price, size } = selectedFilter;
+
   const TABS = [
     {
       id: 0,
       title: '브랜드',
-      content: (
-        <Brand
-          setSelectedAllFilter={setSelectedFilter}
-          selectedFilter={selectedBrand}
-        />
-      ),
+      content: <Brand brandData={brandData} />,
     },
     {
       id: 1,
       title: '가격',
-      content: (
-        <Price
-          setSelectedAllFilter={setSelectedFilter}
-          selectedFilter={selectedPrice}
-        />
-      ),
+      content: <Price />,
     },
     {
       id: 2,
       title: '사이즈',
-      content: (
-        <Size
-          setSelectedAllFilter={setSelectedFilter}
-          selectedFilter={selectedSize}
-        />
-      ),
+      content: <Size sizeData={sizeData} />,
     },
   ];
 
-  useEffect(() => {
-    // query parameter로 넘겨줄 params
-    const params = {
-      brand: selectedBrand,
-      price: selectedPrice,
-      size: selectedSize,
-    };
-    const query = params => {
-      const result = Object.keys(params)
-        .map(paramsKey =>
-          params[paramsKey].map(selectedFilterEl => {
-            return `${paramsKey}` + '=' + `${selectedFilterEl}`;
-          })
-        )
-        .join('&');
-      return result;
-    };
-    // fetch(`http://10.58.52.57:3000/products/subcategory/1/${query}`, {
-    //   method: 'GET',
-    //   headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     setProductList(result.data);
-    //   });
+  // console.log(selectedFilter);
+  console.log(searchParams.toString());
 
-    console.log('query: ', query(params));
-  }, [selectedBrand, selectedPrice, selectedSize]);
-
-  // const params = useParams();
-
-  console.log('selectedFilter', selectedFilter);
+  // 필터링 및 sort 변경 시 백엔드에 요청
+  // useEffect(() => {
+  // fetch(`http://10.58.52.57:3000/products/subcategory=1?${query}`, {
+  //   method: 'GET',
+  //   headers: { 'Content-Type': 'application/json;charset=utf-8' },
+  // })
+  //   .then(response => response.json())
+  //   .then(result => {
+  //     setProductList(result.data);
+  //   });
+  // }, [searchParams]);
 
   // //상품리스트 전체 get으로 받아오기
+  // //221121 path parameter -> query parameter로 변경
   // useEffect(() => {
-  //   fetch(`http://10.58.52.57:3000/products/subcategory/1`, {
+  //   fetch(`http://10.58.52.57:3000/products/subcategory=1`, {
   //     method: 'GET',
   //     headers: { 'Content-Type': 'application/json;charset=utf-8' },
   //   })
@@ -114,6 +88,29 @@ export default function ProductList() {
         setProductList(result);
       });
   }, []);
+  useEffect(() => {
+    fetch('/data/brandData.json')
+      .then(response => response.json())
+      .then(result => {
+        setBrandData(result);
+      });
+  }, []);
+  useEffect(() => {
+    fetch('/data/sizeData.json')
+      .then(response => response.json())
+      .then(result => {
+        setSizeData(result);
+      });
+  }, []);
+
+  const handleSortBtn = e => {
+    setIsSelected(e.target.value);
+    searchParams.append(
+      'sortMethod',
+      SORT.find(({ id }) => id === currentTab)?.method
+    );
+    setSearchParams(searchParams);
+  };
 
   return (
     <div className="productlist container">
@@ -122,7 +119,7 @@ export default function ProductList() {
         <section className="contents-list">
           <div className="sub-category">
             <h1>
-              {productList.length}
+              {productList[0]?.subcategory}
               <span>{productList.length}개의 제품</span>
             </h1>
           </div>
@@ -153,9 +150,7 @@ export default function ProductList() {
                   <li key={sortMehtod.id}>
                     <button
                       value={sortMehtod.id}
-                      onClick={e => {
-                        setIsSelected(e.target.value);
-                      }}
+                      onClick={handleSortBtn}
                       className={
                         sortMehtod.id === parseInt(isSelected) ? 'selected' : ''
                       }
@@ -168,7 +163,7 @@ export default function ProductList() {
             </div>
           </section>
           {TABS.find(({ id }) => id === currentTab)?.content}
-          <SelectedAll selectedFilter={selectedFilter} />
+          {/* <SelectedAll /> */}
           <div className="products-list">
             <ul className="products">
               {productList.map((product, idx) => {
