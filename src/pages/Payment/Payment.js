@@ -15,12 +15,16 @@ export default function Payment() {
   const [addressData, setAddressData] = useState();
 
   //총합계금액 계산식
-  let totalPrice = 0;
-  paymentProductData?.map(list => {
-    totalPrice += list.price * list.quantity;
-  });
+  // let totalPrice = 0;
+  // paymentProductData?.map(list => {
+  //   totalPrice += list.price * list.quantity;
+  // });
 
-  console.log(addressData);
+  // console.log(addressData);
+
+  const totalPrice = paymentProductData?.reduce((acc, cur) => {
+    return acc + cur.price * cur.quantity;
+  }, 0);
 
   if (addressData === undefined) {
     return null;
