@@ -65,7 +65,9 @@ export default function ProductDetail() {
   //
   console.log(productData.price);
   console.log(productData.brand);
-
+  if (Object.keys(productData).length === 0) {
+    return null;
+  }
   return (
     <main className="container product-detail">
       <section className="section section-detail">
