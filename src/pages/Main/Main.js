@@ -3,11 +3,13 @@ import './Main.scss';
 import { Link } from 'react-router-dom';
 import OUR_PICKS_LIST from './OUR_PICKS';
 
+const TRANSITION = 'all ease 500ms';
+
 export default function Main() {
   //인덱스 저장
   const [currentIndex, setCurrentIndex] = useState(1);
   const [slideImgData, setSlideImgData] = useState([]);
-  const [transition, setTransition] = useState('all ease 0.3');
+  const [transition, setTransition] = useState(TRANSITION);
   // 카운트
   const [count, setCount] = useState(0);
   // 이미지가 몇 초마다 이동할 지
@@ -30,12 +32,32 @@ export default function Main() {
     console.log('click!');
   }
 
+  useEffect(() => {
+    const slideTime = setTimeout(() => {
+      slideIndex();
+    }, 3000);
+
+    return () => clearTimeout(slideTime);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    slideRef.current.style.transition = transition;
+    slideRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }, [currentIndex, transition]);
+
   //슬라이드 정방향으로 넘어가는 조건
   const slideIndex = () => {
-    if (currentIndex === slideImgData.length - 1) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex(value => value + 1);
+    setTransition(TRANSITION);
+
+    const next = currentIndex + 1;
+    setCurrentIndex(next);
+
+    const isLastImgIdx = next >= slideImgData.length - 1;
+    if (isLastImgIdx) {
+      setTimeout(() => {
+        setTransition('');
+        setCurrentIndex(0);
+      }, 500);
     }
   };
   //슬라이드가 이전으로 넘어가는 조건
@@ -46,29 +68,6 @@ export default function Main() {
       setCurrentIndex(value => value - 1);
     }
   };
-
-  useEffect(() => {
-    const slideTime = setTimeout(() => {
-      slideIndex();
-    }, 3000);
-
-    return () => clearTimeout(slideTime);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    const isLastImgIdx = currentIndex === slideImgData.length - 1;
-    if (isLastImgIdx) {
-      slideRef.current.style.transition = `transform 0s`;
-      setCurrentIndex(1);
-    }
-
-    // if (isLastImgIdx) {
-    //   slideRef.current.style.transition = 0;
-    //   setCurrentIndex(1);
-    // }
-    slideRef.current.style.transition = `${0.5}s`;
-    slideRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }, [currentIndex]);
 
   return (
     <div className="main-container">
