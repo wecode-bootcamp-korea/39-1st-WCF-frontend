@@ -7,15 +7,17 @@ export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://3.35.54.156:3000/cart', {
+    fetch('http://10.58.52.56:3000/carts/', {
+      method: 'GET',
       headers: {
-        authorization: localStorage.getItem('TOKEN'),
-        'Content-Type': 'application/json;charset=utf-8',
+        'Content-Type': 'application/json',
+        user_id: 8,
       },
     })
       .then(response => response.json())
-      .then(json => setCartProducts(json.cart));
+      .then(result => setCartProducts(result));
   }, []);
+
   return (
     <main className="container cart">
       <div className="cart-box">
@@ -26,7 +28,7 @@ export default function Cart() {
 
       <section className="cart-container">
         <div className="order-box">
-          {/* {cartProducts.length ? (
+          {/* {cartProducts?.length ? (
             <CartFilled products={cartProducts} setProducts={setCartProducts} />
           ) : (
             <CartEmpty />

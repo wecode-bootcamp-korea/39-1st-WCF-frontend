@@ -1,262 +1,54 @@
-import React, { useState, useEffect, useNavigate} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
-const navigate = useNavigate();
-  const [checkAll, setCheckAll] = useState(false);
-  const [totalPrices, setTotalPrices] = useState(0);
-  const [total, setTotal] = useState(0);
+const CartFilled = props => {
+  const navigate = useNavigate();
+  const [cartData, setCartData] = useState([]);
+  const [checkList, setCheckList] = useState({});
 
-  const products = props.products;
-  const setCartProducts = props.setProducts;
-
-  const checkedArr = [];
-  for (let i in products) {
-    if (products[i].checkIn === 1) {
-      checkedArr.push(products[i].productId);
-    }
-  }
-
-  useEffect(() => {
-    setTotalQuantity(products.length);
-  }, [products.length]);
-
-  const pushChecked = event => {
-    if (checkedArr.includes(Number(event.target.id))) {
-      const rest = checkedArr.filter(item => item !== Number(event.target.id));
-
-      const newString = (checked => {
-        if (checked.length === 0) return '';
-
-        let string = '';
-        for (let i in checked) {
-          string += `productId=${checked[i]}&`;
-        }
-        string = string.slice(0, -1);
-        return string;
-      })(rest);
-
-      fetch(`http://3.35.54.156:3000/cart/check?${newString}`, {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then(response => response.json())
-        .then(json => {
-          setCartProducts(json.cart);
-        });
+  const onCheckedAll = () => {
+    const valueArr = Object.values(checkList).every(el => el === true);
+    let newObj = {};
+    if (valueArr) {
+      for (let key in checkList) {
+        newObj = { ...newObj, [key]: false };
+      }
     } else {
-      const addition = [...checkedArr, Number(event.target.id)];
-
-      const newString = (checked => {
-        if (checked.length === 0) return '';
-
-        let string = '';
-        for (let i in checked) {
-          string += `productId=${checked[i]}&`;
-        }
-        string = string.slice(0, -1);
-        return string;
-      })(addition);
-
-      fetch(`http://3.35.54.156:3000/cart/check?${newString}`, {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then(response => response.json())
-        .then(json => {
-          setCartProducts(json.cart);
-        });
-    }
-  };
-
-  const checkEvery = () => {
-    if (checkedArr.length !== products.length) {
-      const newArr = products.map(product => String(product.productId));
-
-      const newString = (checked => {
-        if (checked.length === 0) return '';
-
-        let string = '';
-        for (let i in checked) {
-          string += `productId=${checked[i]}&`;
-        }
-        string = string.slice(0, -1);
-        return string;
-      })(newArr);
-
-      fetch(`http://3.35.54.156:3000/cart/check?${newString}`, {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then(response => response.json())
-        .then(json => {
-          setCartProducts(json.cart);
-        });
-    } else {
-      fetch(`http://3.35.54.156:3000/cart/check`, {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then(response => response.json())
-        .then(json => {
-          setCartProducts(json.cart);
-        });
-    }
-  };
-
-  useEffect(() => {
-    checkedArr.length === products.length
-      ? setCheckAll(true)
-      : setCheckAll(false);
-  }, [checkedArr]);
-
-  useEffect(() => {
-    let totalProducts = 0;
-    let totalDeliver = 0;
-    let orderTotalQuantity = 0;
-    let totalPrice = 0;
-
-    const productArr = [];
-    const deliverArr = [];
-    const quantityArr = [];
-    for (let i in products) {
-      if (checkedArr.includes(products[i].productId)) {
-        productArr.push(products[i].price);
-        deliverArr.push(products[i].deliveryfee);
-        quantityArr.push(products[i].quantity);
+      for (let key in checkList) {
+        newObj = { ...newObj, [key]: true };
       }
     }
-
-    for (let i in productArr) {
-      totalProducts += productArr[i];
-    }
-
-    for (let i in deliverArr) {
-      totalDeliver += deliverArr[i];
-    }
-
-    for (let i in quantityArr) {
-      orderTotalQuantity += quantityArr[i];
-    }
-
-    totalPrice = totalProducts + totalDeliver;
-
-    setTotalPrices(totalProducts);
-    setTotalDeliver(totalDeliver);
-    setOrderTotalQuantity(orderTotalQuantity);
-    setTotal(totalPrice);
-  }, [checkedArr]);
-
-  const orderInCart = () => {
-    if (checkedArr.length === 0) {
-      alert('주문할 상품이 없습니다.');
-    } else {
-      navigate('/order');
-    }
+    setCheckList(newObj);
   };
 
-  const deleteThis = event => {
-    fetch(`http://3.35.54.156:3000/cart?productId=${Number(event.target.id)}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: localStorage.getItem('TOKEN'),
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(response => response.json())
-      .then(json => {
-        setCartProducts(json.cart);
+  // const onCheckedAll = () => {
+  //   let newObj = {};
+  //   for (let key in checkList) {
+  //     newObj = { ...newObj, [key]: !isAllChecked };
+  //   }
+  //   setCheckList(newObj);
+  // };
+
+  const handleCheck = e => {
+    const { name, checked } = e.target;
+
+    setCheckList(prev => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
+  useEffect(() => {
+    fetch('/data/CartData.json')
+      .then(res => res.json())
+      .then(data => {
+        setCartData(data);
+        setCheckList(
+          data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
+        );
       });
-  };
-
-  const deleteChosen = event => {
-    const newString = (checked => {
-      if (checked.length === 0) return '';
-
-      let string = '';
-      for (let i in checked) {
-        string += `productId=${checked[i]}&`;
-      }
-      string = string.slice(0, -1);
-      return string;
-    })(checkedArr);
-
-    fetch(`http://3.35.54.156:3000/cart?${newString}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: localStorage.getItem('TOKEN'),
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(response => response.json())
-      .then(json => {
-        setCartProducts(json.cart);
-      });
-  };
-
-  const plusCount = event => {
-    let quantityForRequest = 0;
-    for (let i in products) {
-      if (products[i].productId === Number(event.target.id)) {
-        quantityForRequest = products[i].quantity;
-      }
-    }
-
-    fetch(
-      `http://3.35.54.156:3000/cart?productId=${Number(
-        event.target.id
-      )}&quantity=${quantityForRequest + 1}`,
-      {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify({
-          productId: Number(event.target.id),
-          quantity: quantityForRequest + 1,
-        }),
-      }
-    )
-      .then(response => response.json())
-      .then(json => setCartProducts(json.cart));
-  };
-
-  const minusCount = event => {
-    let quantityForRequest = 0;
-    for (let i in products) {
-      if (products[i].productId === Number(event.target.id)) {
-        quantityForRequest = products[i].quantity;
-      }
-    }
-
-    fetch(
-      `http://3.35.54.156:3000/cart?productId=${Number(
-        event.target.id
-      )}&quantity=${quantityForRequest - 1}`,
-      {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(json => setCartProducts(json.cart));
-  };
-
+  }, []);
 
   return (
     <div className="container cartfilled">
