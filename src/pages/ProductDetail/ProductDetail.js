@@ -16,6 +16,7 @@ export default function ProductDetail() {
 
   const navigate = useNavigate();
 
+  // 서버연결용
   // useEffect(() => {
   //   fetch(`http://10.58.52.205:3000/product-detail/${productId}`, {
   //     method: 'GET',
@@ -27,8 +28,7 @@ export default function ProductDetail() {
   //     });
   // }, []);
 
-  console.log(productData.size);
-
+  // 로컬용
   useEffect(() => {
     fetch('/data/productDetailMockData.json')
       .then(response => response.json())
