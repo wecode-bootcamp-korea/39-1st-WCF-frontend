@@ -3,7 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
 const CartFilled = props => {
-  const { checkList, setCheckList, cartData, setCartData } = props;
+  const {
+    checkList,
+    setCheckList,
+    cartProducts,
+    setCartProducts,
+    getCartList,
+  } = props;
 
   const [checkArr, setCheckArr] = useState([]);
   const navigate = useNavigate();
@@ -16,21 +22,8 @@ const CartFilled = props => {
       newObj = { ...newObj, [key]: !valueArr };
     }
 
-    fetch(API, {
-      method: 'PATCH',
-      headers: {
-        authorization: localStorage.getItem('TOKEN'),
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        setCartList(data);
-      }
-      
     setCheckList(newObj);
-  
-  }
+  };
 
   const handleCheck = e => {
     const { name, checked, id } = e.target;
@@ -41,70 +34,24 @@ const CartFilled = props => {
     if (checkArr.includes(id)) {
       let newArr = checkArr.filter(el => el !== id);
 
-      fetch(API, {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          setCartList(data);
-
       setCheckArr(newArr);
     } else {
-
-      fetch(API, {
-        method: 'PATCH',
-        headers: {
-          authorization: localStorage.getItem('TOKEN'),
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          setCartList(data);
-
       setCheckArr(prev => [...prev, id]);
     }
   };
 
   const deleteProduct = productId => {
-    const filtered = cartData.filter(({ id }) => id !== productId);
-
     fetch('API', {
       method: 'DELETE',
-      body: JSON.stringify({
-        id: productId,
-      }),
+      body: JSON.stringify({}),
     }).then(res => {
       if (res.ok) {
-        setCartData(filtered);
+        getCartList();
       } else {
         alert('다시 시도해주세요!');
       }
     });
-
-    setCartData(filtered);
   };
-
-  const cartHidden = cartData.length === 0 ? 'hidden' : '';
-
-  // const deleteProduct = productId => {
-  //   fetch('API', {
-  //     method: 'DELETE',
-  //     body: JSON.stringify({
-  //       id: productId,
-  //     }),
-  //   }).then(res => {
-  //     if (res.ok) {
-  //       props.getCartList();
-  //     } else {
-  //       alert('다시 시도해주세요!');
-  //     }
-  //   });
-  // };
 
   const checkedTitle = [];
 
@@ -112,26 +59,30 @@ const CartFilled = props => {
     if (value) checkedTitle.push(title);
   });
 
-  const totalPrice = cartData.reduce((acc, cur) => {
+  const totalPrice = cartProducts.reduce((acc, cur) => {
     if (checkedTitle.includes(cur.name)) {
       return acc + cur.price * cur.count;
     } else return acc;
   }, 0);
 
-  // useEffect(() => {
-  //   fetch('/data/CartData.json')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setCartData(data);
-  //       setCheckList(
-  //         data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
-  //       );
-  //     });
-  // }, []);
+  const orderProduct = () => {
+    fetch('API', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    }).then(res => {
+      navigate('/order');
+    });
+  };
+
+  const handleSelectDelete = () => {
+    let newArr = [...cartProducts];
+    newArr = newArr.filter(el => checkArr.indexOf(String(el.id)) === -1);
+    setCartProducts(newArr);
+  };
 
   return (
     <div className="container cartfilled">
-      <div className={`cartfilled-top ${cartHidden}`}>
+      <div className="cartfilled-top">
         <div className="top-left">
           <input
             id="checked-all"
@@ -144,10 +95,12 @@ const CartFilled = props => {
             전체선택
           </label>
         </div>
-        <button className="delete-chosen-goods">선택 상품 삭제</button>
+        <button className="delete-chosen-goods" onClick={handleSelectDelete}>
+          선택 상품 삭제
+        </button>
       </div>
       <div className="cart-data-box">
-        {cartData.map(item => (
+        {cartProducts.map(item => (
           <div className="cart-data" key={item.id}>
             <div className="header">
               <div className="goods-info">상품・혜택정보</div>
@@ -224,11 +177,11 @@ const CartFilled = props => {
         ))}
       </div>
 
-      <div className={`bottom-order-amount-box ${cartHidden}`}>
+      <div className="bottom-order-amount-box">
         <div className="amount-header">결제 예정 금액 총 1건</div>
         <div className="total-amount">
           <div className="goods-amount-price">
-            {/* <p className="amount-price">{cartData.price}원</p> */}
+            {/* <p className="amount-price">{cartProducts.price}원</p> */}
             <p className="amount-price">{totalPrice.toLocaleString()}원</p>
             <p className="price-text">상품금액</p>
           </div>
@@ -257,7 +210,9 @@ const CartFilled = props => {
           </div>
         </div>
         <div className="order-button-box">
-          <button className="order-button">주문하기</button>
+          <button className="order-button" onClick={orderProduct}>
+            주문하기
+          </button>
         </div>
       </div>
     </div>
