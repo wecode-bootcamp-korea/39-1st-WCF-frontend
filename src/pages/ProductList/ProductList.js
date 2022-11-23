@@ -4,13 +4,12 @@ import Product from './Product/Product';
 import Brand from './Brand/Brand';
 import Price from './Price/Price';
 import Size from './Size/Size';
-import SelectedAll from './SelectedAll';
 import './ProductList.scss';
 
 const SORT = [
   { id: 0, title: '신상품순', method: 'created_at' },
-  { id: 1, title: '낮은가격순', method: 'price_DESC' },
-  { id: 2, title: '높은가격순', method: 'price_ASC' },
+  { id: 1, title: '낮은가격순', method: 'price_ASC' },
+  { id: 2, title: '높은가격순', method: 'price_DESC' },
 ];
 
 export default function ProductList() {
@@ -22,6 +21,8 @@ export default function ProductList() {
   const [isSelected, setIsSelected] = useState(0);
   // 선택된 필터링탭
   const [currentTab, setCurrentTab] = useState('');
+  // 선택된 정렬버튼
+  const [currentSort, setCurrentSort] = useState('');
   // 백엔드 및 mock data로 받아온 상품리스트
   const [productList, setProductList] = useState([]);
   // querystring 설정
@@ -55,59 +56,92 @@ export default function ProductList() {
   // console.log(selectedFilter);
   console.log(searchParams.toString());
 
-  // 필터링 및 sort 변경 시 백엔드에 요청
-  // useEffect(() => {
-  // fetch(`http://10.58.52.57:3000/products/subcategory=1?${query}`, {
-  //   method: 'GET',
-  //   headers: { 'Content-Type': 'application/json;charset=utf-8' },
-  // })
-  //   .then(response => response.json())
-  //   .then(result => {
-  //     setProductList(result.data);
-  //   });
-  // }, [searchParams]);
+  //필터링 및 sort 변경 시 백엔드에 요청
+  useEffect(() => {
+    console.log('필터링호출');
 
-  // //상품리스트 전체 get으로 받아오기
-  // //221121 path parameter -> query parameter로 변경
+    fetch(
+      `http://10.58.52.216:3000/products?subCategoryId=1&${searchParams.toString()}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      }
+    )
+      .then(response => response.json())
+      .then(result => {
+        setProductList(result.data);
+      });
+  }, [searchParams]);
+
+  // nav애서 받아온 query
+  // const location = useLocation();
+  // const queryString = location.search;
   // useEffect(() => {
-  //   fetch(`http://10.58.52.57:3000/products/subcategory=1`, {
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json;charset=utf-8' },
-  //   })
+  //   console.log('필터링호출');
+
+  //   fetch(
+  //     `http://10.58.52.216:3000/products${queryString}?${searchParams.toString()}`,
+  //     {
+  //       method: 'GET',
+  //       headers: { 'Content-Type': 'application/json;charset=utf-8' },
+  //     }
+  //   )
   //     .then(response => response.json())
   //     .then(result => {
   //       setProductList(result.data);
   //     });
-  // }, []);
+  // }, [searchParams]);
+
+  useEffect(() => {
+    fetch(`http://10.58.52.216:3000/products/brands?subCategoryId=1`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    })
+      .then(response => response.json())
+      .then(result => {
+        setBrandData(result.brands);
+      });
+  }, []);
+  useEffect(() => {
+    fetch(`http://10.58.52.216:3000/products/sizes?subCategoryId=1`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    })
+      .then(response => response.json())
+      .then(result => {
+        setSizeData(result.sizes);
+      });
+  }, []);
 
   //TODO: mock data 테스트
-  useEffect(() => {
-    fetch('/data/productListData.json')
-      .then(response => response.json())
-      .then(result => {
-        setProductList(result);
-      });
-  }, []);
-  useEffect(() => {
-    fetch('/data/brandData.json')
-      .then(response => response.json())
-      .then(result => {
-        setBrandData(result);
-      });
-  }, []);
-  useEffect(() => {
-    fetch('/data/sizeData.json')
-      .then(response => response.json())
-      .then(result => {
-        setSizeData(result);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/data/productListData.json')
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setProductList(result);
+  //     });
+  // }, []);
+  // useEffect(() => {
+  //   fetch('/data/brandData.json')
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setBrandData(result);
+  //     });
+  // }, []);
+  // useEffect(() => {
+  //   fetch('/data/sizeData.json')
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setSizeData(result);
+  //     });
+  // }, []);
 
   const handleSortBtn = e => {
-    setIsSelected(e.target.value);
-    searchParams.append(
+    const { value } = e.target;
+    setIsSelected(value);
+    searchParams.set(
       'sortMethod',
-      SORT.find(({ id }) => id === currentTab)?.method
+      SORT.find(({ id }) => id === Number(value))?.method
     );
     setSearchParams(searchParams);
   };
