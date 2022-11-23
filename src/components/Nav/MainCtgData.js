@@ -24,7 +24,7 @@ export const MAIN_CATEGORY = [
         text: '전체상품',
       },
       {
-        id: '1',
+        id: 1,
         text: '아우터',
       },
       {
@@ -32,7 +32,7 @@ export const MAIN_CATEGORY = [
         text: '재킷/베스트',
       },
       {
-        id: '2',
+        id: 2,
         text: '니트',
       },
       {
@@ -40,7 +40,7 @@ export const MAIN_CATEGORY = [
         text: '셔츠/블라우스',
       },
       {
-        id: '3',
+        id: 3,
         text: '티셔츠',
       },
       {
@@ -90,7 +90,7 @@ export const MAIN_CATEGORY = [
         text: '전체상품',
       },
       {
-        id: '4',
+        id: 4,
         text: '아우터',
       },
       {
@@ -102,7 +102,7 @@ export const MAIN_CATEGORY = [
         text: '재킷/베스트',
       },
       {
-        id: '6',
+        id: 6,
         text: '티셔츠',
       },
       {
@@ -110,7 +110,7 @@ export const MAIN_CATEGORY = [
         text: '셔츠',
       },
       {
-        id: '5',
+        id: 5,
         text: '니트',
       },
       {
