@@ -141,10 +141,40 @@
   }
 
   .our-special48-area {
+    display: flex;
+    flex-direction: row;
     position: relative;
     width: 100%;
 
     .our-special48-left {
+      display: flex;
+
+      .our-special48-item {
+        img {
+          width: 435px;
+          height: 600px;
+          object-fit: cover;
+        }
+      }
+
+      .our-special48-subitem {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 15px 0px 15px;
+
+        img {
+          width: 200px;
+          height: 292.5px;
+          object-fit: cover;
+        }
+
+        & :nth-child(2) {
+          margin: 15px 0px 0px 0px;
+        }
+      }
+    }
+
+    .our-special48-right {
       display: flex;
 
       .our-special48-item {

@@ -121,14 +121,52 @@ export default function Main() {
           <div className="our-special48-area">
             <div className="our-special48-left">
               <div className="our-special48-item">
-                <img alt="48image" src="./images/main/48image/48-image-1.jpg" />
+                <Link to="">
+                  <img
+                    alt="48image"
+                    src="./images/main/48image/48-image-1.jpg"
+                  />
+                </Link>
               </div>
               <div className="our-special48-subitem">
-                <img alt="48image" src="./images/main/48image/48-image-2.jpg" />
-                <img alt="48image" src="./images/main/48image/48-image-3.jpg" />
+                <Link to="">
+                  <img
+                    alt="48image"
+                    src="./images/main/48image/48-image-2.jpg"
+                  />
+                </Link>
+                <Link to="">
+                  <img
+                    alt="48image"
+                    src="./images/main/48image/48-image-3.jpg"
+                  />
+                </Link>
               </div>
             </div>
-            <div className="our-special48-right"></div>
+            <div className="our-special48-right">
+              <div className="our-special48-item">
+                <Link to="">
+                  <img
+                    alt="48image"
+                    src="./images/main/48image/48-image-1.jpg"
+                  />
+                </Link>
+              </div>
+              <div className="our-special48-subitem">
+                <Link to="">
+                  <img
+                    alt="48image"
+                    src="./images/main/48image/48-image-2.jpg"
+                  />
+                </Link>
+                <Link to="">
+                  <img
+                    alt="48image"
+                    src="./images/main/48image/48-image-3.jpg"
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
