@@ -107,7 +107,6 @@ export default function Main() {
                   className="play-btn-icon"
                   alt="play-btn"
                   src="./images/main/play.png"
-                  // onClick={playHandle}
                 />
               </div>
             </div>
@@ -124,12 +123,9 @@ export default function Main() {
             <div className="our-special48-left">
               <div className="our-special48-item">
                 <Link to="">
-                  <img
-                    alt="48image"
-                    src="./images/main/48image/48-image-1.jpg"
-                  />
+                  <img alt="48image" src="https://i.ibb.co/5c3ZVWJ/1.jpg" />
                   <div className="our48-title">
-                    <p>리뷰로 보는 겨울 코트</p>
+                    <p>리뷰로 보는 겨울 아우터</p>
                     <p>48시간 동안 최대 80% 세일!</p>
                     <p className="our48-subtitle">Wecode</p>
                   </div>
