@@ -80,6 +80,15 @@ export default function ProductDetail() {
     }
   }
 
+  // 사이즈 순서 정렬
+  productData.size &&
+    productData.size.sort((a, b) => {
+      if (a.product_options < b.product_options) return -1;
+      if (a.product_options > b.product_options) return 1;
+
+      return 0;
+    });
+
   //
   if (Object.keys(productData).length === 0) {
     return null;
@@ -489,10 +498,7 @@ export default function ProductDetail() {
 
             <ul className="img-list">
               <li>
-                <img src="/images/productdetail/sample-img.jpg" alt="샘플" />
-              </li>
-              <li>
-                <img src="/images/productdetail/sample-img.jpg" alt="샘플" />
+                <img src={productData.thumbnail} alt="샘플" />
               </li>
             </ul>
           </div>
