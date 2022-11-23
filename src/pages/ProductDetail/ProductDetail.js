@@ -56,8 +56,9 @@ export default function ProductDetail() {
     });
 
     if (e.target.className === 'btn black') {
-      if (postSize === undefined) alert('Size가 체크되지 않았습니다!');
-      navigate('/Cart');
+      postSize === undefined
+        ? alert('Size가 체크되지 않았습니다!')
+        : navigate('/Cart');
     } else if (e.target.className === 'btn purple') {
       navigate('/Payment');
     }
