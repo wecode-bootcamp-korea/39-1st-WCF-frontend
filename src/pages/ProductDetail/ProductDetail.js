@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ImgArea from './ImgArea/ImgArea';
 import './ProductDetail.scss';
 
@@ -10,14 +10,20 @@ export default function ProductDetail() {
   const [quantityNum, setQuantityNum] = useState(1);
   const [discount, setDiscount] = useState(0);
   const [postSize, setPostSize] = useState();
+  //
+  const params = useParams();
+  const productId = params.id;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/data/productDetailMockData.json')
+    fetch(`http://10.58.52.205:3000/product-detail/${productId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    })
       .then(response => response.json())
       .then(result => {
-        setProductData(result.data[0]);
+        setProductData(result);
       });
   }, []);
 
