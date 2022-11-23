@@ -1,6 +1,7 @@
 [
   {
     "subcategory": "아우터",
+    "productId": 1,
     "thumbnail": "/images/icons/marcel-strauss-hwLiTFTGJCY-unsplash.jpg",
     "name": "kuho shun",
     "title": "떡볶이코트",
@@ -8,6 +9,7 @@
   },
   {
     "subcategory": "아우터",
+    "productId": 2,
     "thumbnail": "/images/icons/marcel-strauss-hwLiTFTGJCY-unsplash.jpg",
     "name": "kuho shun",
     "title": "떡볶이코트",
@@ -15,6 +17,7 @@
   },
   {
     "subcategory": "아우터",
+    "productId": 3,
     "thumbnail": "/images/icons/marcel-strauss-hwLiTFTGJCY-unsplash.jpg",
     "name": "kuho shun",
     "title": "떡볶이코트",

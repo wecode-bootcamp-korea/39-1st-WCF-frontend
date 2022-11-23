@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Product from './Product/Product';
 import Brand from './Brand/Brand';
 import Price from './Price/Price';
@@ -12,34 +12,30 @@ const SORT = [
   { id: 2, title: '높은가격순', method: 'price_DESC' },
 ];
 
+const SUBCATEGORY = {
+  1: '아우터',
+  2: '니트',
+  3: '티셔츠',
+  4: '아우터',
+  5: '니트',
+  6: '티셔츠',
+};
+
 export default function ProductList() {
-  // 받아온 브랜드 리스트
-  const [brandData, setBrandData] = useState([]);
-  // 받아온 사이즈 리스트
-  const [sizeData, setSizeData] = useState([]);
   // 선택된 정렬버튼
   const [isSelected, setIsSelected] = useState(0);
   // 선택된 필터링탭
   const [currentTab, setCurrentTab] = useState('');
-  // 선택된 정렬버튼
-  const [currentSort, setCurrentSort] = useState('');
   // 백엔드 및 mock data로 받아온 상품리스트
   const [productList, setProductList] = useState([]);
   // querystring 설정
   const [searchParams, setSearchParams] = useSearchParams();
-  // const { brand, price, size } = searchParams;
-  // const [selectedFilter, setSelectedFilter] = useState({
-  //   brand: [],
-  //   price: [],
-  //   size: [],
-  // });
-  // const { brand, price, size } = selectedFilter;
 
   const TABS = [
     {
       id: 0,
       title: '브랜드',
-      content: <Brand brandData={brandData} />,
+      content: <Brand />,
     },
     {
       id: 1,
@@ -49,90 +45,28 @@ export default function ProductList() {
     {
       id: 2,
       title: '사이즈',
-      content: <Size sizeData={sizeData} />,
+      content: <Size />,
     },
   ];
 
-  // console.log(selectedFilter);
-  console.log(searchParams.toString());
-
-  //필터링 및 sort 변경 시 백엔드에 요청
+  //nav애서 받아온 querystring으로 상품리스트 get요청
   useEffect(() => {
-    console.log('필터링호출');
-
-    fetch(
-      `http://10.58.52.216:3000/products?subCategoryId=1&${searchParams.toString()}`,
-      {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      }
-    )
+    fetch(`http://10.58.52.205:3000/products?${searchParams.toString()}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    })
       .then(response => response.json())
       .then(result => {
         setProductList(result.data);
       });
   }, [searchParams]);
 
-  // nav애서 받아온 query
-  // const location = useLocation();
-  // const queryString = location.search;
-  // useEffect(() => {
-  //   console.log('필터링호출');
-
-  //   fetch(
-  //     `http://10.58.52.216:3000/products${queryString}?${searchParams.toString()}`,
-  //     {
-  //       method: 'GET',
-  //       headers: { 'Content-Type': 'application/json;charset=utf-8' },
-  //     }
-  //   )
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setProductList(result.data);
-  //     });
-  // }, [searchParams]);
-
-  useEffect(() => {
-    fetch(`http://10.58.52.216:3000/products/brands?subCategoryId=1`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    })
-      .then(response => response.json())
-      .then(result => {
-        setBrandData(result.brands);
-      });
-  }, []);
-  useEffect(() => {
-    fetch(`http://10.58.52.216:3000/products/sizes?subCategoryId=1`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    })
-      .then(response => response.json())
-      .then(result => {
-        setSizeData(result.sizes);
-      });
-  }, []);
-
-  //TODO: mock data 테스트
+  // //TODO: mock data 테스트
   // useEffect(() => {
   //   fetch('/data/productListData.json')
   //     .then(response => response.json())
   //     .then(result => {
   //       setProductList(result);
-  //     });
-  // }, []);
-  // useEffect(() => {
-  //   fetch('/data/brandData.json')
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setBrandData(result);
-  //     });
-  // }, []);
-  // useEffect(() => {
-  //   fetch('/data/sizeData.json')
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setSizeData(result);
   //     });
   // }, []);
 
@@ -153,7 +87,7 @@ export default function ProductList() {
         <section className="contents-list">
           <div className="sub-category">
             <h1>
-              {productList[0]?.subcategory}
+              {SUBCATEGORY[searchParams.get('subCategoryId')]}
               <span>{productList.length}개의 제품</span>
             </h1>
           </div>
@@ -162,7 +96,6 @@ export default function ProductList() {
               <ul className="filter-list">
                 {TABS.map(filter => {
                   const isCurrent = currentTab === filter.id;
-
                   return (
                     <li key={filter.id}>
                       <button
@@ -207,6 +140,7 @@ export default function ProductList() {
                     brand={product.name}
                     name={product.title}
                     price={product.price}
+                    id={product.productId}
                     key={idx}
                   />
                 );

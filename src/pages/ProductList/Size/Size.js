@@ -3,7 +3,16 @@ import { useSearchParams } from 'react-router-dom';
 
 import './Size.scss';
 
-export default function Size({ sizeData }) {
+const SIZE = [
+  { id: 1, name: 'XS' },
+  { id: 2, name: 'S' },
+  { id: 3, name: 'M' },
+  { id: 4, name: 'L' },
+  { id: 5, name: 'XL' },
+  { id: 6, name: 'XXL' },
+];
+
+export default function Size() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const prevQuery = searchParams.getAll('sizeId');
@@ -28,7 +37,7 @@ export default function Size({ sizeData }) {
     <section className="filter-size" data-type="size">
       <div className="panel-inline">
         <ul className="panel-list">
-          {sizeData.map((size, idx) => (
+          {SIZE.map((size, idx) => (
             <li key={idx}>
               <span>
                 <input

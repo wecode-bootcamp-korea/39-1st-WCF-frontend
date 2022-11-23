@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './Brand.scss';
 
-function Brand({ brandData }) {
-  const [filterList, setFilterList] = useState(brandData);
+const BRAND = [
+  { id: 1, name: '7 seconds' },
+  { id: 2, name: 'IAM STUDIO' },
+  { id: 3, name: 'GUESSS' },
+  { id: 4, name: '2525 by eoeo' },
+  { id: 5, name: 'Matin Ku' },
+];
+function Brand() {
+  const [filterList, setFilterList] = useState(BRAND);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // 브랜드 검색기능
   const searchBrand = e => {
-    const filterBrand = brandData.filter(brand =>
+    const filterBrand = BRAND.filter(brand =>
       brand.name.includes(e.target.value)
     );
     setFilterList(filterBrand);
