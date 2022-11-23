@@ -76,19 +76,23 @@ export default function SignIn() {
 
   const isPwValid1 = PW_TYPE_REG_EXP.test(password);
   const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
+  const isPwValid3 = password && checkPassword && password === checkPassword;
 
   const handleInput = e => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
   };
 
-  const fetchFn = () => {
+  const fetchFn = e => {
+    e.preventDefault();
+
     fetch('http://10.58.52.57:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       body: JSON.stringify({
         username: userName,
         password: password,
+        checkPassword: checkPassword,
         name: name,
         mobile_number: phoneNumber,
         email: email,
@@ -137,6 +141,7 @@ export default function SignIn() {
                 >
                   영문+숫자
                 </span>
+
                 <span
                   className={`valid-check-length ${
                     isIdValid2 ? 'valid-check' : ''
@@ -176,6 +181,7 @@ export default function SignIn() {
                 >
                   영문, 숫자, 특수문자 2가지 이상 조합
                 </span>
+
                 <span
                   className={`valid-check-length ${
                     isPwValid2 ? 'valid-check' : ''
@@ -197,6 +203,19 @@ export default function SignIn() {
                 name="checkPassword"
                 onChange={handleInput}
               />
+
+              <span
+                className={`valid-check-type ${
+                  isPwValid3 ? 'valid-check' : ''
+                }`}
+              >
+                <span className="check">체크</span>
+              </span>
+              <span
+                className={`valid-status-type ${isPwValid3 ? ' valid' : ''}`}
+              >
+                비밀번호 일치
+              </span>
             </div>
           </label>
           {USERINFO_LIST.map(list => {
