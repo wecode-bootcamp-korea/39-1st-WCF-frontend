@@ -182,4 +182,14 @@
       }
     }
   }
+  .top-button-box {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    .top-button {
+      position: fixed;
+      top: 660px;
+      right: 40px;
+    }
+  }
 }

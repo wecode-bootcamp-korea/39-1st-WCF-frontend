@@ -2,6 +2,10 @@ import React from 'react';
 import './Footer.scss';
 
 export default function Footer() {
+  const topButton = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="footer">
       <div className="footer-nav-area">
@@ -102,6 +106,11 @@ export default function Footer() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="top-button-box">
+        <button className="top-button" onClick={topButton}>
+          <i class="fas fa-chevron-circle-up fa-2x"></i>
+        </button>
       </div>
     </footer>
   );
