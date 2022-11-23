@@ -76,15 +76,15 @@ export default function Login() {
         </label>
       </div>
 
-      <div className="login-bottom">
+      <div className="login-bottom-box">
         <a href="https://www.ssfshop.com/public/member/searchMbrId">
-          <button className="find">아이디 찾기</button>
+          <button className="login-bottom">아이디 찾기</button>
         </a>
         <a href="https://www.ssfshop.com/public/member/searchMbrId">
-          <button className="find">비밀번호 찾기</button>
+          <button className="login-bottom">비밀번호 찾기</button>
         </a>
         <Link to="/Singin">
-          <button className="join">회원가입</button>
+          <button className="login-bottom">회원가입</button>
         </Link>
       </div>
     </div>

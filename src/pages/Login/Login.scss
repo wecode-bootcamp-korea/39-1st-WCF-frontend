@@ -77,7 +77,7 @@
       }
     }
   }
-  .login-bottom {
+  .login-bottom-box {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -86,8 +86,7 @@
     margin-top: 42px;
     background-color: #f7f7f7;
 
-    .find,
-    .join {
+    .login-bottom {
       border: 0;
       outline: 0;
       background-color: #f7f7f7;
