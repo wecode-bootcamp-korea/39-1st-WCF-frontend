@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Login.scss';
 
 export default function Login() {
@@ -76,9 +77,15 @@ export default function Login() {
       </div>
 
       <div className="login-bottom">
-        <button className="find">아이디 찾기</button>
-        <button className="find">비밀번호 찾기</button>
-        <button className="join">회원가입</button>
+        <a href="https://www.ssfshop.com/public/member/searchMbrId">
+          <button className="find">아이디 찾기</button>
+        </a>
+        <a href="https://www.ssfshop.com/public/member/searchMbrId">
+          <button className="find">비밀번호 찾기</button>
+        </a>
+        <Link to="/Singin">
+          <button className="join">회원가입</button>
+        </Link>
       </div>
     </div>
   );
