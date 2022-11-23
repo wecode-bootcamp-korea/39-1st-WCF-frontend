@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
 const CartFilled = props => {
-  const { setCheckList, checkList, cartData, setCartData } = props;
+  const { checkList, setCheckList, cartData, setCartData } = props;
 
   const [checkArr, setCheckArr] = useState([]);
-
   const navigate = useNavigate();
-  // const [cartData, setCartData] = useState([]);
-  // const [checkList, setCheckList] = useState({});
 
   const valueArr = Object.values(checkList).every(el => el === true);
 
@@ -18,10 +15,22 @@ const CartFilled = props => {
     for (let key in checkList) {
       newObj = { ...newObj, [key]: !valueArr };
     }
-    setCheckList(newObj);
-  };
 
-  const cartHidden = cartData.length === 0 ? 'hidden' : '';
+    fetch(API, {
+      method: 'PATCH',
+      headers: {
+        authorization: localStorage.getItem('TOKEN'),
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setCartList(data);
+      }
+      
+    setCheckList(newObj);
+  
+  }
 
   const handleCheck = e => {
     const { name, checked, id } = e.target;
@@ -31,32 +40,56 @@ const CartFilled = props => {
     }));
     if (checkArr.includes(id)) {
       let newArr = checkArr.filter(el => el !== id);
+
+      fetch(API, {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setCartList(data);
+
       setCheckArr(newArr);
     } else {
+
+      fetch(API, {
+        method: 'PATCH',
+        headers: {
+          authorization: localStorage.getItem('TOKEN'),
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setCartList(data);
+
       setCheckArr(prev => [...prev, id]);
     }
   };
 
-  // console.log(checkArr);
-
   const deleteProduct = productId => {
     const filtered = cartData.filter(({ id }) => id !== productId);
 
-    // fetch('API', {
-    //   method: 'DELETE',
-    //   body: JSON.stringify({
-    //     id: productId,
-    //   }),
-    // }).then(res => {
-    //   if (res.ok) {
-    //     setCartData(filtered);
-    //   } else {
-    //     alert('다시 시도해주세요!');
-    //   }
-    // });
+    fetch('API', {
+      method: 'DELETE',
+      body: JSON.stringify({
+        id: productId,
+      }),
+    }).then(res => {
+      if (res.ok) {
+        setCartData(filtered);
+      } else {
+        alert('다시 시도해주세요!');
+      }
+    });
 
     setCartData(filtered);
   };
+
+  const cartHidden = cartData.length === 0 ? 'hidden' : '';
 
   // const deleteProduct = productId => {
   //   fetch('API', {
@@ -176,7 +209,7 @@ const CartFilled = props => {
                   <p className="left-title">스토어 주문금액 합계</p>
                   <p className="left-sub-title">
                     상품금액 {(item.price * item.count).toLocaleString()}원 +
-                    배송비 0원 - 할인금액 0원
+                    배송비 0원 − 할인금액 0원
                   </p>
                 </div>
                 <div className="right-sub-box">

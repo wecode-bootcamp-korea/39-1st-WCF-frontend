@@ -8,39 +8,39 @@ export default function Cart() {
   const [cartData, setCartData] = useState([]);
   const [checkList, setCheckList] = useState({});
 
-  useEffect(() => {
-    fetch('/data/CartData.json')
-      .then(res => res.json())
-      .then(data => {
-        setCartData(data);
-        setCheckList(
-          data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
-        );
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/data/CartData.json')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setCartData(data);
+  //       setCheckList(
+  //         data.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
+  //       );
+  //     });
+  // }, []);
 
   useEffect(() => {
     getCartList();
   }, []);
 
-  // 통신할 때
-  // const getCartList = () => {
-  //   fetch('http://10.58.52.56:3000/carts/', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       user_id: 8,
-  //     },
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => setCartProducts(result));
-  // };
-
+  //통신할 때
   const getCartList = () => {
-    fetch('/data/CartData.json')
+    fetch('http://10.58.52.56:3000/carts/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        user_id: 8,
+      },
+    })
       .then(response => response.json())
       .then(result => setCartProducts(result));
   };
+
+  // const getCartList = () => {
+  //   fetch('/data/CartData.json')
+  //     .then(response => response.json())
+  //     .then(result => setCartProducts(result));
+  // };
 
   return (
     <main className="container cart">
