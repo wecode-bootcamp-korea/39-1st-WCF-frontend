@@ -52,7 +52,7 @@ export default function HotBrand() {
           <i class="fas fa-chevron-left" />
         </button>
         <span>{currentIndex + 1} / 3</span>
-        <button className="prev-btn" onClick={goToNext}>
+        <button className="next-btn" onClick={goToNext}>
           <i class="fas fa-chevron-right" />
         </button>
       </div>
@@ -194,47 +194,47 @@ const HOT_BRAND_SUB_SUB = [
   },
   {
     id: 26,
-    title: 'MOIA',
+    title: 'WeLife',
     link: '',
   },
   {
     id: 27,
-    title: 'MOIF',
+    title: 'Wecode',
     link: '',
   },
   {
     id: 28,
-    title: 'AURAREE',
+    title: 'Wework',
     link: '',
   },
   {
     id: 29,
-    title: 'LEMEIRE',
+    title: 'Kuri',
     link: '',
   },
   {
     id: 30,
-    title: 'NOTTHING',
+    title: 'ItThing',
     link: '',
   },
   {
     id: 31,
-    title: 'AMOMENTO',
+    title: 'Andante',
     link: '',
   },
   {
     id: 32,
-    title: 'TECKET',
+    title: 'SoSmalleee',
     link: '',
   },
   {
     id: 33,
-    title: 'KOTELO',
+    title: 'Wetelo',
     link: '',
   },
   {
     id: 34,
-    title: 'JOY GRAISON',
+    title: 'JOY Wecode',
     link: '',
   },
 ];

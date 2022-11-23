@@ -22,7 +22,7 @@ const OUR_PICKS = [
   },
   {
     id: 4,
-    img: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
+    img: 'https://i.ibb.co/nczw1HX/image.jpg',
     link: '',
     text: '다이버 크루들의 러블리 아우터 일상',
     title: 'Wecode + Wework',
@@ -50,7 +50,7 @@ const OUR_PICKS = [
   },
   {
     id: 8,
-    img: 'https://images.unsplash.com/photo-1644483878413-1bdfe8d1180c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
+    img: 'https://i.ibb.co/3CTBVNv/2.jpg',
     link: '',
     text: 'Your Autumn Cardigun starts here',
     title: 'Weison Kitsune',
@@ -60,11 +60,11 @@ const OUR_PICKS = [
     img: 'https://images.unsplash.com/photo-1529903056346-94341d9428e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80',
     link: '',
     text: '신규입점 특가~70% 사은품 증정',
-    title: 'millibam',
+    title: 'millibamm',
   },
   {
     id: 10,
-    img: 'https://images.unsplash.com/photo-1607957599516-8215fd320455?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
+    img: 'https://i.ibb.co/wzccvdN/1-1.jpg',
     link: '',
     text: "Wonen's Winter Pants",
     title: 'Weanpole Golf',
@@ -80,7 +80,7 @@ const OUR_PICKS = [
     id: 12,
     img: 'https://images.unsplash.com/photo-1598121535437-37bbc4748e1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
     link: '',
-    text: '닥터지, 지아자, 바이탈뷰티 등 뷰티 핫딜 최대 80%',
+    text: '닥터위, 위아자, 위이탈뷰티 등 뷰티 핫딜 최대 80%',
     title: 'Beauty',
   },
   {
@@ -94,8 +94,8 @@ const OUR_PICKS = [
     id: 14,
     img: 'https://images.unsplash.com/photo-1606855637183-ea2a00b6f15f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1100&q=80',
     link: '',
-    text: '소프라움 단독 특가 77%+사은품 증정',
-    title: 'SOFRAUM',
+    text: '단독 특가 77%+사은품 증정',
+    title: 'SOFAUM',
   },
   {
     id: 15,
@@ -109,7 +109,7 @@ const OUR_PICKS = [
     img: 'https://images.unsplash.com/photo-1516762689617-e1cffcef479d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1011&q=80',
     link: '',
     text: 'ALITA, NEW ARRIVALS',
-    title: '10 CORSO COME',
+    title: '10 COSO COME',
   },
   {
     id: 17,
@@ -123,21 +123,21 @@ const OUR_PICKS = [
     img: 'https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80',
     link: '',
     text: '22AW OPENING UP TO 55%+10% OFF',
-    title: 'TATRAS',
+    title: 'TTRAS',
   },
   {
     id: 19,
     img: 'https://images.unsplash.com/photo-1570170615381-62c299188814?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
     link: '',
     text: '블랙프라이데이 단독~50%',
-    title: 'MARITHE FRANCOIS GIRBAUD',
+    title: 'MARI FRANCOIS GIRBAUD',
   },
   {
     id: 20,
-    img: 'https://images.unsplash.com/photo-1553544260-f87e671974ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1107&q=80',
+    img: 'https://i.ibb.co/gFg8gDg/3.jpg',
     link: '',
     text: '베스트 리뷰 남기고, 사은품 받기!',
-    title: 'Theory',
+    title: '5JJU',
   },
 ];
 

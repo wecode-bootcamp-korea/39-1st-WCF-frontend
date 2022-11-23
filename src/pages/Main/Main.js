@@ -3,6 +3,8 @@ import './Main.scss';
 import { Link } from 'react-router-dom';
 import OUR_PICKS from './OUR_PICKS';
 import HotBrand from './HotBrand';
+import Marketing from './Marketing';
+import OurPicks from './OurPicks';
 
 const TRANSITION = 'all ease 500ms';
 
@@ -19,7 +21,7 @@ export default function Main() {
   const [clickButton, setClickButton] = useState(false);
 
   useEffect(() => {
-    fetch('data/data.json')
+    fetch('data/mainslide.json')
       .then(response => response.json())
       .then(data => {
         setSlideImgData([data[data.length - 1], ...data, data[0]]);
@@ -31,7 +33,7 @@ export default function Main() {
   useEffect(() => {
     const slideTime = setTimeout(() => {
       slideIndex();
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(slideTime);
   }, [currentIndex]);
@@ -43,6 +45,7 @@ export default function Main() {
 
   //슬라이드 정방향으로 넘어가는 조건
   const slideIndex = () => {
+    console.log(currentIndex);
     setTransition(TRANSITION);
 
     const next = currentIndex + 1;
@@ -52,7 +55,7 @@ export default function Main() {
     if (isLastImgIdx) {
       setTimeout(() => {
         setTransition('');
-        setCurrentIndex(0);
+        setCurrentIndex(1);
       }, 500);
     }
   };
@@ -84,7 +87,8 @@ export default function Main() {
                   className="slide-item-image"
                   key={index}
                   src={slide.img}
-                ></img>
+                  alt="배너이미지"
+                />
               ))}
             </div>
             <div className="prev-btn">
@@ -102,20 +106,11 @@ export default function Main() {
                   onClick={slideIndex}
                 />
               </div>
-              <div className="play-btn">
-                <img
-                  className="play-btn-icon"
-                  alt="play-btn"
-                  src="./images/main/play.png"
-                />
-              </div>
             </div>
           </div>
         </div>
-        <div className="our-pick">
-          <h2 className="ourpick-title">Our Picks</h2>
-          <ul className="ourpick-photo" />
-        </div>
+        <Marketing />
+        <OurPicks />
         <HotBrand />
         <div className="our-special48">
           <h2 className="our-special48-head">48시간 특가</h2>
@@ -127,7 +122,7 @@ export default function Main() {
                   <div className="our48-title">
                     <p>리뷰로 보는 겨울 아우터</p>
                     <p>48시간 동안 최대 80% 세일!</p>
-                    <p className="our48-subtitle">Wecode</p>
+                    <p className="our48-subtitle">SeHo</p>
                   </div>
                 </Link>
               </div>
@@ -135,10 +130,10 @@ export default function Main() {
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-2.jpg"
+                    src="https://images.unsplash.com/photo-1576861048192-fa56cf0a8161?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
                   />
                   <div className="our48-back">
-                    <p className="our48-back-title">MONGDOL</p>
+                    <p className="our48-back-title">SeHo</p>
                     <p>니트 모자</p>
                     <p>(8colors) MDTS006</p>
                     <p className="our48-price">59,000</p>
@@ -150,10 +145,10 @@ export default function Main() {
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-3.jpg"
+                    src="https://images.unsplash.com/photo-1623393807193-e095f7944161?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                   />
                   <div className="our48-back">
-                    <p className="our48-back-title">MONGDOL</p>
+                    <p className="our48-back-title">SeHo</p>
                     <p>니트, 가디건</p>
                     <p>(5colors) DTRS006</p>
                     <p className="our48-price">63,000</p>
@@ -169,12 +164,13 @@ export default function Main() {
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-4.jpg"
+                    src="https://i.ibb.co/t3xVQ9W/imageedit-13-6374660499.jpg"
                   />
                   <div className="our48-title">
-                    <p>Daily용으로 좋은 가방</p>
-                    <p>48시간 동안 최대 90% 세일</p>
-                    <p className="our48-subtitle">Wecode</p>
+                    <p>나에게 어울리는 가방은 뭘까?</p>
+                    <p>WCF가 찾아드려요!</p>
+                    <p>48시간 동안 최대 50% 세일</p>
+                    <p className="our48-subtitle">MENTO's</p>
                   </div>
                 </Link>
               </div>
@@ -182,10 +178,10 @@ export default function Main() {
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-5.jpg"
+                    src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=817&q=80"
                   />
                   <div className="our48-back">
-                    <p className="our48-back-title">JUUN.J</p>
+                    <p className="our48-back-title">MENTO's</p>
                     <p>블랙프라이데이</p>
                     <p>[셀럽 착용] 조이 버킷백</p>
                     <p className="our48-price">289,000</p>
@@ -197,10 +193,10 @@ export default function Main() {
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-6.jpg"
+                    src="https://images.unsplash.com/photo-1528384483229-b4a97480dbea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                   />
                   <div className="our48-back">
-                    <p className="our48-back-title">Weanpole Accessory</p>
+                    <p className="our48-back-title">MENTO's</p>
                     <p>디노 플랩 백팩</p>
                     <p>[only] Black</p>
                     <p className="our48-price">329,000</p>

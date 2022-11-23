@@ -1,77 +1,52 @@
-import React, { useState, useRef, useEffect } from 'react';
-
-const TRANSITION = 'all ease 500ms';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Marketing.scss';
 
 export default function Marketing() {
-  //인덱스 저장
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [slideImgData, setSlideImgData] = useState([]);
-  const [transition, setTransition] = useState(TRANSITION);
-  // 카운트
-  const [count, setCount] = useState(0);
-  // 이미지가 몇 초마다 이동할 지
-  const slideRef = useRef(null);
-  const marketingList = setSlideImgData([
-    data[data.length - 1],
-    ...data,
-    data[0],
-  ]);
+  const [Index, setIndex] = useState(0);
 
-  // console.log(slideImgData, currentIndex);
-
-  useEffect(() => {
-    const slideTime = setTimeout(() => {
-      slideIndex();
-    }, 3000);
-
-    return () => clearTimeout(slideTime);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    slideRef.current.style.transition = transition;
-    slideRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }, [currentIndex, transition]);
-
-  //슬라이드 정방향으로 넘어가는 조건
-  const slideIndex = () => {
-    setTransition(TRANSITION);
-
-    const next = currentIndex + 1;
-    setCurrentIndex(next);
-
-    const isLastImgIdx = next >= slideImgData.length - 1;
-    if (isLastImgIdx) {
-      setTimeout(() => {
-        setTransition('');
-        setCurrentIndex(0);
-      }, 500);
-    }
+  const goToPrev = () => {
+    const FirstSlide = Index === 0;
+    const newIndex = FirstSlide ? 3 - 1 : Index - 1;
+    setIndex(newIndex);
   };
 
-  //슬라이드가 이전으로 넘어가는 조건
-  const leftSlide = () => {
-    setTransition(TRANSITION);
-
-    const prev = currentIndex - 1;
-    setCurrentIndex(prev);
-
-    const isLastImgIdx = prev === 0;
-    if (isLastImgIdx) {
-      setTimeout(() => {
-        setTransition('');
-        setCurrentIndex(slideImgData.length - 1);
-      }, 500);
-    }
+  const goToNext = () => {
+    const LastSlide = Index === 2;
+    const newIndex = LastSlide ? 0 : Index + 1;
+    setIndex(newIndex);
   };
 
   return (
     <div className="marketing-area">
       <div className="marketing-list">
-        <div className="marketing-list-item">
-          {MARKETING_LIST.map((slide, index) => (
-            <img className="marketing-item"></img>
+        <ul
+          className="marketing-list-area"
+          style={{
+            transform: `translateX(-${Index * 100}%)`,
+          }}
+        >
+          {MARKETING_LIST.map(list => (
+            <Link to={list.link}>
+              <li key={list.id} className="marketing-list-item">
+                <img src={list.img} />
+                <div className="marketing-list-title">
+                  <p className="marketing-title">{list.title}</p>
+                  <p>{list.subtitle}</p>
+                </div>
+              </li>
+            </Link>
           ))}
-        </div>
+        </ul>
+      </div>
+      <div className="marketing-btn">
+        <button className="prev-btn" onClick={goToPrev}>
+          <i class="fas fa-chevron-left" />
+        </button>
+        <span>{Index + 1} / 3</span>
+        <button className="next-btn" onClick={goToNext}>
+          <i class="fas fa-chevron-right" />
+        </button>
       </div>
     </div>
   );
@@ -80,19 +55,22 @@ export default function Marketing() {
 const MARKETING_LIST = [
   {
     id: 1,
-    img: 'https://i.ibb.co/Yf9Dpnk/image.jpg',
+    img: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
+    link: '',
     title: '친구에게 WCF샵을 추천해주세요',
     subtitle: '나눌수록 커지는 코인 혜택!',
   },
   {
     id: 2,
-    img: 'https://i.ibb.co/hs4DvW2/1.jpg',
+    img: 'https://images.unsplash.com/photo-1589758438368-0ad531db3366?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
+    link: '',
     title: '11월엔 매일 100% 당첨 혜택 받으세요',
     subtitle: '최대 50% 쿠폰부터 100만 코인까지!',
   },
   {
     id: 3,
-    img: 'https://i.ibb.co/SKM7fMB/3.jpg',
+    img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    link: '',
     title: '첫 구매하셨으니, 다시 돌려드려요',
     subtitle: '신청만 하면 3천 코인 + 세븐세컨즈는 3천 코인 더!',
   },
