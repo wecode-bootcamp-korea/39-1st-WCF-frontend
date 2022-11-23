@@ -8,8 +8,9 @@ export default function ProductDetail() {
   const [productData, setProductData] = useState({});
   //수량갯수
   const [quantityNum, setQuantityNum] = useState(1);
-  const [discount, setDiscount] = useState(0);
   const [postSize, setPostSize] = useState();
+  const [checkSize, setCheckSize] = useState('사이즈 선택');
+
   //
   const params = useParams();
   const productId = params.productId;
@@ -55,6 +56,7 @@ export default function ProductDetail() {
   //사이즈 체크 후 서버에 보낼 정보 저장
   function sizeCheck(e) {
     setPostSize(e.target.dataset.id);
+    setCheckSize(e.target.id);
   }
 
   // 바로구매 클릭시 서버에 보낼 데이터 함수
@@ -219,15 +221,13 @@ export default function ProductDetail() {
                           <span className="check-box">
                             <input
                               type="radio"
-                              id={`size-` + elem.size}
+                              id={elem.size}
                               data-id={elem.product_options}
                               name="size"
                               className="hidden"
                               onClick={sizeCheck}
                             />
-                            <label htmlFor={`size-` + elem.size}>
-                              {elem.size}
-                            </label>
+                            <label htmlFor={elem.size}>{elem.size}</label>
                           </span>
                         </li>
                       );
@@ -295,7 +295,7 @@ export default function ProductDetail() {
               </div>
               <div className="product-total-result">
                 <div className="data-box">
-                  <span className="size">S</span>
+                  <span className="size">{checkSize}</span>
                   <span className="date">오늘출고예정</span>
                 </div>
                 {/* 수량 기능 */}
