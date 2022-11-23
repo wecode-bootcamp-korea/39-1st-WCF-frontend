@@ -1,4 +1,4 @@
-const OUR_PICKS_LIST = [
+const OUR_PICKS = [
   {
     id: 1,
     img: './images/main/ourpicks/image-1.jpg',
@@ -141,4 +141,4 @@ const OUR_PICKS_LIST = [
   },
 ];
 
-export default OUR_PICKS_LIST;
+export default OUR_PICKS;

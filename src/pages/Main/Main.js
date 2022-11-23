@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Main.scss';
 import { Link } from 'react-router-dom';
-import OUR_PICKS_LIST from './OUR_PICKS';
+import OUR_PICKS from './OUR_PICKS';
 
 const TRANSITION = 'all ease 500ms';
 
@@ -25,12 +25,7 @@ export default function Main() {
       });
   }, []);
 
-  console.log(slideImgData, currentIndex);
-
-  // 버튼 재생 스탑
-  function playHandle() {
-    console.log('click!');
-  }
+  // console.log(slideImgData, currentIndex);
 
   useEffect(() => {
     const slideTime = setTimeout(() => {
@@ -60,6 +55,7 @@ export default function Main() {
       }, 500);
     }
   };
+
   //슬라이드가 이전으로 넘어가는 조건
   const leftSlide = () => {
     setTransition(TRANSITION);
@@ -77,52 +73,69 @@ export default function Main() {
   };
 
   return (
-    <div className="main-container">
-      <div className="slider">
-        <div className="slideShow">
-          <div className="slide-item" ref={slideRef} count={count}>
-            {slideImgData.map((slide, index) => (
+    <div>
+      <div className="main-container">
+        <div className="slider">
+          <div className="slideShow">
+            <div className="slide-item" ref={slideRef} count={count}>
+              {slideImgData.map((slide, index) => (
+                <img
+                  className="slide-item-image"
+                  key={index}
+                  src={slide.img}
+                ></img>
+              ))}
+            </div>
+            <div className="prev-btn">
               <img
-                className="slide-item-image"
-                key={index}
-                src={slide.img}
-              ></img>
-            ))}
-          </div>
-          <div className="prev-btn">
-            <img
-              alt="prev-btn"
-              src="./images/main/leftarrow.png"
-              onClick={leftSlide}
-            />
-          </div>
-          <div className="next-btn-play">
-            <div className="next-btn">
-              <img
-                alt="next-btn"
-                src="./images/main/rightarrow.png"
-                onClick={slideIndex}
+                alt="prev-btn"
+                src="./images/main/leftarrow.png"
+                onClick={leftSlide}
               />
             </div>
-            <div className="play-btn">
-              <img
-                className="play-btn-icon"
-                alt="play-btn"
-                src="./images/main/play.png"
-                onClick={playHandle}
-              />
+            <div className="next-btn-play">
+              <div className="next-btn">
+                <img
+                  alt="next-btn"
+                  src="./images/main/rightarrow.png"
+                  onClick={slideIndex}
+                />
+              </div>
+              <div className="play-btn">
+                <img
+                  className="play-btn-icon"
+                  alt="play-btn"
+                  src="./images/main/play.png"
+                  // onClick={playHandle}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="our-pick">
-        <h2 className="ourpick-title">Our Picks</h2>
-        <ul className="ourpick-photo" />
+        <div className="our-pick">
+          <h2 className="ourpick-title">Our Picks</h2>
+          <ul className="ourpick-photo" />
+        </div>
+        <div className="our-special48">
+          <h2 className="our-special48-head">48시간 특가</h2>
+          <div className="our-special48-area">
+            <div className="our-special48-left">
+              <div className="our-special48-item">
+                <img alt="48image" src="./images/main/48image/48-image-1.jpg" />
+              </div>
+              <div className="our-special48-subitem">
+                <img alt="48image" src="./images/main/48image/48-image-2.jpg" />
+                <img alt="48image" src="./images/main/48image/48-image-3.jpg" />
+              </div>
+            </div>
+            <div className="our-special48-right"></div>
+          </div>
+        </div>
       </div>
       <div className="our-pick-list">
         <div className="our-pick-list-area">
-          <ul>
-            {OUR_PICKS_LIST.map(list => (
+          <ul className="ourpick-list-ul">
+            {OUR_PICKS.map(list => (
               <li key={list.id}>
                 <Link to={list.link} />
                 <img src={list.img} />
