@@ -5,11 +5,10 @@ import { SPECIAL_LIST } from './SpecialCtgData';
 import './Nav.scss';
 
 export default function Nav() {
-  const isLoggedIn = !!localStorage.getItem('token');
+  const isLoggedIn = !!localStorage.getItem('accessToken');
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-
+    localStorage.removeItem('accessToken');
     window.location.reload();
   };
 
