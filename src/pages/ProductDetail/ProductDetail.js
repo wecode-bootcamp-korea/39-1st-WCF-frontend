@@ -56,15 +56,14 @@ export default function ProductDetail() {
     });
 
     if (e.target.className === 'btn black') {
-      navigate('../Cart/Cart');
+      if (postSize === undefined) alert('Size가 체크되지 않았습니다!');
+      navigate('/Cart');
     } else if (e.target.className === 'btn purple') {
-      navigate('../Payment/Payment');
+      navigate('/Payment');
     }
   }
 
   //
-  console.log(productData.price);
-  console.log(productData.brand);
   if (Object.keys(productData).length === 0) {
     return null;
   }
