@@ -12,7 +12,7 @@ export default function ProductDetail() {
   const [postSize, setPostSize] = useState();
   //
   const params = useParams();
-  const productId = params.id;
+  const productId = params.productId;
 
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function ProductDetail() {
     })
       .then(response => response.json())
       .then(result => {
-        setProductData(result);
+        setProductData(result.data[0]);
       });
   }, []);
 

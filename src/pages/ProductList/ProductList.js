@@ -6,7 +6,7 @@ export default function ProductList() {
 
   return (
     <div>
-      <Link to="/product-list/1">1. link</Link>
+      <Link to="/product-detail/1">1. link</Link>
     </div>
   );
 }
