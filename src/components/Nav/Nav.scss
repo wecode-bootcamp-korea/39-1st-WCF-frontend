@@ -19,10 +19,11 @@
       display: flex;
       justify-content: end;
 
-      a {
+      .info-btn {
         color: #fff;
         font-size: 12px;
         padding: 0px 0px 0px 20px;
+        cursor: pointer;
       }
     }
   }

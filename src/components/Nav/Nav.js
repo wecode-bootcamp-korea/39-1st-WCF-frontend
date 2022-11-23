@@ -5,13 +5,32 @@ import { SPECIAL_LIST } from './SpecialCtgData';
 import './Nav.scss';
 
 export default function Nav() {
+  const isLoggedIn = !!localStorage.getItem('accessToken');
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    window.location.reload();
+  };
+
   return (
     <header className="header">
       <div className="user-info-area">
         <div className="inner">
           <div className="user-info">
-            <Link to="">마이페이지</Link>
-            <Link to="">로그인</Link>
+            {isLoggedIn ? (
+              <>
+                <Link to="/mypage" className="info-btn">
+                  마이페이지
+                </Link>
+                <span className="info-btn" onClick={handleLogout}>
+                  로그아웃
+                </span>
+              </>
+            ) : (
+              <Link to="/signin" className="info-btn">
+                로그인
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -46,7 +65,9 @@ export default function Nav() {
                               {category.subCategory.map(list => {
                                 return (
                                   <li key={list.id} className="ctg-dropdown">
-                                    <Link to={`/productlist/${list.id}`}>
+                                    <Link
+                                      to={`/product-list?subCategory=${list.id}`}
+                                    >
                                       {list.text}
                                     </Link>
                                   </li>
