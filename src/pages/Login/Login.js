@@ -25,20 +25,17 @@ export default function Login() {
       .then(response => {
         // console.log(response);
         if (response.status != 200) {
-          throw new Error('error');
+          throw new Error('ERROR!!');
         }
 
         return response.json();
       })
       .catch(err => {
-        console.log(err);
         alert('로그인 실패! 아이디 또는 비밀번호를 확인해주세요.');
       })
       .then(data => {
-        // console.log(data);
         localStorage.setItem('token', data.accessToken);
-        navigate('./Cart');
-        // idPwValid();
+        navigate('./Main');
       });
   };
 
@@ -73,7 +70,7 @@ export default function Login() {
 
       <div className="login-save-id-box">
         <input id="login-check" type="checkbox" />
-        <label for="login-check" className="login-id-check">
+        <label htmlFor="login-check" className="login-id-check">
           <div className="login-save-id-text">아이디 저장</div>
         </label>
       </div>
