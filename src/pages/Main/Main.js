@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './Main.scss';
 import { Link } from 'react-router-dom';
 import OUR_PICKS from './OUR_PICKS';
+import HotBrand from './HotBrand';
 
 const TRANSITION = 'all ease 500ms';
 
@@ -116,6 +117,7 @@ export default function Main() {
           <h2 className="ourpick-title">Our Picks</h2>
           <ul className="ourpick-photo" />
         </div>
+        <HotBrand />
         <div className="our-special48">
           <h2 className="our-special48-head">48시간 특가</h2>
           <div className="our-special48-area">
@@ -126,6 +128,11 @@ export default function Main() {
                     alt="48image"
                     src="./images/main/48image/48-image-1.jpg"
                   />
+                  <div className="our48-title">
+                    <p>리뷰로 보는 겨울 코트</p>
+                    <p>48시간 동안 최대 80% 세일!</p>
+                    <p className="our48-subtitle">Wecode</p>
+                  </div>
                 </Link>
               </div>
               <div className="our-special48-subitem">
@@ -134,12 +141,30 @@ export default function Main() {
                     alt="48image"
                     src="./images/main/48image/48-image-2.jpg"
                   />
+                  <div className="our48-back">
+                    <p className="our48-back-title">MONGDOL</p>
+                    <p>니트 모자</p>
+                    <p>(8colors) MDTS006</p>
+                    <p className="our48-price">59,000</p>
+                    <p className="our48-saleprice-title">
+                      37%<span>37,050</span>
+                    </p>
+                  </div>
                 </Link>
                 <Link to="">
                   <img
                     alt="48image"
                     src="./images/main/48image/48-image-3.jpg"
                   />
+                  <div className="our48-back">
+                    <p className="our48-back-title">MONGDOL</p>
+                    <p>니트, 가디건</p>
+                    <p>(5colors) DTRS006</p>
+                    <p className="our48-price">63,000</p>
+                    <p className="our48-saleprice-title">
+                      43%<span>35,900</span>
+                    </p>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -148,22 +173,45 @@ export default function Main() {
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-1.jpg"
+                    src="./images/main/48image/48-image-4.jpg"
                   />
+                  <div className="our48-title">
+                    <p>Daily용으로 좋은 가방</p>
+                    <p>48시간 동안 최대 90% 세일</p>
+                    <p className="our48-subtitle">Wecode</p>
+                  </div>
                 </Link>
               </div>
               <div className="our-special48-subitem">
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-2.jpg"
+                    src="./images/main/48image/48-image-5.jpg"
                   />
+                  <div className="our48-back">
+                    <p className="our48-back-title">JUUN.J</p>
+                    <p>블랙프라이데이</p>
+                    <p>[셀럽 착용] 조이 버킷백</p>
+                    <p className="our48-price">289,000</p>
+                    <p className="our48-saleprice-title">
+                      28%<span>208,080</span>
+                    </p>
+                  </div>
                 </Link>
                 <Link to="">
                   <img
                     alt="48image"
-                    src="./images/main/48image/48-image-3.jpg"
+                    src="./images/main/48image/48-image-6.jpg"
                   />
+                  <div className="our48-back">
+                    <p className="our48-back-title">Weanpole Accessory</p>
+                    <p>디노 플랩 백팩</p>
+                    <p>[only] Black</p>
+                    <p className="our48-price">329,000</p>
+                    <p className="our48-saleprice-title">
+                      28%<span>236,880</span>
+                    </p>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -175,8 +223,9 @@ export default function Main() {
           <ul className="ourpick-list-ul">
             {OUR_PICKS.map(list => (
               <li key={list.id}>
-                <Link to={list.link} />
-                <img src={list.img} />
+                <Link to={list.link}>
+                  <img src={list.img} />
+                </Link>
                 <p class="subtext">{list.text}</p>
                 <p class="title">{list.title}</p>
               </li>

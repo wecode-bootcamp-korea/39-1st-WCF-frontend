@@ -90,6 +90,17 @@
   }
 }
 
+.hot-brand-area {
+  width: 1280px;
+  margin: 120px auto 0;
+
+  .hot-brand-title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 32px;
+  }
+}
+
 .our-pick-list {
   margin: 120px auto 0;
   width: 1280px;
@@ -131,13 +142,14 @@
 }
 
 .our-special48 {
-  margin: 120px auto 0;
+  margin: 20px auto 0;
   width: 1280px;
 
   .our-special48-head {
     font-size: 30px;
     text-align: center;
     padding: 0px 0px 25px 0px;
+    margin-top: 100px;
   }
 
   .our-special48-area {
@@ -150,15 +162,33 @@
       display: flex;
 
       .our-special48-item {
+        position: relative;
+
         img {
           width: 435px;
           height: 600px;
           object-fit: cover;
         }
+
+        .our48-title {
+          position: absolute;
+          bottom: 45px;
+          left: 20px;
+          font-size: 20px;
+          font-weight: bolder;
+          color: #fff;
+
+          .our48-subtitle {
+            font-size: 15px;
+            font-weight: normal;
+            margin-top: 7px;
+          }
+        }
       }
 
       .our-special48-subitem {
         display: flex;
+        position: relative;
         flex-direction: column;
         margin: 0px 15px 0px 15px;
 
@@ -168,8 +198,59 @@
           object-fit: cover;
         }
 
-        & :nth-child(2) {
-          margin: 15px 0px 0px 0px;
+        a {
+          position: relative;
+          display: block;
+          margin-top: 15px;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+
+      .our48-back {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 200px;
+        height: 292.5px;
+        transition: 0.5s;
+        padding-top: 30px;
+
+        p {
+          display: none;
+          padding: 2px 0px 0px 15px;
+          color: #fff;
+        }
+        &:hover {
+          padding-top: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+
+          .our48-back-title {
+            padding-top: 15px;
+            font-weight: bolder;
+          }
+
+          .our48-price {
+            margin-top: 10px;
+            font-weight: lighter;
+            text-decoration: line-through;
+            font-size: 13px;
+          }
+
+          .our48-saleprice-title {
+            font-weight: bolder;
+            color: #dcc3fe;
+
+            span {
+              margin-left: 5px;
+              color: #fff;
+            }
+          }
+
+          p {
+            display: block;
+          }
         }
       }
     }
@@ -178,14 +259,32 @@
       display: flex;
 
       .our-special48-item {
+        position: relative;
+
         img {
           width: 400px;
           height: 600px;
           object-fit: cover;
         }
+
+        .our48-title {
+          position: absolute;
+          bottom: 45px;
+          left: 20px;
+          font-size: 20px;
+          font-weight: bolder;
+          color: #fff;
+
+          .our48-subtitle {
+            font-size: 15px;
+            font-weight: normal;
+            margin-top: 7px;
+          }
+        }
       }
 
       .our-special48-subitem {
+        position: relative;
         display: flex;
         flex-direction: column;
         margin: 0px 15px 0px 15px;
@@ -196,8 +295,64 @@
           object-fit: cover;
         }
 
-        & :nth-child(2) {
-          margin: 15px 0px 0px 0px;
+        a {
+          position: relative;
+          display: block;
+          margin-top: 15px;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+
+      .our48-back {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 200px;
+        height: 292.5px;
+        transition: 0.5s;
+        padding-top: 30px;
+
+        p {
+          display: none;
+          padding: 2px 0px 0px 15px;
+          color: #fff;
+        }
+        &:hover {
+          padding-top: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+
+          .our48-back-title {
+            font-weight: bolder;
+            padding-top: 15px;
+          }
+
+          .our48-back-title {
+            padding-top: 15px;
+            font-weight: bolder;
+          }
+
+          .our48-price {
+            margin-top: 10px;
+            font-weight: lighter;
+            text-decoration: line-through;
+            font-size: 13px;
+          }
+
+          .our48-saleprice-title {
+            font-weight: bolder;
+            color: #dcc3fe;
+
+            span {
+              margin-left: 5px;
+              color: #fff;
+            }
+          }
+
+          p {
+            display: block;
+          }
         }
       }
     }
