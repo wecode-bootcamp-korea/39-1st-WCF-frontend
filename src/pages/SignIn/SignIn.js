@@ -7,6 +7,7 @@ const ID_TYPE_REG_EXP = /^(?=.*[a-zA-Z])(?=.*[0-9]).{0,25}$/;
 const ID_LENGTH_REG_EXP = /^.{6,25}$/;
 const PW_TYPE_REG_EXP = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{0,25}$/;
 const PW_LENGTH_REG_EXP = /^.{8,25}$/;
+// const CHECKPW_REG_EXP = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
 export default function SignIn() {
   const [inputValue, setInputValue] = useState({
@@ -141,7 +142,6 @@ export default function SignIn() {
                 >
                   영문+숫자
                 </span>
-
                 <span
                   className={`valid-check-length ${
                     isIdValid2 ? 'valid-check' : ''
@@ -161,7 +161,6 @@ export default function SignIn() {
           <label className="signin-box">
             <div className="signin-box-in">
               <div className="signin-text required">비밀번호</div>
-
               <input
                 className="signin-input"
                 type="password"
@@ -197,27 +196,35 @@ export default function SignIn() {
                   8자 이상
                 </span>
               </p>
+            </div>
+          </label>
+
+          <label className="signin-box">
+            <div className="signin-box-in">
+              <div className="signin-text required">비밀번호 확인</div>
               <input
-                className="signin-input check-password"
+                className="signin-input"
                 type="password"
                 name="checkPassword"
                 onChange={handleInput}
               />
-
-              <span
-                className={`valid-check-type ${
-                  isPwValid3 ? 'valid-check' : ''
-                }`}
-              >
-                <span className="check">체크</span>
-              </span>
-              <span
-                className={`valid-status-type ${isPwValid3 ? ' valid' : ''}`}
-              >
-                비밀번호 일치
-              </span>
+              <p className="valid-status">
+                <span
+                  className={`valid-check-type ${
+                    isPwValid3 ? 'valid-check' : ''
+                  }`}
+                >
+                  <span className="check">체크</span>
+                </span>
+                <span
+                  className={`valid-status-type ${isPwValid3 ? ' valid' : ''}`}
+                >
+                  비밀번호 일치
+                </span>
+              </p>
             </div>
           </label>
+
           {USERINFO_LIST.map(list => {
             return (
               <label className="signin-box" key={list.id}>
