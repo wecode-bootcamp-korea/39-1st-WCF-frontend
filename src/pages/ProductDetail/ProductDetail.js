@@ -16,11 +16,21 @@ export default function ProductDetail() {
 
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   fetch(`http://10.58.52.205:3000/product-detail/${productId}`, {
+  //     method: 'GET',
+  //     headers: { 'Content-Type': 'application/json;charset=utf-8' },
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setProductData(result.data[0]);
+  //     });
+  // }, []);
+
+  console.log(productData.size);
+
   useEffect(() => {
-    fetch(`http://10.58.52.205:3000/product-detail/${productId}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    })
+    fetch('/data/productDetailMockData.json')
       .then(response => response.json())
       .then(result => {
         setProductData(result.data[0]);
@@ -121,17 +131,7 @@ export default function ProductDetail() {
               </div>
               <div className="product-price-area">
                 <div className="price-box">
-                  <b className="price">
-                    {productData.price - productData.price * discount}
-                    {/* error : 비동기-동기 에러 처리필요 */}
-                  </b>
-                  <span className="price-cancel">{productData.price}</span>
-                </div>
-                <div className="discount-box">
-                  <b className="percent">{discount}%</b>
-                  <button className="btn-tooltip">
-                    <span className="hidden">툴팁</span>
-                  </button>
+                  <b className="price">{productData.price.toLocaleString()}</b>
                 </div>
               </div>
               <div className="code-name">
@@ -227,34 +227,79 @@ export default function ProductDetail() {
                     <span className="check-box">
                       <input
                         type="radio"
-                        id="size-s"
+                        id="size-XS"
                         name="size"
                         className="hidden"
+                        data-options="1"
+                        onClick={sizeCheck}
+                        //disabled={}
                       />
-                      <label htmlFor="size-s">S</label>
+                      <label htmlFor="size-XS">XS</label>
                     </span>
                   </li>
                   <li>
                     <span className="check-box">
                       <input
                         type="radio"
-                        id="size-m"
+                        id="size-S"
                         name="size"
                         className="hidden"
-                        disabled
+                        data-options="2"
+                        onClick={sizeCheck}
                       />
-                      <label htmlFor="size-m">M</label>
+                      <label htmlFor="size-S">S</label>
                     </span>
                   </li>
                   <li>
                     <span className="check-box">
                       <input
                         type="radio"
-                        id="size-l"
+                        id="size-M"
                         name="size"
                         className="hidden"
+                        data-options="3"
+                        onClick={sizeCheck}
                       />
-                      <label htmlFor="size-l">L</label>
+                      <label htmlFor="size-M">M</label>
+                    </span>
+                  </li>
+                  <li>
+                    <span className="check-box">
+                      <input
+                        type="radio"
+                        id="size-L"
+                        name="size"
+                        className="hidden"
+                        data-options="4"
+                        onClick={sizeCheck}
+                      />
+                      <label htmlFor="size-L">L</label>
+                    </span>
+                  </li>
+                  <li>
+                    <span className="check-box">
+                      <input
+                        type="radio"
+                        id="size-XL"
+                        name="size"
+                        className="hidden"
+                        data-options="5"
+                        onClick={sizeCheck}
+                      />
+                      <label htmlFor="size-XL">XL</label>
+                    </span>
+                  </li>
+                  <li>
+                    <span className="check-box">
+                      <input
+                        type="radio"
+                        id="size-XXL"
+                        name="size"
+                        className="hidden"
+                        data-options="6"
+                        onClick={sizeCheck}
+                      />
+                      <label htmlFor="size-XXL">XXL</label>
                     </span>
                   </li> */}
                 </ul>
@@ -336,8 +381,7 @@ export default function ProductDetail() {
                   </div>
                   <div className="price-box">
                     <span className="price">
-                      {productData.price * quantityNum}
-                      {/* error : 비동기-동기 에러 처리필요 */}
+                      {(productData.price * quantityNum).toLocaleString()}
                     </span>
                     원
                   </div>
@@ -597,458 +641,6 @@ export default function ProductDetail() {
                     </p>
                   </div>
                 </div>
-                {/* <div className="tab-item item-2">
-                  <div className="table-wrap type-border">
-                    <ul className="tab-header">
-                      <li>
-                        <button className="active">여성상의</button>
-                      </li>
-                      <li>
-                        <button>여성하의</button>
-                      </li>
-                      <li>
-                        <button>남성상의</button>
-                      </li>
-                      <li>
-                        <button>남성하의</button>
-                      </li>
-                    </ul>
-                    <div className="tab-container">
-                      <div className="tab-item item-1">
-                        <div className="table-area">
-                          <table className="table type-horizon">
-                            <colgroup>
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                            </colgroup>
-                            <thead>
-                              <tr>
-                                <th colSpan={2} rowSpan={2}>
-                                  <span>SIZE</span>
-                                </th>
-                                <th colSpan={2} rowSpan={2}>
-                                  <span>BEAKER</span>
-                                </th>
-                                <th>
-                                  <span>신체사이즈</span>
-                                </th>
-                              </tr>
-                              <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <span>S</span>
-                                </td>
-                                <td>
-                                  <span>90</span>
-                                </td>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>002</span>
-                                </td>
-                                <td>
-                                  <span>90</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>95</span>
-                                </td>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>003</span>
-                                </td>
-                                <td>
-                                  <span>95</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>100</span>
-                                </td>
-                                <td>
-                                  <span>XL</span>
-                                </td>
-                                <td>
-                                  <span>004</span>
-                                </td>
-                                <td>
-                                  <span>100</span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <ul className="bullet-list">
-                            <li>
-                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
-                            </li>
-                            <li>
-                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
-                              개인차가 있을 수 있으니 양지 바랍니다.
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="tab-item item-2">
-                        <div className="table-area">
-                          <table className="table type-horizon">
-                            <colgroup>
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                            </colgroup>
-                            <thead>
-                              <tr>
-                                <th colSpan={2} rowSpan={2}>
-                                  <span>SIZE</span>
-                                </th>
-                                <th colSpan={3} rowSpan={2}>
-                                  <span>BEAKER</span>
-                                </th>
-                                <th>
-                                  <span>신체사이즈</span>
-                                </th>
-                              </tr>
-                              <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <span>XS</span>
-                                </td>
-                                <td>
-                                  <span>64</span>
-                                </td>
-                                <td>
-                                  <span>XS</span>
-                                </td>
-                                <td>
-                                  <span>000</span>
-                                </td>
-                                <td>
-                                  <span>24-25</span>
-                                </td>
-                                <td>
-                                  <span>64</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>S</span>
-                                </td>
-                                <td>
-                                  <span>67</span>
-                                </td>
-                                <td>
-                                  <span>S</span>
-                                </td>
-                                <td>
-                                  <span>001</span>
-                                </td>
-                                <td>
-                                  <span>001</span>
-                                </td>
-                                <td>
-                                  <span>67</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>70</span>
-                                </td>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>002</span>
-                                </td>
-                                <td>
-                                  <span>28-29</span>
-                                </td>
-                                <td>
-                                  <span>70</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>73</span>
-                                </td>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>003</span>
-                                </td>
-                                <td>
-                                  <span>30</span>
-                                </td>
-                                <td>
-                                  <span>73</span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <ul className="bullet-list">
-                            <li>
-                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
-                            </li>
-                            <li>
-                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
-                              개인차가 있을 수 있으니 양지 바랍니다.
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="tab-item item-3">
-                        <div className="table-area">
-                          <table className="table type-horizon">
-                            <colgroup>
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                            </colgroup>
-                            <thead>
-                              <tr>
-                                <th colSpan={2} rowSpan={2}>
-                                  <span>SIZE</span>
-                                </th>
-                                <th colSpan={2} rowSpan={2}>
-                                  <span>BEAKER</span>
-                                </th>
-                                <th>
-                                  <span>신체사이즈</span>
-                                </th>
-                              </tr>
-                              <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <span>S</span>
-                                </td>
-                                <td>
-                                  <span>90</span>
-                                </td>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>002</span>
-                                </td>
-                                <td>
-                                  <span>90</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>95</span>
-                                </td>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>003</span>
-                                </td>
-                                <td>
-                                  <span>95</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>100</span>
-                                </td>
-                                <td>
-                                  <span>XL</span>
-                                </td>
-                                <td>
-                                  <span>004</span>
-                                </td>
-                                <td>
-                                  <span>100</span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <ul className="bullet-list">
-                            <li>
-                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
-                            </li>
-                            <li>
-                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
-                              개인차가 있을 수 있으니 양지 바랍니다.
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="tab-item item-4">
-                        <div className="table-area">
-                          <table className="table type-horizon">
-                            <colgroup>
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                              <col />
-                            </colgroup>
-                            <thead>
-                              <tr>
-                                <th colSpan={2} rowSpan={2}>
-                                  <span>SIZE</span>
-                                </th>
-                                <th colSpan={3} rowSpan={2}>
-                                  <span>BEAKER</span>
-                                </th>
-                                <th>
-                                  <span>신체사이즈</span>
-                                </th>
-                              </tr>
-                              <tr>
-                                <th>
-                                  <span>가슴둘레</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <span>XS</span>
-                                </td>
-                                <td>
-                                  <span>64</span>
-                                </td>
-                                <td>
-                                  <span>XS</span>
-                                </td>
-                                <td>
-                                  <span>000</span>
-                                </td>
-                                <td>
-                                  <span>24-25</span>
-                                </td>
-                                <td>
-                                  <span>64</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>S</span>
-                                </td>
-                                <td>
-                                  <span>67</span>
-                                </td>
-                                <td>
-                                  <span>S</span>
-                                </td>
-                                <td>
-                                  <span>001</span>
-                                </td>
-                                <td>
-                                  <span>001</span>
-                                </td>
-                                <td>
-                                  <span>67</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>70</span>
-                                </td>
-                                <td>
-                                  <span>M</span>
-                                </td>
-                                <td>
-                                  <span>002</span>
-                                </td>
-                                <td>
-                                  <span>28-29</span>
-                                </td>
-                                <td>
-                                  <span>70</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>73</span>
-                                </td>
-                                <td>
-                                  <span>L</span>
-                                </td>
-                                <td>
-                                  <span>003</span>
-                                </td>
-                                <td>
-                                  <span>30</span>
-                                </td>
-                                <td>
-                                  <span>73</span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <ul className="bullet-list">
-                            <li>
-                              제품 구매시 참고하실 수 있는 사이즈 조견표입니다.
-                            </li>
-                            <li>
-                              제시된 사이즈는 일반적인 기준으로 체형 등에 따라
-                              개인차가 있을 수 있으니 양지 바랍니다.
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
