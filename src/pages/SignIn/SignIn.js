@@ -77,7 +77,7 @@ export default function SignIn() {
 
   const isPwValid1 = PW_TYPE_REG_EXP.test(password);
   const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
-  const isPwValid3 = password && checkPassword && password === checkPassword;
+  const pwCheck = password && checkPassword && password === checkPassword;
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -210,16 +210,14 @@ export default function SignIn() {
               />
               <p className="valid-status">
                 <span
-                  className={`valid-check-type ${
-                    isPwValid3 ? 'valid-check' : ''
-                  }`}
+                  className={`valid-check-type ${pwCheck ? 'valid-check' : ''}`}
                 >
                   <span className="check">체크</span>
                 </span>
                 <span
-                  className={`valid-status-type ${isPwValid3 ? ' valid' : ''}`}
+                  className={`valid-status-type ${pwCheck ? ' valid' : ''}`}
                 >
-                  비밀번호 일치
+                  비밀번호가 일치합니다.
                 </span>
               </p>
             </div>
