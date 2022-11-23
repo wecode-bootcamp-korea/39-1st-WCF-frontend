@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
@@ -21,7 +21,6 @@ const CartFilled = props => {
     for (let key in checkList) {
       newObj = { ...newObj, [key]: !valueArr };
     }
-
     setCheckList(newObj);
   };
 
@@ -40,6 +39,10 @@ const CartFilled = props => {
     }
   };
 
+  // useEffect(() => {
+  //   deleteProduct();
+  // });
+
   const deleteProduct = productId => {
     fetch('/data/CartData.json', {
       method: 'DELETE',
@@ -54,13 +57,15 @@ const CartFilled = props => {
         // name: name,
         // price: price,
       }),
-    }).then(res => {
-      if (res.ok) {
-        getCartList();
-      } else {
-        alert('다시 시도해주세요!');
-      }
-    });
+    })
+      // .then(res => {
+      //   if (res.ok) {
+      //     getCartList();
+      //   } else {
+      //     alert('다시 시도해주세요!');
+      //   }
+      // });
+      .then(res => res);
   };
 
   const checkedTitle = [];
@@ -74,6 +79,10 @@ const CartFilled = props => {
       return acc + cur.price * cur.count;
     } else return acc;
   }, 0);
+
+  // useEffect(() => {
+  //   orderProduct();
+  // });
 
   const orderProduct = () => {
     fetch('API', {
@@ -142,13 +151,11 @@ const CartFilled = props => {
                   </button>
                 </div>
               </div>
-
               <div className="info-middle-right">
                 <div className="info-middle">
                   <p className="free-delivery">무료배송</p>
                   <p className="release">내일 출고 예정</p>
                 </div>
-
                 <div className="info-right">
                   <p className="total-price">{item.price.toLocaleString()}원</p>
                   <button type="button" className="buy-now">
@@ -156,7 +163,6 @@ const CartFilled = props => {
                   </button>
                 </div>
               </div>
-
               <button
                 type="button"
                 className="delete-goods"
@@ -165,7 +171,6 @@ const CartFilled = props => {
                 <span className="delete-goods-text">엑스</span>
               </button>
             </div>
-
             <div className="order-amount-box-wrap">
               <div className="order-amount-box">
                 <div className="left-sub-box">
@@ -186,12 +191,10 @@ const CartFilled = props => {
           </div>
         ))}
       </div>
-
       <div className="bottom-order-amount-box">
         <div className="amount-header">결제 예정 금액 총 1건</div>
         <div className="total-amount">
           <div className="goods-amount-price">
-            {/* <p className="amount-price">{cartProducts.price}원</p> */}
             <p className="amount-price">{totalPrice.toLocaleString()}원</p>
             <p className="price-text">상품금액</p>
           </div>

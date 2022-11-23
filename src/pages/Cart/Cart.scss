@@ -2,7 +2,6 @@
   .hidden {
     display: none;
   }
-
   .cart-box {
     display: flex;
     justify-content: center;
@@ -30,6 +29,7 @@
       .cartfilled {
         width: 960px;
         margin: 0px 160px;
+        
         .cartfilled-top {
           display: flex;
           justify-content: space-between;
@@ -38,9 +38,11 @@
           .top-left {
             input[type='checkbox'] {
               display: none;
+            
               & + label {
                 position: relative;
                 text-align: center;
+             
                 &:after {
                   content: '';
                   position: absolute;
@@ -78,8 +80,7 @@
             font-size: 14px;
           }
         }
-
-        .cart-data-box {
+.cart-data-box {
           .cart-data {
             display: flex;
             flex-direction: column;
@@ -151,7 +152,7 @@
                     &:after {
                       content: '';
                       background: url(../../images/cart/bg-component.png)
-                        no-repeat;
+                      no-repeat;
                       background-color: #111;
                       background-position: 0px 0px;
                       background-size: 100px;
@@ -199,7 +200,6 @@
                 height: 216px;
 
                 .info-middle {
-                  // margin-bottom: 50px;
                   display: flex;
                   flex-direction: column;
                   align-items: center;
@@ -207,7 +207,6 @@
                   height: 216px;
                   padding: 30px 0px;
                   padding-right: 15px;
-
                   .free-delivery {
                     margin-bottom: 14px;
                     font-size: 16px;
@@ -231,6 +230,7 @@
                     font-size: 19px;
                     font-weight: 800;
                   }
+
                   .buy-now {
                     width: 140px;
                     height: 40px;
@@ -248,7 +248,6 @@
                 right: 0px;
                 width: 14px;
                 height: 14px;
-
                 background-image: url(../../images/cart/btn_x_gray.svg);
                 background-repeat: no-repeat;
                 background-position: center center;
@@ -275,6 +274,7 @@
 
                 .left-sub-box {
                   font-size: 15.5px;
+                
                   .left-title {
                     margin-bottom: 10px;
                     color: #9c9c9c;
@@ -284,6 +284,7 @@
                 }
                 .right-sub-box {
                   text-align: end;
+
                   .price {
                     font-size: 24px;
                     font-weight: 400;
@@ -303,6 +304,7 @@
           height: 298px;
           border-top: solid rgb(17, 17, 17);
           border-bottom: solid rgb(17, 17, 17);
+         
           .amount-header {
             width: 957px;
             height: 50px;
@@ -310,6 +312,7 @@
             font-size: 16px;
             line-height: 50px;
           }
+          
           .total-amount {
             display: flex;
             align-items: center;
@@ -320,6 +323,7 @@
             gap: 35px;
 
             .goods-amount-price {
+              
               .amount-price {
                 font-size: 27px;
               }
@@ -328,34 +332,28 @@
                 font-size: 15px;
               }
             }
-
             .amount-sign-plus {
               font-size: 32px;
               font-weight: 600;
             }
-
             .amount-delivery-box {
               display: flex;
               align-items: center;
               justify-content: center;
               
               .amount-delivery {
-              
                 .delivery-price {
                   font-size: 27px;
                 }
-              
                 .delivery-text {
                   padding-top: 10px;
                   font-size: 15px;
                 }
               }
-
             .amount-sign-minus {
               font-size: 32px;
               font-weight: 600;
             }
-
             .amount-discount-box {
               display: flex;
               align-items: center;
@@ -372,12 +370,10 @@
                 }
               }
             }
-
             .amount-sign-total {
               font-size: 32px;
               font-weight: 600;
             }
-
             .total-amounts-box {
               display: flex;
               align-items: center;
@@ -397,6 +393,7 @@
           .order-button-box {
             display: flex;
             justify-content: center;
+          
             .order-button {
               width: 256px;
               height: 60px;
@@ -438,6 +435,7 @@
       .cart-info {
         position: relative;
         padding-left: 15px;
+
         &::before {
           content: '・';
           display: inline-block;
