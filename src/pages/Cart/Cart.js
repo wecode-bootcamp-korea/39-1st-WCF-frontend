@@ -25,7 +25,12 @@ export default function Cart() {
   // };
 
   const getCartList = () => {
-    fetch('/data/CartData.json')
+    fetch('/data/CartData.json', {
+      method: 'GET',
+      headers: {
+        authorization: localStorage.getItem('access'),
+      },
+    })
       .then(response => response.json())
       .then(result => {
         setCartProducts(result);

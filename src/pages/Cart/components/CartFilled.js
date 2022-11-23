@@ -43,7 +43,17 @@ const CartFilled = props => {
   const deleteProduct = productId => {
     fetch('API', {
       method: 'DELETE',
-      body: JSON.stringify({}),
+      body: JSON.stringify({
+        // productId: productId,
+        // thumbnail: thumbnail,
+        // brand: brand,
+        // title: title,
+        // size: size,
+        // count: count,
+        // color: color,
+        // name: name,
+        // price: price,
+      }),
     }).then(res => {
       if (res.ok) {
         getCartList();
