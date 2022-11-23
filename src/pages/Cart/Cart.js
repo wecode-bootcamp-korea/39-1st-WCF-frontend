@@ -11,34 +11,34 @@ export default function Cart() {
     getCartList();
   }, []);
 
-  //통신할 때
-  // const getCartList = () => {
-  //   fetch('http://10.58.52.56:3000/carts/', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       user_id: 8,
-  //     },
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => setCartProducts(result));
-  // };
-
+  // 통신할 때
   const getCartList = () => {
     fetch('/data/CartData.json', {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json',
         authorization: localStorage.getItem('access'),
       },
     })
       .then(response => response.json())
-      .then(result => {
-        setCartProducts(result);
-        setCheckList(
-          result.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
-        );
-      });
+      .then(result => setCartProducts(result));
   };
+
+  // const getCartList = () => {
+  //   fetch('/data/CartData.json', {
+  //     method: 'GET',
+  //     headers: {
+  //       authorization: localStorage.getItem('access'),
+  //     },
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setCartProducts(result);
+  //       setCheckList(
+  //         result.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
+  //       );
+  //     });
+  // };
 
   return (
     <main className="container cart">
