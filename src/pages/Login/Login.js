@@ -82,7 +82,7 @@ export default function Login() {
         <a href="https://www.ssfshop.com/public/member/searchMbrId">
           <button className="login-bottom">비밀번호 찾기</button>
         </a>
-        <Link to="/Singin">
+        <Link to="/signin">
           <button className="login-bottom">회원가입</button>
         </Link>
       </div>
