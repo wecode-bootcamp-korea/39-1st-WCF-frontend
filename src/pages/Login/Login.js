@@ -19,7 +19,7 @@ export default function Login() {
 
   const clickLoginBtn = e => {
     e.preventDefault();
-    fetch('http://10.58.52.57:3000/users/signin', {
+    fetch('http://10.58.52.233:3000/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       body: JSON.stringify({ username: inputId, password: inputPw }),
@@ -62,7 +62,7 @@ export default function Login() {
         <button
           className="login-btn"
           disabled={!inInputValid}
-          onSubmit={clickLoginBtn}
+          onClick={clickLoginBtn}
         >
           로그인
         </button>
