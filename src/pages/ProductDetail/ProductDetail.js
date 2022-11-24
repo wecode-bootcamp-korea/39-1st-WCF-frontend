@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ImgArea from './ImgArea/ImgArea';
+import CartConfirm from './CartConfirm/CartConfirm';
 import './ProductDetail.scss';
 
 export default function ProductDetail() {
@@ -11,7 +12,9 @@ export default function ProductDetail() {
   const [postSize, setPostSize] = useState();
   const [checkSize, setCheckSize] = useState('사이즈 선택');
   const productSizeArr = productData.size && [...productData.size];
-
+  //카트컨펌
+  const [Confirm, setConfirm] = useState();
+  const [isConfrmShowingStatus, setIsConfrmShowingStatus] = useState(false);
   //
   const params = useParams();
   const productId = params.productId;
@@ -54,30 +57,6 @@ export default function ProductDetail() {
     setPostSize(e.target.dataset.id);
     setCheckSize(param);
   }
-
-  // 바로구매 클릭시 서버에 보낼 데이터 함수
-  function moveData(e) {
-    fetch('server-url', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        //보낼데이터
-        postSize,
-        quantityNum,
-      }),
-    });
-
-    if (e.target.className === 'btn black') {
-      postSize === undefined
-        ? alert('Size가 체크되지 않았습니다!')
-        : navigate('/Cart');
-    } else if (e.target.className === 'btn purple') {
-      navigate('/Payment');
-    }
-  }
-
   // 사이즈 순서 정렬
   productSizeArr?.sort((a, b) => {
     if (a.product_options < b.product_options) return -1;
@@ -85,6 +64,29 @@ export default function ProductDetail() {
 
     return 0;
   });
+
+  // 장바구니 클릭시 컨펌창 호출
+  function confirmCheck(e) {
+    postSize === undefined
+      ? alert('Size가 체크되지 않았습니다!')
+      : fetch('https://10.58.52.186/cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            //보낼데이터
+            postSize,
+            quantityNum,
+          }),
+        });
+    setIsConfrmShowingStatus(true);
+  }
+
+  // 컨펌창 안으로 들여보낼 함수(취소시 닫히는 역할)
+  function isConfirmFalse() {
+    setIsConfrmShowingStatus(false);
+  }
 
   //
   if (Object.keys(productData).length === 0) {
@@ -314,17 +316,21 @@ export default function ProductDetail() {
                 </div>
                 <div className="btn-wrap">
                   <div className="btn-area">
-                    <button className="btn black" onClick={moveData}>
+                    <button className="btn black" onClick={confirmCheck}>
                       장바구니
                     </button>
-                    <button className="btn purple" onClick={moveData}>
-                      바로구매
-                    </button>
+                    <button className="btn purple">바로구매</button>
                   </div>
                   <div className="btn-area">
                     <button className="btn add">코디 제안 상품</button>
                   </div>
                 </div>
+                <CartConfirm
+                  isConfirmFalse={isConfirmFalse}
+                  isConfrmShowingStatus={isConfrmShowingStatus}
+                  postSize={postSize}
+                  quantityNum={quantityNum}
+                />
               </div>
             </div>
           </div>
