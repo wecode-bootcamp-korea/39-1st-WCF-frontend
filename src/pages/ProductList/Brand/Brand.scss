@@ -1,0 +1,53 @@
+@import '../../../styles/variables';
+
+.filter-brand {
+  width: 1240px;
+  height: 300px;
+  margin-left: 10px;
+  background: $color-gray150;
+
+  .brand-search {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-white;
+
+    input {
+      width: 230px;
+      height: 30px;
+      padding: 10px;
+    }
+
+    button {
+      position: relative;
+      top: 7px;
+      right: 25px;
+    }
+  }
+}
+
+.panel {
+  .panel-list {
+    padding: 10px 40px;
+    li {
+      display: inline-block;
+      width: 230px;
+      padding: 15px;
+      color: $color-gray700;
+      font-size: 15px;
+
+      span {
+        margin-left: 7px;
+      }
+    }
+  }
+}
+
+.selectedflter {
+  width: 1235px;
+  height: 50px;
+  margin-top: 5px;
+  margin-left: 10px;
+  background: $color-gray150;
+}
