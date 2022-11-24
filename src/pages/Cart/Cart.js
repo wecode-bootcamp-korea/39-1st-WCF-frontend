@@ -7,38 +7,23 @@ export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
   const [checkList, setCheckList] = useState({});
 
-  useEffect(() => {
-    getCartList();
-  }, []);
-
   // 통신할 때
   const getCartList = () => {
-    fetch('/data/CartData.json', {
+    fetch('http://10.58.52.186:3000/cart/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        authorization: localStorage.getItem('access'),
+        authorization:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTY2OTI1NTk4OX0.64mRxWJTVdKUtzjviHc0j9bcF8UoTxtzJCkzRTr8txs',
       },
     })
       .then(response => response.json())
       .then(result => setCartProducts(result));
   };
 
-  // const getCartList = () => {
-  //   fetch('/data/CartData.json', {
-  //     method: 'GET',
-  //     headers: {
-  //       authorization: localStorage.getItem('access'),
-  //     },
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setCartProducts(result);
-  //       setCheckList(
-  //         result.reduce((acc, el) => ({ ...acc, [el.name]: false }), {})
-  //       );
-  //     });
-  // };
+  useEffect(() => {
+    getCartList();
+  }, []);
 
   return (
     <main className="container cart">
@@ -61,12 +46,6 @@ export default function Cart() {
           ) : (
             <CartEmpty />
           )}
-          {/* <CartFilled
-            products={cartProducts}
-            setProducts={setCartProducts}
-            getCartList={getCartList}
-          /> */}
-          {/* <CartEmpty /> */}
         </div>
         <ul className="cart-info-list">
           <li className="cart-info dot">

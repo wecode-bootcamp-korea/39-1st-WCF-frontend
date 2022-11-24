@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
-const CartFilled = props => {
-  const {
-    checkList,
-    setCheckList,
-    cartProducts,
-    setCartProducts,
-    getCartList,
-  } = props;
-
+const CartFilled = ({
+  checkList,
+  setCheckList,
+  cartProducts,
+  setCartProducts,
+  getCartList,
+}) => {
   const [checkArr, setCheckArr] = useState([]);
   const navigate = useNavigate();
 
@@ -25,10 +23,10 @@ const CartFilled = props => {
   };
 
   const handleCheck = e => {
-    const { name, checked, id } = e.target;
+    const { checked, id } = e.target;
     setCheckList(prev => ({
       ...prev,
-      [name]: checked,
+      [id]: checked,
     }));
     if (checkArr.includes(id)) {
       let newArr = checkArr.filter(el => el !== id);
@@ -39,64 +37,61 @@ const CartFilled = props => {
     }
   };
 
-  // useEffect(() => {
-  //   deleteProduct();
-  // });
-
-  const deleteProduct = productId => {
-    fetch('/data/CartData.json', {
-      method: 'DELETE',
-      body: JSON.stringify({
-        // productId: productId,
-        // thumbnail: thumbnail,
-        // brand: brand,
-        // title: title,
-        // size: size,
-        // count: count,
-        // color: color,
-        // name: name,
-        // price: price,
-      }),
-    })
-      // .then(res => {
-      //   if (res.ok) {
-      //     getCartList();
-      //   } else {
-      //     alert('다시 시도해주세요!');
-      //   }
-      // });
-      .then(res => res);
-  };
-
   const checkedTitle = [];
 
   Object.entries(checkList).forEach(([title, value]) => {
     if (value) checkedTitle.push(title);
   });
 
-  const totalPrice = cartProducts.reduce((acc, cur) => {
-    if (checkedTitle.includes(cur.name)) {
+  const totalPrice = cartProducts.data.reduce((acc, cur) => {
+    if (checkedTitle.includes(cur.id)) {
       return acc + cur.price * cur.count;
     } else return acc;
   }, 0);
-
-  // useEffect(() => {
-  //   orderProduct();
-  // });
-
-  const orderProduct = () => {
-    fetch('API', {
-      method: 'POST',
-      body: JSON.stringify({}),
-    }).then(res => {
-      navigate('/order');
-    });
-  };
 
   const handleSelectDelete = () => {
     let newArr = [...cartProducts];
     newArr = newArr.filter(el => checkArr.indexOf(String(el.id)) === -1);
     setCartProducts(newArr);
+  };
+
+  const deleteProduct = () => {
+    fetch('http://10.58.52.186:3000/cart/', {
+      method: 'DELETE',
+      headers: {
+        authorization:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTY2OTI1NTk4OX0.64mRxWJTVdKUtzjviHc0j9bcF8UoTxtzJCkzRTr8txs',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        productId: checkArr,
+      }),
+    }).then(res => {
+      if (res.ok) {
+        alert('삭제가 완료 되었습니다!');
+        getCartList();
+      } else {
+        alert('다시 시도해주세요!');
+      }
+    });
+  };
+
+  useEffect(() => {
+    orderProduct();
+  });
+
+  const orderProduct = () => {
+    fetch('http://10.58.52.186:3000/cart', {
+      method: 'POST',
+      headers: {
+        authorization:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTY2OTI1NTk4OX0.64mRxWJTVdKUtzjviHc0j9bcF8UoTxtzJCkzRTr8txs',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({}),
+    }).then(res => {
+      // navigate('/order');
+    });
   };
 
   return (
@@ -119,8 +114,8 @@ const CartFilled = props => {
         </button>
       </div>
       <div className="cart-data-box">
-        {cartProducts.map(item => (
-          <div className="cart-data" key={item.id}>
+        {cartProducts.data.map(item => (
+          <div className="cart-data" key={item.product_id}>
             <div className="header">
               <div className="goods-info">상품・혜택정보</div>
               <div className="shipping-info">배송정보</div>
@@ -130,21 +125,20 @@ const CartFilled = props => {
               <div className="info-left">
                 <input
                   type="checkbox"
-                  id={item.id}
-                  name={item.name}
+                  id={item.product_id}
                   className="check-goods"
                   value={item.price}
                   checked={checkList[item.name]}
                   onChange={handleCheck}
                 />
-                <label htmlFor={item.id} />
-                <img src={item.src} alt="사진" />
+                <label htmlFor={item.product_id} />
+                <img src={item.thumbnail} alt="사진" />
                 <div className="goods-infomation">
                   <p className="info-title">{item.brand}</p>
                   <p className="info-detail">{item.title}</p>
                   <p className="info-option">
                     {item.color ? `${item.color} /` : null} {item.size} /{' '}
-                    {item.count}개
+                    {item.quantity}개
                   </p>
                   <button type="button" className="option-quantity-change">
                     옵션/수량 변경
@@ -166,7 +160,7 @@ const CartFilled = props => {
               <button
                 type="button"
                 className="delete-goods"
-                onClick={() => deleteProduct(item.id)}
+                onClick={() => deleteProduct(item.product_id)}
               >
                 <span className="delete-goods-text">엑스</span>
               </button>
@@ -176,13 +170,13 @@ const CartFilled = props => {
                 <div className="left-sub-box">
                   <p className="left-title">스토어 주문금액 합계</p>
                   <p className="left-sub-title">
-                    상품금액 {(item.price * item.count).toLocaleString()}원 +
+                    상품금액 {(item.price * item.quantity).toLocaleString()}원 +
                     배송비 0원 − 할인금액 0원
                   </p>
                 </div>
                 <div className="right-sub-box">
                   <p className="price">
-                    {(item.price * item.count).toLocaleString()}원
+                    {(item.price * item.quantity).toLocaleString()}원
                   </p>
                   <p className="shipping">무료배송</p>
                 </div>
@@ -223,9 +217,8 @@ const CartFilled = props => {
           </div>
         </div>
         <div className="order-button-box">
-          <button className="order-button" onClick={orderProduct}>
-            주문하기
-          </button>
+          {/* <button className="order-button" onClick={orderProduct}> */}
+          <button className="order-button">주문하기</button>
         </div>
       </div>
     </div>
