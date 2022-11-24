@@ -56,7 +56,7 @@ const CartFilled = ({
   };
 
   const deleteProduct = () => {
-    fetch('http://10.58.52.186:3000/cart/', {
+    fetch('http://10.58.52.233:3000/cart/', {
       method: 'DELETE',
       headers: {
         authorization:
@@ -81,7 +81,7 @@ const CartFilled = ({
   });
 
   const orderProduct = () => {
-    fetch('http://10.58.52.186:3000/cart', {
+    fetch('http://10.58.52.233:3000/cart', {
       method: 'POST',
       headers: {
         authorization:
@@ -90,7 +90,7 @@ const CartFilled = ({
       },
       body: JSON.stringify({}),
     }).then(res => {
-      // navigate('/order');
+      navigate('/payment');
     });
   };
 

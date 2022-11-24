@@ -9,7 +9,7 @@ export default function Cart() {
 
   // 통신할 때
   const getCartList = () => {
-    fetch('http://10.58.52.186:3000/cart/', {
+    fetch('http://10.58.52.233:3000/cart', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
