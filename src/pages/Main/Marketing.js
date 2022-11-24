@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import './Marketing.scss';
 
 export default function Marketing() {
-  const [Index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
 
   const goToPrev = () => {
-    const FirstSlide = Index === 0;
-    const newIndex = FirstSlide ? 3 - 1 : Index - 1;
+    const firstSlide = index === 0;
+    const newIndex = firstSlide ? 3 - 1 : index - 1;
     setIndex(newIndex);
   };
 
   const goToNext = () => {
-    const LastSlide = Index === 2;
-    const newIndex = LastSlide ? 0 : Index + 1;
+    const lastSlide = index === 2;
+    const newIndex = lastSlide ? 0 : index + 1;
     setIndex(newIndex);
   };
 
@@ -23,7 +23,7 @@ export default function Marketing() {
         <ul
           className="marketing-list-area"
           style={{
-            transform: `translateX(-${Index * 100}%)`,
+            transform: `translateX(-${index * 100}%)`,
           }}
         >
           {MARKETING_LIST.map(list => (
@@ -43,7 +43,7 @@ export default function Marketing() {
         <button className="prev-btn" onClick={goToPrev}>
           <i class="fas fa-chevron-left" />
         </button>
-        <span>{Index + 1} / 3</span>
+        <span>{index + 1} / 3</span>
         <button className="next-btn" onClick={goToNext}>
           <i class="fas fa-chevron-right" />
         </button>
