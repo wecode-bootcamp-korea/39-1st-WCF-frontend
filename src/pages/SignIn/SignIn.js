@@ -10,6 +10,8 @@ const PW_LENGTH_REG_EXP = /^.{8,25}$/;
 // const CHECKPW_REG_EXP = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const [inputValue, setInputValue] = useState({
     userName: '',
     password: '',
@@ -20,7 +22,27 @@ export default function SignIn() {
     address: '',
   });
 
-  const navigate = useNavigate();
+  const {
+    userName,
+    password,
+    checkPassword,
+    phoneNumber,
+    email,
+    address,
+    name,
+  } = inputValue;
+
+  const isIdValid1 = ID_TYPE_REG_EXP.test(userName);
+  const isIdValid2 = ID_LENGTH_REG_EXP.test(userName);
+
+  const isPwValid1 = PW_TYPE_REG_EXP.test(password);
+  const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
+  const pwCheck = password && checkPassword && password === checkPassword;
+
+  const handleInput = e => {
+    const { name, value } = e.target;
+    setInputValue({ ...inputValue, [name]: value });
+  };
 
   const [checkList, setCheckList] = useState({
     age: false,
@@ -60,28 +82,6 @@ export default function SignIn() {
 
   const handleTerm = name => {
     setCheckTermsOpen(prev => ({ ...prev, [name]: !checkTermsOpen[name] }));
-  };
-
-  const {
-    userName,
-    password,
-    checkPassword,
-    phoneNumber,
-    email,
-    address,
-    name,
-  } = inputValue;
-
-  const isIdValid1 = ID_TYPE_REG_EXP.test(userName);
-  const isIdValid2 = ID_LENGTH_REG_EXP.test(userName);
-
-  const isPwValid1 = PW_TYPE_REG_EXP.test(password);
-  const isPwValid2 = PW_LENGTH_REG_EXP.test(password);
-  const pwCheck = password && checkPassword && password === checkPassword;
-
-  const handleInput = e => {
-    const { name, value } = e.target;
-    setInputValue({ ...inputValue, [name]: value });
   };
 
   const fetchFn = e => {
