@@ -2,7 +2,7 @@
 
 .filter-brand {
   width: 1240px;
-  height: 200px;
+  height: 300px;
   margin-left: 10px;
   background: $color-gray150;
 
@@ -29,10 +29,11 @@
 
 .panel {
   .panel-list {
+    padding: 10px 40px;
     li {
       display: inline-block;
-      width: 390px;
-      padding: 30px 50px;
+      width: 230px;
+      padding: 15px;
       color: $color-gray700;
       font-size: 15px;
 

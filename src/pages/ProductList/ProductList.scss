@@ -92,30 +92,3 @@
     }
   }
 }
-
-.filter-brand {
-  width: 1235px;
-  height: 200px;
-  margin-left: 10px;
-  background: $color-gray150;
-
-  .brand-search {
-    position: relative;
-    top: 10px;
-    left: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid $color-white;
-
-    input {
-      width: 230px;
-      height: 30px;
-      padding: 10px;
-    }
-
-    button {
-      position: relative;
-      top: 7px;
-      right: 25px;
-    }
-  }
-}

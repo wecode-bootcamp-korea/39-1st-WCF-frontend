@@ -49,9 +49,9 @@ export default function ProductList() {
     },
   ];
 
-  //nav애서 받아온 querystring으로 상품리스트 get요청
+  //TODO: 상품리스트 get요청
   useEffect(() => {
-    fetch(`http://10.58.52.205:3000/products?${searchParams.toString()}`, {
+    fetch(`http://10.58.52.233:3000/products?${searchParams.toString()}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
     })
@@ -130,7 +130,6 @@ export default function ProductList() {
             </div>
           </section>
           {TABS.find(({ id }) => id === currentTab)?.content}
-          {/* <SelectedAll /> */}
           <div className="products-list">
             <ul className="products">
               {productList.map((product, idx) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-
 import './Size.scss';
 
 const SIZE = [
@@ -15,10 +14,10 @@ const SIZE = [
 export default function Size() {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //TODO: querystring 생성
   const prevQuery = searchParams.getAll('sizeId');
   const handleCheckbox = e => {
     const { checked, value } = e.target;
-
     if (checked) {
       searchParams.append('sizeId', value);
       setSearchParams(searchParams);

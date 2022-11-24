@@ -3,17 +3,37 @@ import { useSearchParams } from 'react-router-dom';
 import './Brand.scss';
 
 const BRAND = [
-  { id: 1, name: '7 seconds' },
-  { id: 2, name: 'IAM STUDIO' },
-  { id: 3, name: 'GUESSS' },
-  { id: 4, name: '2525 by eoeo' },
-  { id: 5, name: 'Matin Ku' },
+  { id: 1, name: 'Dabin' },
+  { id: 2, name: 'Sujeong.Ku' },
+  { id: 3, name: 'Yeonwoo' },
+  { id: 4, name: '0Se0' },
+  { id: 5, name: 'Yuju' },
+  { id: 6, name: 'Jimin' },
+  { id: 7, name: 'Sujeong.Kim' },
+  { id: 8, name: 'MENTOs' },
+  { id: 9, name: 'DongKeun' },
+  { id: 10, name: 'MoonYoung' },
+  { id: 11, name: 'SangUk' },
+  { id: 12, name: 'SangJun' },
+  { id: 13, name: 'SeHo' },
+  { id: 14, name: 'HyungJin' },
+  { id: 15, name: 'God.Yeoup' },
+  { id: 16, name: 'SangYoun' },
+  { id: 17, name: 'SeokHyeon' },
+  { id: 18, name: 'JaeSeon' },
+  { id: 19, name: '5JJU' },
+  { id: 20, name: 'KunWoo' },
+  { id: 21, name: 'DongSeop' },
+  { id: 22, name: 'BuSol' },
+  { id: 23, name: 'SangWon' },
+  { id: 24, name: 'SuMin' },
+  { id: 25, name: 'HanSol' },
 ];
 function Brand() {
   const [filterList, setFilterList] = useState(BRAND);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // 브랜드 검색기능
+  //TODO: 브랜드 검색기능
   const searchBrand = e => {
     const filterBrand = BRAND.filter(brand =>
       brand.name.includes(e.target.value)
@@ -21,34 +41,10 @@ function Brand() {
     setFilterList(filterBrand);
   };
 
+  //TODO: querystring 생성
   const prevQuery = searchParams.getAll('brandId');
   const handleCheckbox = e => {
     const { checked, value } = e.target;
-
-    // checked
-    //   ? setSelectedAllFilter(prev => ({
-    //       ...prev,
-    //       brand: [...selectedFilter, value],
-    //     }))
-    //   : setSelectedAllFilter(prev => ({
-    //       ...prev,
-    //       brand: selectedFilter.filter(el => el !== value),
-    //     }));
-
-    // if (checked) {
-    //   setSelectedAllFilter(prev => ({
-    //     ...prev,
-    //     brandId: [...prevQuery, value],
-    //   }));
-    // } else {
-    //   if (prevQuery.includes(value)) {
-    //     const newQuery = prevQuery.filter(query => query !== value);
-    //     setSelectedAllFilter({
-    //       brandId: newQuery,
-    //     });
-    //   }
-    // }
-
     if (checked) {
       searchParams.append('brandId', value);
       setSearchParams(searchParams);

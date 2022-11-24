@@ -13,19 +13,10 @@ const PRICE = [
 export default function Price() {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //TODO: querystring 생성
   const prevQuery = searchParams.getAll('priceId');
   const handleCheckbox = e => {
     const { checked, value } = e.target;
-
-    // checked
-    //   ? setSelectedAllFilter(prev => ({
-    //       ...prev,
-    //       price: [...selectedFilter, value],
-    //     }))
-    //   : setSelectedAllFilter(prev => ({
-    //       ...prev,
-    //       price: selectedFilter.filter(el => el !== value),
-    //     }));
     if (checked) {
       searchParams.append('priceId', value);
       setSearchParams(searchParams);
