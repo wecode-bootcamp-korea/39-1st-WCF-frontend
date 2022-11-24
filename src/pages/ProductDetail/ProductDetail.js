@@ -13,7 +13,6 @@ export default function ProductDetail() {
   const [checkSize, setCheckSize] = useState('사이즈 선택');
   const productSizeArr = productData.size && [...productData.size];
   //카트컨펌
-  const [Confirm, setConfirm] = useState();
   const [isConfrmShowingStatus, setIsConfrmShowingStatus] = useState(false);
   //
   const params = useParams();
@@ -67,20 +66,22 @@ export default function ProductDetail() {
 
   // 장바구니 클릭시 컨펌창 호출
   function confirmCheck(e) {
-    postSize === undefined
-      ? alert('Size가 체크되지 않았습니다!')
-      : fetch('https://10.58.52.186/cart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            //보낼데이터
-            postSize,
-            quantityNum,
-          }),
-        });
-    setIsConfrmShowingStatus(true);
+    if (postSize === undefined) {
+      alert('Size가 체크되지 않았습니다!');
+    } else {
+      fetch('https://10.58.52.186/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          //보낼데이터
+          postSize,
+          quantityNum,
+        }),
+      });
+      setIsConfrmShowingStatus(true);
+    }
   }
 
   // 컨펌창 안으로 들여보낼 함수(취소시 닫히는 역할)

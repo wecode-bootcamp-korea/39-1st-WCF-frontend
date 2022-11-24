@@ -3,15 +3,11 @@ import React, { useState, useEffect } from 'react';
 export default function ImgARea(props) {
   const { images } = props.productData;
 
-  const [isImgStatus, setImgStatus] = useState(0);
-  const [mainImg, setMainImg] = useState();
-
-  useEffect(() => {
-    setMainImg(images[0].url);
-  }, [props]);
+  const [imgIdx, setImgIdx] = useState(0);
+  const [mainImg, setMainImg] = useState(images[0].url);
 
   function currentImgShow(list, i) {
-    setImgStatus(i);
+    setImgIdx(i);
     setMainImg(list.url);
   }
 
@@ -25,34 +21,13 @@ export default function ImgARea(props) {
           return (
             <li
               key={list.id}
-              className={isImgStatus == i ? 'active' : ''}
+              className={imgIdx == i ? 'active' : ''}
               onClick={() => currentImgShow(list, i)}
             >
               <img src={list.url} alt={`이미지_ ${list.id}`} />
             </li>
           );
         })}
-        {/* <li className="active">
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li>
-        <li>
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li>
-        <li>
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li>
-        <li>
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li>
-        <li>
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li>
-        <li>
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li>
-        <li>
-          <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
-        </li> */}
       </ul>
     </div>
   );
