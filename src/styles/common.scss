@@ -1,3 +1,33 @@
 * {
   box-sizing: border-box;
 }
+
+#root {
+  min-width: 1280px;
+}
+// 텍스트 숨김시 사용
+.hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+}
+
+// 레이아웃 중앙정렬 1280px
+.inner {
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 1280px;
+}
+
+// 레이아웃 중앙정렬 960px
+.inner-small {
+  margin: 0 auto;
+  width: 960px;
+}
