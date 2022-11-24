@@ -36,8 +36,8 @@ export default function Size() {
     <section className="filter-size" data-type="size">
       <div className="panel-inline">
         <ul className="panel-list">
-          {SIZE.map((size, idx) => (
-            <li key={idx}>
+          {SIZE.map(size => (
+            <li key={size.id}>
               <span>
                 <input
                   type="checkbox"

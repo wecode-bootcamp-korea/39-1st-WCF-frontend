@@ -69,9 +69,9 @@ function Brand() {
       </div>
       <div className="panel">
         <ul className="panel-list">
-          {filterList.map((brand, idx) => {
+          {filterList.map(brand => {
             return (
-              <li key={idx}>
+              <li key={brand.id}>
                 <input
                   type="checkbox"
                   value={brand.id}

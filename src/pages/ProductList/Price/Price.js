@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-import './Price.js';
+import './Price.scss';
 
 const PRICE = [
   { id: 1, name: '10000~20000' },
@@ -33,8 +32,8 @@ export default function Price() {
     <section className="filter-price" data-type="price">
       <div className="panel-inline">
         <ul className="panel-list">
-          {PRICE.map((price, idx) => (
-            <li key={idx}>
+          {PRICE.map(price => (
+            <li key={price.id}>
               <input
                 type="checkbox"
                 value={price.name}
