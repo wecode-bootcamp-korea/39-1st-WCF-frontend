@@ -66,7 +66,7 @@ export default function Nav() {
                                 return (
                                   <li key={list.id} className="ctg-dropdown">
                                     <Link
-                                      to={`/product-list?subCategory=${list.id}`}
+                                      to={`/product-list?subCategoryId=${list.id}`}
                                     >
                                       {list.text}
                                     </Link>

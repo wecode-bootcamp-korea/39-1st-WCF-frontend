@@ -52,7 +52,7 @@ export const MAIN_CATEGORY = [
         text: '팬츠',
       },
       {
-        id: 13,
+        id: 16,
         text: '스커트',
       },
       {
