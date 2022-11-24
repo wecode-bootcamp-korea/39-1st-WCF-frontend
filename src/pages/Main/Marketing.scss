@@ -1,0 +1,78 @@
+.marketing-area {
+  position: relative;
+  width: 1280px;
+  margin: 120px auto 0px auto;
+
+  .marketing-list {
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+    display: flex;
+
+    .marketing-list-area {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      transition: 0.5s;
+
+      .marketing-list-item {
+        img {
+          width: 1280px;
+          height: 100px;
+          object-fit: cover;
+        }
+        .marketing-list-title {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100px;
+
+          .marketing-title {
+            font-weight: bolder;
+            font-size: 20px;
+            width: 100%;
+            margin-left: 250px;
+            color: #fff;
+          }
+
+          p {
+            font-size: 15px;
+            width: 100%;
+            margin-left: 250px;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  .marketing-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 110px;
+    right: 20px;
+    width: 80px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    .prev-btn {
+      background-color: transparent;
+      color: #fff;
+      margin-right: 8px;
+    }
+    .next-btn {
+      background-color: transparent;
+      color: #fff;
+      margin-left: 8px;
+    }
+    span {
+      color: #fff;
+    }
+  }
+}

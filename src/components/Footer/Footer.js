@@ -94,10 +94,10 @@ export default function Footer() {
             </ul>
             <div className="footer-etc-media">
               <button className="youtube">
-                <img src="/images/footer/footer-youtube.png" />
+                <img src="/images/footer-youtube.png" />
               </button>
               <button className="instagram">
-                <img src="/images/footer/footer-instagram.png" />
+                <img src="/images/footer-instagram.png" />
               </button>
             </div>
           </div>
