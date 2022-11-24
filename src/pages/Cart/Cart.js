@@ -5,20 +5,23 @@ import './Cart.scss';
 
 export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
-  const [checkList, setCheckList] = useState({});
 
-  // 통신할 때
   const getCartList = () => {
     fetch('http://10.58.52.233:3000/cart', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTY2OTI1NTk4OX0.64mRxWJTVdKUtzjviHc0j9bcF8UoTxtzJCkzRTr8txs',
+        authorization: localStorage.getItem('token'),
       },
     })
       .then(response => response.json())
-      .then(result => setCartProducts(result));
+      .then(({ data: rawData }) => {
+        const result = rawData.map(cartItem => ({
+          ...cartItem,
+          checked: true,
+        }));
+        setCartProducts(result);
+      });
   };
 
   useEffect(() => {
@@ -37,8 +40,6 @@ export default function Cart() {
         <div className="order-box">
           {cartProducts.length !== 0 ? (
             <CartFilled
-              setCheckList={setCheckList}
-              checkList={checkList}
               cartProducts={cartProducts}
               setCartProducts={setCartProducts}
               getCartList={getCartList}

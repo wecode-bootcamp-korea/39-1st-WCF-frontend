@@ -2,52 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Cart.scss';
 
-const CartFilled = ({
-  checkList,
-  setCheckList,
-  cartProducts,
-  setCartProducts,
-  getCartList,
-}) => {
-  const [checkArr, setCheckArr] = useState([]);
+const CartFilled = ({ cartProducts, setCartProducts, getCartList }) => {
+  const checkArr = cartProducts.map(({ checked }) => checked);
+  const isAllChecked = checkArr.every(v => v);
+
   const navigate = useNavigate();
 
-  const valueArr = Object.values(checkList).every(el => el === true);
+  const totalPrice = cartProducts
+    .filter(({ checked }) => checked)
+    .reduce((acc, curr) => acc + curr.price, 0);
 
   const onCheckedAll = () => {
-    let newObj = {};
-    for (let key in checkList) {
-      newObj = { ...newObj, [key]: !valueArr };
-    }
-    setCheckList(newObj);
+    if (isAllChecked)
+      setCartProducts(cartProducts.map(cart => ({ ...cart, checked: false })));
+    else
+      setCartProducts(cartProducts.map(cart => ({ ...cart, checked: true })));
   };
 
-  const handleCheck = e => {
-    const { checked, id } = e.target;
-    setCheckList(prev => ({
-      ...prev,
-      [id]: checked,
-    }));
-    if (checkArr.includes(id)) {
-      let newArr = checkArr.filter(el => el !== id);
-
-      setCheckArr(newArr);
-    } else {
-      setCheckArr(prev => [...prev, id]);
-    }
+  const handleCheck = id => e => {
+    const nextCartProducts = cartProducts.map(product => {
+      if (id === product.id) {
+        return { ...product, checked: !product.checked };
+      }
+      return product;
+    });
+    setCartProducts(nextCartProducts);
   };
-
-  const checkedTitle = [];
-
-  Object.entries(checkList).forEach(([title, value]) => {
-    if (value) checkedTitle.push(title);
-  });
-
-  const totalPrice = cartProducts.data.reduce((acc, cur) => {
-    if (checkedTitle.includes(cur.id)) {
-      return acc + cur.price * cur.count;
-    } else return acc;
-  }, 0);
 
   const handleSelectDelete = () => {
     let newArr = [...cartProducts];
@@ -59,9 +39,7 @@ const CartFilled = ({
     fetch('http://10.58.52.233:3000/cart/', {
       method: 'DELETE',
       headers: {
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTY2OTI1NTk4OX0.64mRxWJTVdKUtzjviHc0j9bcF8UoTxtzJCkzRTr8txs',
-        'Content-Type': 'application/json;charset=utf-8',
+        authorization: localStorage.getItem('token'),
       },
       body: JSON.stringify({
         productId: checkArr,
@@ -75,18 +53,11 @@ const CartFilled = ({
       }
     });
   };
-
-  useEffect(() => {
-    orderProduct();
-  });
-
   const orderProduct = () => {
     fetch('http://10.58.52.233:3000/cart', {
       method: 'POST',
       headers: {
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTY2OTI1NTk4OX0.64mRxWJTVdKUtzjviHc0j9bcF8UoTxtzJCkzRTr8txs',
-        'Content-Type': 'application/json;charset=utf-8',
+        authorization: localStorage.getItem('token'),
       },
       body: JSON.stringify({}),
     }).then(res => {
@@ -103,7 +74,7 @@ const CartFilled = ({
             type="checkbox"
             className="check"
             onChange={onCheckedAll}
-            checked={valueArr}
+            checked={isAllChecked}
           />
           <label htmlFor="checked-all" className="check-all">
             전체선택
@@ -114,8 +85,8 @@ const CartFilled = ({
         </button>
       </div>
       <div className="cart-data-box">
-        {cartProducts.data.map(item => (
-          <div className="cart-data" key={item.product_id}>
+        {cartProducts.map(item => (
+          <div className="cart-data" key={`${item.product_id}${item.size}`}>
             <div className="header">
               <div className="goods-info">상품・혜택정보</div>
               <div className="shipping-info">배송정보</div>
@@ -125,20 +96,20 @@ const CartFilled = ({
               <div className="info-left">
                 <input
                   type="checkbox"
-                  id={item.product_id}
+                  id={item.id}
                   className="check-goods"
                   value={item.price}
-                  checked={checkList[item.name]}
-                  onChange={handleCheck}
+                  checked={item.checked}
+                  onChange={handleCheck(item.id)}
                 />
-                <label htmlFor={item.product_id} />
-                <img src={item.thumbnail} alt="사진" />
+                <label htmlFor={item.id} />
+                <img src={item.src} alt="사진" />
                 <div className="goods-infomation">
                   <p className="info-title">{item.brand}</p>
                   <p className="info-detail">{item.title}</p>
                   <p className="info-option">
                     {item.color ? `${item.color} /` : null} {item.size} /{' '}
-                    {item.quantity}개
+                    {item.count}개
                   </p>
                   <button type="button" className="option-quantity-change">
                     옵션/수량 변경
@@ -170,13 +141,13 @@ const CartFilled = ({
                 <div className="left-sub-box">
                   <p className="left-title">스토어 주문금액 합계</p>
                   <p className="left-sub-title">
-                    상품금액 {(item.price * item.quantity).toLocaleString()}원 +
+                    상품금액 {(item.price * item.count).toLocaleString()}원 +
                     배송비 0원 − 할인금액 0원
                   </p>
                 </div>
                 <div className="right-sub-box">
                   <p className="price">
-                    {(item.price * item.quantity).toLocaleString()}원
+                    {(item.price * item.count).toLocaleString()}원
                   </p>
                   <p className="shipping">무료배송</p>
                 </div>
@@ -217,8 +188,9 @@ const CartFilled = ({
           </div>
         </div>
         <div className="order-button-box">
-          {/* <button className="order-button" onClick={orderProduct}> */}
-          <button className="order-button">주문하기</button>
+          <button className="order-button" onClick={orderProduct}>
+            주문하기
+          </button>
         </div>
       </div>
     </div>
