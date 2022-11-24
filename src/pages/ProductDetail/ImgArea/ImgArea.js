@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 export default function ImgARea(props) {
+  const { images } = props.productData;
+
   const [isImgStatus, setImgStatus] = useState(0);
   const [mainImg, setMainImg] = useState();
 
   useEffect(() => {
-    setMainImg(props.productData.images && props.productData.images[0].url);
+    setMainImg(images[0].url);
   }, [props]);
 
   function currentImgShow(list, i) {
@@ -19,18 +21,17 @@ export default function ImgARea(props) {
         <img src={mainImg} />
       </div>
       <ul className="product-img-list">
-        {props.productData.images &&
-          props.productData.images.map((list, i) => {
-            return (
-              <li
-                key={list.id}
-                className={isImgStatus == i ? 'active' : ''}
-                onClick={() => currentImgShow(list, i)}
-              >
-                <img src={list.url} alt={`이미지_ ${list.id}`} />
-              </li>
-            );
-          })}
+        {images.map((list, i) => {
+          return (
+            <li
+              key={list.id}
+              className={isImgStatus == i ? 'active' : ''}
+              onClick={() => currentImgShow(list, i)}
+            >
+              <img src={list.url} alt={`이미지_ ${list.id}`} />
+            </li>
+          );
+        })}
         {/* <li className="active">
           <img src="/images/productdetail/t-shirts-1.jpg" alt="티셔츠" />
         </li>

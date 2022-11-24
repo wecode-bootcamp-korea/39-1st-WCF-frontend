@@ -10,6 +10,7 @@ export default function ProductDetail() {
   const [quantityNum, setQuantityNum] = useState(1);
   const [postSize, setPostSize] = useState();
   const [checkSize, setCheckSize] = useState('사이즈 선택');
+  const productSizeArr = productData.size && [...productData.size];
 
   //
   const params = useParams();
@@ -40,23 +41,18 @@ export default function ProductDetail() {
 
   //수량차감함수
   function quantityMinus() {
-    let num = quantityNum;
-    if (num === 1) {
-      setQuantityNum(1);
-    } else {
-      setQuantityNum(num - 1);
-    }
+    if (quantityNum === 1) return;
+    setQuantityNum(prev => prev - 1);
   }
   //수량증감함수
   function quantityPlus() {
-    let num = quantityNum;
-    setQuantityNum(num + 1);
+    setQuantityNum(prev => prev + 1);
   }
 
   //사이즈 체크 후 서버에 보낼 정보 저장
-  function sizeCheck(e) {
+  function sizeCheck(e, param) {
     setPostSize(e.target.dataset.id);
-    setCheckSize(e.target.id);
+    setCheckSize(param);
   }
 
   // 바로구매 클릭시 서버에 보낼 데이터 함수
@@ -83,13 +79,12 @@ export default function ProductDetail() {
   }
 
   // 사이즈 순서 정렬
-  productData.size &&
-    productData.size.sort((a, b) => {
-      if (a.product_options < b.product_options) return -1;
-      if (a.product_options > b.product_options) return 1;
+  productSizeArr?.sort((a, b) => {
+    if (a.product_options < b.product_options) return -1;
+    if (a.product_options > b.product_options) return 1;
 
-      return 0;
-    });
+    return 0;
+  });
 
   //
   if (Object.keys(productData).length === 0) {
@@ -214,24 +209,25 @@ export default function ProductDetail() {
               <div className="product-selector-area type-size">
                 <strong className="tit">사이즈</strong>
                 <ul className="select-list">
-                  {productData.size &&
-                    productData.size.map(elem => {
-                      return (
-                        <li key={elem.id}>
-                          <span className="check-box">
-                            <input
-                              type="radio"
-                              id={elem.size}
-                              data-id={elem.product_options}
-                              name="size"
-                              className="hidden"
-                              onClick={sizeCheck}
-                            />
-                            <label htmlFor={elem.size}>{elem.size}</label>
-                          </span>
-                        </li>
-                      );
-                    })}
+                  {productSizeArr.map(elem => {
+                    return (
+                      <li key={elem.id}>
+                        <span className="check-box">
+                          <input
+                            type="radio"
+                            id={elem.size}
+                            data-id={elem.product_options}
+                            name="size"
+                            className="hidden"
+                            onClick={e => {
+                              sizeCheck(e, elem.size);
+                            }}
+                          />
+                          <label htmlFor={elem.size}>{elem.size}</label>
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="product-selector-area type-send">
