@@ -15,9 +15,10 @@ export default function Login() {
     setInputPw(e.target.value);
   };
 
-  const handleActive = inputId.length >= 6 && inputPw.length >= 8;
+  const inInputValid = inputId.length >= 6 && inputPw.length >= 8;
 
-  const fetchFn = () => {
+  const clickLoginBtn = e => {
+    e.preventDefault();
     fetch('http://10.58.52.57:3000/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -28,7 +29,6 @@ export default function Login() {
         if (response.status != 200) {
           throw new Error('ERROR!!');
         }
-
         return response.json();
       })
       .catch(err => {
@@ -36,7 +36,7 @@ export default function Login() {
       })
       .then(data => {
         localStorage.setItem('token', data.accessToken);
-        navigate('./Main');
+        navigate('/Main');
       });
   };
 
@@ -44,7 +44,7 @@ export default function Login() {
     <div className="container login">
       <h1 className="login-title">로그인</h1>
 
-      <form className="login-form" onSubmitCapture={e => e.preventDefault()}>
+      <form className="login-form">
         <div className="login-input-box">
           <input
             className="login-input"
@@ -61,9 +61,8 @@ export default function Login() {
         </div>
         <button
           className="login-btn"
-          disabled={!handleActive}
-          onClick={fetchFn}
-          type="submit"
+          disabled={!inInputValid}
+          onSubmit={clickLoginBtn}
         >
           로그인
         </button>
