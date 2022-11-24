@@ -29,40 +29,31 @@ const CartFilled = ({ cartProducts, setCartProducts, getCartList }) => {
     setCartProducts(nextCartProducts);
   };
 
-  const handleSelectDelete = () => {
-    let newArr = [...cartProducts];
-    newArr = newArr.filter(el => checkArr.indexOf(String(el.id)) === -1);
-    setCartProducts(newArr);
-  };
-
-  const deleteProduct = () => {
-    fetch('http://10.58.52.233:3000/cart/', {
+  const deleteProduct = id => {
+    setCartProducts(cartProducts.filter(el => el.id != id));
+    const deleteItem = cartProducts.filter(el => el.id == id);
+    console.log(deleteItem);
+    console.log([deleteItem[0].id]);
+    fetch(`http://10.58.52.233:3000/cart/`, {
       method: 'DELETE',
       headers: {
+        'Content-Type': 'application/json',
         authorization: localStorage.getItem('token'),
       },
       body: JSON.stringify({
-        productId: checkArr,
+        cartId: `${deleteItem[0].id}`,
       }),
-    }).then(res => {
-      if (res.ok) {
-        alert('삭제가 완료 되었습니다!');
-        getCartList();
-      } else {
-        alert('다시 시도해주세요!');
-      }
-    });
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      });
+    setCartProducts(cartProducts);
+    getCartList();
   };
+
   const orderProduct = () => {
-    fetch('http://10.58.52.233:3000/cart', {
-      method: 'POST',
-      headers: {
-        authorization: localStorage.getItem('token'),
-      },
-      body: JSON.stringify({}),
-    }).then(res => {
-      navigate('/payment');
-    });
+    navigate('/payment');
   };
 
   return (
@@ -80,9 +71,7 @@ const CartFilled = ({ cartProducts, setCartProducts, getCartList }) => {
             전체선택
           </label>
         </div>
-        <button className="delete-chosen-goods" onClick={handleSelectDelete}>
-          선택 상품 삭제
-        </button>
+        <button className="delete-chosen-goods">선택 상품 삭제</button>
       </div>
       <div className="cart-data-box">
         {cartProducts.map(item => (
@@ -131,7 +120,7 @@ const CartFilled = ({ cartProducts, setCartProducts, getCartList }) => {
               <button
                 type="button"
                 className="delete-goods"
-                onClick={() => deleteProduct(item.product_id)}
+                onClick={() => deleteProduct(item.id)}
               >
                 <span className="delete-goods-text">엑스</span>
               </button>

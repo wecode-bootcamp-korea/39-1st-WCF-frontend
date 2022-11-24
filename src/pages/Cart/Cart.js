@@ -5,7 +5,6 @@ import './Cart.scss';
 
 export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
-
   const getCartList = () => {
     fetch('http://10.58.52.233:3000/cart', {
       method: 'GET',
