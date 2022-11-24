@@ -20,6 +20,8 @@ export default function Router() {
         <Route path="/product-detail/:productId" element={<ProductDetail />} />
         <Route path="/product-list" element={<ProductList />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/Nav" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
       <Footer />
     </BrowserRouter>

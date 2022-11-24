@@ -45,13 +45,13 @@ React, HTML, SCSS
 
 ### 4. SCSS 클래스명
 
-- 제일 바깥에 있는 부모 태그는 "컴포넌트명 container" 로 지정한다.
+- 제일 바깥에 있는 부모 태그는 “컴포넌트명 container” 로 지정한다.
 - className은 kebab-case로 작성한다.(ex. login-container)
 
 ### 5. 이미지 파일명
 
-- 공용으로 사용하는(ex. 로고 이미지)이미지들은 'public/images'에 kebab-case로 작성한다.(ex. logo-image)
-- 각자 컴포넌트에서 사용하는(ex. 메인페이지-사진들, 상품상세페이지-사진들)이미지들은 'src/images'에 컴포넌트명으로 폴더생성 후 kebab-case로 작성한다.(ex. main-image)
+- 공용으로 사용하는(ex. 로고 이미지)이미지들은 ‘public/images’에 kebab-case로 작성한다.(ex. logo-image)
+- 각자 컴포넌트에서 사용하는(ex. 메인페이지-사진들, 상품상세페이지-사진들)이미지들은 ‘src/images’에 컴포넌트명으로 폴더생성 후 kebab-case로 작성한다.(ex. main-image)
 
 ---
 
