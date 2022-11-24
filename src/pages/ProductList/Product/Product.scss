@@ -1,0 +1,33 @@
+@import '../../../styles/variables';
+
+.info {
+  span {
+    display: block;
+  }
+  .brand {
+    margin-top: 10px;
+    color: $color-gray800;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .name {
+    max-height: 18px;
+    margin-top: 6px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  .price {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .heart {
+    margin-top: 23px;
+    i {
+      display: inline-block;
+      width: 14px;
+      height: 16px;
+      margin-right: 5px;
+    }
+  }
+}

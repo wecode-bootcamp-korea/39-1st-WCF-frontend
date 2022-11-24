@@ -18,9 +18,9 @@ export default function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/productdetail" element={<ProductDetail />} />
-        <Route path="/Payment" element={<Payment />} />
-        <Route path="/productlist" element={<ProductList />} />
+        <Route path="/product-detail/:productId" element={<ProductDetail />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/product-list" element={<ProductList />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/Nav" element={<SignIn />} />
         <Route path="/signin" element={<SignIn />} />

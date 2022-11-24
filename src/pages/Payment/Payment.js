@@ -2,34 +2,26 @@ import React, { useEffect, useState } from 'react';
 import './Payment.scss';
 
 export default function Payment() {
+  //목데이터
   useEffect(() => {
     fetch('/data/paymentdata.json')
       .then(response => response.json())
       .then(result => {
-        setPaymentProductData(result.productData);
+        setPaymentProducts(result.productData);
         setAddressData(result.userData[0]);
       });
   }, []);
 
-  const [paymentProductData, setPaymentProductData] = useState();
-  const [addressData, setAddressData] = useState();
+  const [paymentProducts, setPaymentProducts] = useState([]);
+  const [addressData, setAddressData] = useState({});
 
-  //총합계금액 계산식
-  // let totalPrice = 0;
-  // paymentProductData?.map(list => {
-  //   totalPrice += list.price * list.quantity;
-  // });
-
-  // console.log(addressData);
-
-  const totalPrice = paymentProductData?.reduce((acc, cur) => {
+  const totalPrice = paymentProducts.reduce((acc, cur) => {
     return acc + cur.price * cur.quantity;
   }, 0);
 
-  if (addressData === undefined) {
+  if (Object.keys(addressData).length === 0) {
     return null;
   }
-
   return (
     <main className="container payment">
       <section className="inner-small">
@@ -59,7 +51,7 @@ export default function Payment() {
               </tr>
             </thead>
             <tbody>
-              {paymentProductData?.map(list => {
+              {paymentProducts?.map(list => {
                 return (
                   <tr key={list.id}>
                     <td>
@@ -94,68 +86,6 @@ export default function Payment() {
                   </tr>
                 );
               })}
-              {/*
-              <tr>
-                <td>
-                  <div className="product-data-box">
-                    <div className="img-box">
-                      <img src="/images/icons/IMG_8905.JPG" alt="샘플" />
-                    </div>
-                    <div className="info-box">
-                      <p className="tit">NICE</p>
-                      <strong className="txt">
-                        [SET]클래식 1941 하프넥 셋업
-                      </strong>
-                      <div className="data">
-                        <span className="color">검정색</span>
-                        <span className="size">L(맨투맨+롱팬츠)</span>
-                      </div>
-                      <span className="number">1개</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span>-</span>
-                </td>
-                <td>
-                  <p className="tit">무료배송</p>
-                  <p className="txt">입점 파트너에서 출고예정</p>
-                </td>
-                <td>
-                  <strong className="price">84500원</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="product-data-box">
-                    <div className="img-box">
-                      <img src="/images/icons/IMG_8905.JPG" alt="샘플" />
-                    </div>
-                    <div className="info-box">
-                      <p className="tit">NICE</p>
-                      <strong className="txt">
-                        [SET]클래식 1941 하프넥 셋업
-                      </strong>
-                      <div className="data">
-                        <span className="color">검정색</span>
-                        <span className="size">L(맨투맨+롱팬츠)</span>
-                      </div>
-                      <span className="number">1개</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span>-</span>
-                </td>
-                <td>
-                  <p className="tit">무료배송</p>
-                  <p className="txt">입점 파트너에서 출고예정</p>
-                </td>
-                <td>
-                  <strong className="price">84500원</strong>
-                </td>
-              </tr>
-              */}
             </tbody>
           </table>
         </div>
@@ -197,14 +127,21 @@ export default function Payment() {
               </label>
               <div className="form-area">
                 <div className="form-box">
-                  <input type="text" id="address" />
+                  <input
+                    type="text"
+                    id="address"
+                    defaultValue={addressData.address_num}
+                  />
                   <button className="btn address">우편번호</button>
                 </div>
                 <div className="form-box">
-                  <input type="text" defaultValue={addressData.address_num} />
+                  <input type="text" defaultValue={addressData.address} />
                 </div>
                 <div className="form-box">
-                  <input type="text" defaultValue={addressData.address} />
+                  <input
+                    type="text"
+                    defaultValue={addressData.address_detail}
+                  />
                 </div>
                 <div className="check-box">
                   <input type="checkbox" className="hidden" id="address-save" />

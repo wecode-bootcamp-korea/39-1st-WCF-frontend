@@ -1,0 +1,64 @@
+.our-picks-area {
+  width: 1280px;
+  margin: 0px auto 0px auto;
+  .our-picks-title {
+    text-align: center;
+    font-size: 32px;
+    padding: 0px 0px 30px 0px;
+  }
+  .our-picks-list {
+    width: 100%;
+    margin-bottom: 50px;
+
+    .our-picks-item {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px -8px 30px -8px;
+
+      .our-picks-item-list {
+        margin: 0px 8px 0px 8px;
+
+        .our-picks-item-title {
+          font-weight: bolder;
+          margin: 10px 0px 0px 0px;
+        }
+
+        p {
+          margin-bottom: 40px;
+        }
+      }
+
+      .our-picks-item-list:nth-child(1) {
+        height: 500px;
+        img {
+          height: 450px;
+        }
+      }
+
+      .our-picks-item-list:nth-child(2) {
+        margin-bottom: -150px;
+      }
+
+      .our-picks-item-list:nth-child(3) {
+        height: 500px;
+        img {
+          height: 450px;
+        }
+      }
+
+      .our-picks-item-list:nth-child(5) {
+        margin-top: 150px;
+        height: 500px;
+        img {
+          height: 450px;
+        }
+      }
+    }
+
+    img {
+      width: 416px;
+      height: 600px;
+      object-fit: cover;
+    }
+  }
+}
