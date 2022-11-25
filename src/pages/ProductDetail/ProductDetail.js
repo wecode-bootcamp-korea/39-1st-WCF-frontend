@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 import ImgArea from './ImgArea/ImgArea';
 import CartConfirm from './CartConfirm/CartConfirm';
 import './ProductDetail.scss';
@@ -20,26 +21,26 @@ export default function ProductDetail() {
 
   const navigate = useNavigate();
 
-  // 서버연결용
-  // useEffect(() => {
-  //   fetch(`http://10.58.52.205:3000/product-detail/${productId}`, {
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json;charset=utf-8' },
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setProductData(result.data[0]);
-  //     });
-  // }, []);
-
-  // 로컬용
+  // 서버연결용;
   useEffect(() => {
-    fetch('/data/productDetailMockData.json')
+    fetch(`${BASE_URL}/products/${productId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    })
       .then(response => response.json())
       .then(result => {
         setProductData(result.data[0]);
       });
   }, []);
+
+  // // 로컬용
+  // useEffect(() => {
+  //   fetch('/data/productDetailMockData.json')
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setProductData(result.data[0]);
+  //     });
+  // }, []);
 
   //수량차감함수
   function quantityMinus() {
@@ -69,15 +70,15 @@ export default function ProductDetail() {
     if (postSize === undefined) {
       alert('Size가 체크되지 않았습니다!');
     } else {
-      fetch('https://10.58.52.186/cart', {
+      fetch(`${BASE_URL}/cart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          authorization: localStorage.getItem('token'),
         },
         body: JSON.stringify({
-          //보낼데이터
-          postSize,
-          quantityNum,
+          productOptionId: postSize,
+          quantity: quantityNum,
         }),
       });
       setIsConfrmShowingStatus(true);

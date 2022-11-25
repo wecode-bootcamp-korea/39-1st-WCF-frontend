@@ -27,8 +27,8 @@ export default function Marketing() {
           }}
         >
           {MARKETING_LIST.map(list => (
-            <Link to={list.link}>
-              <li key={list.id} className="marketing-list-item">
+            <Link to={list.link} key={list.id}>
+              <li className="marketing-list-item">
                 <img src={list.img} />
                 <div className="marketing-list-title">
                   <p className="marketing-title">{list.title}</p>
@@ -41,11 +41,11 @@ export default function Marketing() {
       </div>
       <div className="marketing-btn">
         <button className="prev-btn" onClick={goToPrev}>
-          <i class="fas fa-chevron-left" />
+          <i className="fas fa-chevron-left" />
         </button>
         <span>{Index + 1} / 3</span>
         <button className="next-btn" onClick={goToNext}>
-          <i class="fas fa-chevron-right" />
+          <i className="fas fa-chevron-right" />
         </button>
       </div>
     </div>

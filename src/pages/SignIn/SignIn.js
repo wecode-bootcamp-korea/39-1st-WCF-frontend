@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 import { TERMS } from './termData';
 import './SignIn.scss';
 
@@ -87,7 +88,7 @@ export default function SignIn() {
   const fetchFn = e => {
     e.preventDefault();
 
-    fetch('http://10.58.52.57:3000/users/signup', {
+    fetch(`${BASE_URL}/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       body: JSON.stringify({
@@ -101,9 +102,6 @@ export default function SignIn() {
       }),
     })
       .then(response => {
-        if (response.status !== 200) {
-          throw new Error('error');
-        }
         return response.json();
       })
       .catch(err => {
@@ -278,7 +276,7 @@ export default function SignIn() {
                       )}
                     </div>
                     {checkTermsOpen[name] && (
-                      <div class="online-term">
+                      <div className="online-term">
                         <p className="online-term-title">제1조 (목적)</p>
                         <p className="online-term-contents">{TERMS.object}</p>
                         <p className="online-term-title">제2조 (정의)</p>

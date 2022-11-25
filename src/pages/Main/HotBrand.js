@@ -49,11 +49,11 @@ export default function HotBrand() {
       </div>
       <div className="hot-brand-btn">
         <button className="prev-btn" onClick={goToPrev}>
-          <i class="fas fa-chevron-left" />
+          <i className="fas fa-chevron-left" />
         </button>
         <span>{currentIndex + 1} / 3</span>
         <button className="next-btn" onClick={goToNext}>
-          <i class="fas fa-chevron-right" />
+          <i className="fas fa-chevron-right" />
         </button>
       </div>
     </div>

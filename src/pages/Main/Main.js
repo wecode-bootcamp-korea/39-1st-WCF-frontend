@@ -45,7 +45,6 @@ export default function Main() {
 
   //슬라이드 정방향으로 넘어가는 조건
   const slideIndex = () => {
-    console.log(currentIndex);
     setTransition(TRANSITION);
 
     const next = currentIndex + 1;
@@ -218,8 +217,8 @@ export default function Main() {
                 <Link to={list.link}>
                   <img src={list.img} />
                 </Link>
-                <p class="subtext">{list.text}</p>
-                <p class="title">{list.title}</p>
+                <p className="subtext">{list.text}</p>
+                <p className="title">{list.title}</p>
               </li>
             ))}
           </ul>
