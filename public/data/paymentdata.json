@@ -2,36 +2,18 @@
   "productData": [
     {
       "id": 1,
-      "title": "outer1",
-      "brand": "7 seconds",
-      "price": 10000,
-      "size_product_options": "XS",
-      "quantity": 2,
-      "thumbnail": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80"
-    },
-    {
-      "id": 2,
-      "title": "outer2",
-      "brand": "GUESSS",
-      "price": 20000,
-      "size_product_options": "S",
+      "title": "[SangJun] 남성 후드티",
+      "brand": "SangJun",
+      "price": 26000,
+      "size_product_options": "L",
       "quantity": 1,
-      "thumbnail": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80"
-    },
-    {
-      "id": 3,
-      "title": "outer3",
-      "brand": "CUSTOMMARSHMELLOW",
-      "price": 30000,
-      "size_product_options": "M",
-      "quantity": 3,
-      "thumbnail": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80"
+      "thumbnail": "https://wcfbucket.s3.ap-northeast-2.amazonaws.com/sanjun.jpeg"
     }
   ],
   "userData": [
     {
-      "username": "myp",
-      "phone": "010-1111-2222",
+      "username": "구수정",
+      "phone": "010-2836-7705",
       "address_num": "06159",
       "address": "서울시 강남구 테헤란로 427",
       "address_detail": "10층",

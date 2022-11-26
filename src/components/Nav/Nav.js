@@ -5,10 +5,10 @@ import { SPECIAL_LIST } from './SpecialCtgData';
 import './Nav.scss';
 
 export default function Nav() {
-  const isLoggedIn = !!localStorage.getItem('accessToken');
+  const isLoggedIn = !!localStorage.getItem('token');
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('token');
     window.location.reload();
   };
 
@@ -27,9 +27,14 @@ export default function Nav() {
                 </span>
               </>
             ) : (
-              <Link to="/signin" className="info-btn">
-                로그인
-              </Link>
+              <>
+                <Link to="/signin" className="info-btn">
+                  회원가입
+                </Link>
+                <Link to="/login" className="info-btn">
+                  로그인
+                </Link>
+              </>
             )}
           </div>
         </div>
@@ -37,15 +42,21 @@ export default function Nav() {
       <div className="gnb-area">
         <div className="gnb-wrap">
           <div className="inner">
-            <h1 className="wcf-logo">WCF SHOP</h1>
+            <Link to="/" className="wcf-logo">
+              <h1 className="wcf-logo">WCF SHOP</h1>
+            </Link>
             <div className="aside">
               <div className="util">
                 <button className="heart-icon">
                   <img alt="heart" src="/images/nav/heart.png" />
                 </button>
-                <button className="cart-icon">
-                  <img alt="cart" src="/images/nav/cart.png" />
-                </button>
+                {isLoggedIn && (
+                  <Link to="/Cart">
+                    <button className="cart-icon">
+                      <img alt="cart" src="/images/nav/cart.png" />
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

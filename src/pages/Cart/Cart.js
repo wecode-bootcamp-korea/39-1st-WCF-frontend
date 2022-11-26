@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BASE_URL } from '../../config';
 import CartFilled from './components/CartFilled';
 import CartEmpty from './components/CartEmpty';
 import './Cart.scss';
@@ -6,7 +7,7 @@ import './Cart.scss';
 export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
   const getCartList = () => {
-    fetch('http://10.58.52.233:3000/cart', {
+    fetch(`${BASE_URL}/cart`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

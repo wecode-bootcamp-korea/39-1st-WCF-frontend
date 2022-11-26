@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 import './Login.scss';
 
 export default function Login() {
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
-  const navigate = useNavigate();
 
   const handleIdInput = e => {
     setInputId(e.target.value);
@@ -19,24 +19,22 @@ export default function Login() {
 
   const clickLoginBtn = e => {
     e.preventDefault();
-    fetch('http://10.58.52.233:3000/users/signin', {
+    fetch(`${BASE_URL}/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       body: JSON.stringify({ username: inputId, password: inputPw }),
     }) //요청
       .then(response => {
         // console.log(response);
-        if (response.status != 200) {
-          throw new Error('ERROR!!');
-        }
         return response.json();
       })
       .catch(err => {
+        console.log('err : ', err);
         alert('로그인 실패! 아이디 또는 비밀번호를 확인해주세요.');
       })
       .then(data => {
         localStorage.setItem('token', data.accessToken);
-        navigate('/main');
+        window.location.replace('/');
       });
   };
 

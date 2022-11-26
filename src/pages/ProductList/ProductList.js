@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 import Product from './Product/Product';
 import Brand from './Brand/Brand';
 import Price from './Price/Price';
@@ -51,7 +52,7 @@ export default function ProductList() {
 
   //TODO: 상품리스트 get요청
   useEffect(() => {
-    fetch(`http://10.58.52.233:3000/products?${searchParams.toString()}`, {
+    fetch(`${BASE_URL}/products?${searchParams.toString()}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
     })

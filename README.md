@@ -1,67 +1,77 @@
-## 🕶 위코드가 사랑하는 패션, WCF
+## 👕 위코드가 사랑하는 패션, WCF
 
----
+<br />
+
+![](https://velog.velcdn.com/images/sujeong_dev/post/ac371809-c5b6-4612-a186-5c61eb07f90d/image.gif)
+<br />
+<br />
+<br />
 
 ## 👏 소개
 
-편집샵 SSF SHOP을 클론코딩해보자❗️
-
----
+SSF SHOP을 모티브로한 의류 소개 사이트
+<br />
+<br />
+<br />
 
 ## 💡 서비스
 
-1. SSF몰에서 제공하는 의류 및 잡화를 소개합니다.
-2. 상품을 장바구니에 담고 결제 서비스를 제공합니다.
-3. 원하는 상품을 검색하는 기능을 제공합니다.
-4. 시간별 랭킹 서비스를 제공합니다.
-
----
+👤 회원가입 및 로그인 <br />
+👕 위코드 멘토님들 및 동기분들의 의류소개<br />
+✏️ 카테고리 별 브랜드 검색 및 필터링<br />
+🛒 장바구니
+<br />
+<br />
+<br />
 
 ## 🔧 사용하는 기술스택
 
-React, HTML, SCSS
+![](https://velog.velcdn.com/images/sujeong_dev/post/d46cd72c-b2e6-421b-822d-5dd1bb88b45c/image.png)
 
----
+<br />
+<br />
+<br />
 
-## ✨ 컨벤션
+## 💡 협업 방법
 
-### 🏷 Naming
+- Notion과 Trello를 사용하여 scrum, sprint 진행
+- GitBook과 Postman을 활용하여 API 및 mockdata형식 공유 <br />
 
-### 1. 파일명
+### 협업 tools는 [위키](https://github.com/wecode-bootcamp-korea/39-1st-WCF-frontend/wiki) 참조
 
-- 컴포넌트의 파일명은 기본적으로 Pascal case를 사용한다. (ex. H3.js, Button.js)
-- 여러 컴포넌트에서 import 하여 사용되는(utils) 파일명은 Camel case를 사용한다. (ex. useInputs.js)
-
-### 2. 변수명
-
-- 변수명은 기본적으로 Camel case를 사용한다. (ex. className)
-- 가능한 명사를 사용한다.
-- 배열과 같이 여러개의 원소를 담는 경우 복수형 명사를 사용한다.
-
-### 3. 컴포넌트&함수명
-
-- 컴포넌트명은 기본적으로 파일명과 동일하게한다.
-- 컴포넌트 외에 함수는 변수명과 동일하게 Camel case를 사용한다.
-
-### 4. SCSS 클래스명
-
-- 제일 바깥에 있는 부모 태그는 “컴포넌트명 container” 로 지정한다.
-- className은 kebab-case로 작성한다.(ex. login-container)
-
-### 5. 이미지 파일명
-
-- 공용으로 사용하는(ex. 로고 이미지)이미지들은 ‘public/images’에 kebab-case로 작성한다.(ex. logo-image)
-- 각자 컴포넌트에서 사용하는(ex. 메인페이지-사진들, 상품상세페이지-사진들)이미지들은 ‘src/images’에 컴포넌트명으로 폴더생성 후 kebab-case로 작성한다.(ex. main-image)
-
----
+<br />
+<Br />
+<br />
 
 ## ❤️ 팀원
 
-- 구수정 : 상품 리스트
-- 박문영 : 상품 상세 페이지
-- 오주형 : 로그인, 회원가입, 장바구니
-- 정효원 : 메인페이지, nav, footer
-- 이영서 : 데이터베이스 모델링
-- 박상욱 : 데이터베이스 모델링
+`FrontEnd`
 
----
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/sujeong-dev"><img src="https://avatars.githubusercontent.com/u/112826154?v=4" width="100px;" alt=""/><br /><sub><b>구수정</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/myp880"><img src="https://avatars.githubusercontent.com/u/48706649?v=4" width="100px;" alt=""/><br /><sub><b>박문영</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/OHJUHYUNG"><img src="https://avatars.githubusercontent.com/u/98579539?v=4" width="100px;" alt=""/><br /><sub><b>오주형</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Hyommm"><img src="https://avatars.githubusercontent.com/u/109214539?v=4" width="100px;" alt=""/><br /><sub><b>정효원</b></sub></a><br /></td>
+     <tr/>
+  </tbody>
+</table>
+- 구수정 : 상품 리스트 페이지 <br />
+- 박문영 : 상품 상세 페이지 <br />
+- 오주형 : 로그인 및 회원가입 페이지, 장바구니 페이지 <br />
+- 정효원 : 메인페이지(navbar, footer) <br />
+<br />
+
+`BackEnd`
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/Seoya0512"><img src="https://avatars.githubusercontent.com/u/87962966?v=4" width="100px;" alt=""/><br /><sub><b>이영서</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/pso0301"><img src="https://avatars.githubusercontent.com/u/112918378?v=4" width="100px;" alt=""/><br /><sub><b>박상욱</b></sub></a><br /></td>
+     <tr/>
+  </tbody>
+</table>
+- 이영서 : DB 모델링, 로그인 회원가입/상품 리스트 조회/상품 조회 API <br />
+- 박상욱 : DB 모델링, 장바구니 API

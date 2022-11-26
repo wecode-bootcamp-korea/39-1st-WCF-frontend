@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../config';
 import '../Cart.scss';
 
 const CartFilled = ({ cartProducts, setCartProducts, getCartList }) => {
@@ -34,14 +35,14 @@ const CartFilled = ({ cartProducts, setCartProducts, getCartList }) => {
     const deleteItem = cartProducts.filter(el => el.id == id);
     console.log(deleteItem);
     console.log([deleteItem[0].id]);
-    fetch(`http://10.58.52.233:3000/cart/`, {
+    fetch(`${BASE_URL}/cart/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         authorization: localStorage.getItem('token'),
       },
       body: JSON.stringify({
-        cartId: `${deleteItem[0].id}`,
+        cartId: `${deleteItem[0]?.id}`,
       }),
     })
       .then(response => response.json())
