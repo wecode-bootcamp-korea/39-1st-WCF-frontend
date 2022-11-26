@@ -32,6 +32,17 @@ SSF SHOP을 모티브로한 의류 소개 사이트
 <br />
 <br />
 
+## 💡 협업 방법
+
+- Notion과 Trello를 사용하여 scrum, sprint 진행
+- GitBook과 Postman을 활용하여 API 및 mockdata형식 공유 <br />
+
+### 협업 tools는 [위키](https://github.com/wecode-bootcamp-korea/39-1st-WCF-frontend/wiki) 참조
+
+<br />
+<Br />
+<br />
+
 ## ❤️ 팀원
 
 `FrontEnd`
