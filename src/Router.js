@@ -4,7 +4,6 @@ import Login from './pages/Login/Login';
 import Cart from './pages/Cart/Cart';
 import Main from './pages/Main/Main';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
-import Payment from './pages/Payment/Payment';
 import ProductList from './pages/ProductList/ProductList';
 import SignIn from './pages/SignIn/SignIn';
 import Payment from './pages/Payment/Payment';
