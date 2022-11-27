@@ -1,7 +1,6 @@
 ## 👕 위코드가 사랑하는 패션, WCF
 
 <br />
-
 <img width:"100%" src="https://user-images.githubusercontent.com/98579539/204131960-1f61d815-1da8-407e-b5f8-76ad620f81e2.gif" />
 <br />
 <br />
