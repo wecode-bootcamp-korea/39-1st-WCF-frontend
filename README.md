@@ -31,6 +31,106 @@ SSF SHOP을 모티브로한 의류 소개 사이트
 <br />
 <br />
 
+## ⭐️ 프로젝트 구조
+```
+.
+├── Router.js
+├── components
+│   ├── Footer
+│   │   ├── Footer.js
+│   │   └── Footer.scss
+│   └── Nav
+│       ├── MainCtgData.js
+│       ├── Nav.js
+│       ├── Nav.scss
+│       └── SpecialCtgData.js
+├── config.js
+├── images
+│   ├── cart
+│   │   ├── IMG_8905.JPG
+│   │   ├── bag.png
+│   │   ├── basket-img.png
+│   │   ├── bg-component.png
+│   │   ├── btn-x.svg
+│   │   └── btn_x_gray.svg
+│   ├── icon
+│   │   ├── btn-sprite.png
+│   │   ├── heart-stripe.png
+│   │   ├── plus-minus-stripe.png
+│   │   ├── signin
+│   │   │   ├── term-check-off.svg
+│   │   │   ├── term-check-on.svg
+│   │   │   ├── term-check.svg
+│   │   │   ├── vaild-check-purple.svg
+│   │   │   └── valid-check.svg
+│   │   ├── sns-icons.png
+│   │   └── star-spripe.png
+│   └── productdetail
+│       └── banner-1.jpg
+├── index.js
+├── pages
+│   ├── Cart
+│   │   ├── Cart.js
+│   │   ├── Cart.scss
+│   │   └── components
+│   │       ├── CartEmpty.js
+│   │       └── CartFilled.js
+│   ├── Login
+│   │   ├── Login.js
+│   │   └── Login.scss
+│   ├── Main
+│   │   ├── HotBrand.js
+│   │   ├── HotBrand.scss
+│   │   ├── Main.js
+│   │   ├── Main.scss
+│   │   ├── Marketing.js
+│   │   ├── Marketing.scss
+│   │   ├── OUR_PICKS.js
+│   │   ├── OurPicks.js
+│   │   └── OurPicks.scss
+│   ├── MyPage
+│   │   ├── MyPage.js
+│   │   └── MyPage.scss
+│   ├── Payment
+│   │   ├── Payment.js
+│   │   └── Payment.scss
+│   ├── ProductDetail
+│   │   ├── CartConfirm
+│   │   │   ├── CartConfirm.js
+│   │   │   └── CartConfirm.scss
+│   │   ├── ImgArea
+│   │   │   └── ImgArea.js
+│   │   ├── ProductDetail.js
+│   │   └── ProductDetail.scss
+│   ├── ProductList
+│   │   ├── Brand
+│   │   │   ├── Brand.js
+│   │   │   └── Brand.scss
+│   │   ├── Price
+│   │   │   ├── Price.js
+│   │   │   └── Price.scss
+│   │   ├── Product
+│   │   │   ├── Product.js
+│   │   │   └── Product.scss
+│   │   ├── ProductList.js
+│   │   ├── ProductList.scss
+│   │   └── Size
+│   │       ├── Size.js
+│   │       └── Size.scss
+│   └── SignIn
+│       ├── SignIn.js
+│       ├── SignIn.scss
+│       └── termData.js
+└── styles
+    ├── common.scss
+    ├── reset.scss
+    └── variables.scss
+```
+
+<br />
+<br />
+<br />
+
 ## 💡 협업 방법
 
 - Notion과 Trello를 사용하여 scrum, sprint 진행
